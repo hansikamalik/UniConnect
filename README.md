@@ -18,6 +18,7 @@ UniConnect is a web platform that connects students, faculty, hostel wardens, me
 
 - src/ : source code
 - docs/requirements/ : SRS, backlog
+- docs/analysis/ : use case diagram, permission matrix, data dictionary
 - docs/design/ : wireframes, mock-ups, ER and sequence diagrams
 - docs/architecture/ : architecture diagram, decision record
 - docs/testing/ : test plan, test cases, bug log

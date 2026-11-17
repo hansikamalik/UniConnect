@@ -1,6 +1,6 @@
 # Role-Permission Matrix (MVP)
 
-Version: 0.1 (draft for review)
+Version: 1.0
 Date: 17 November 2026
 Owner: Harsh (System Analyst & Software Architect)
 
@@ -48,3 +48,4 @@ No matrix rows yet for: registration forms (FR-20), hostel forms (FR-21), leave 
 | Version | Date | Change | Author |
 |---|---|---|---|
 | 0.1 | 17 Nov 2026 | Draft MVP matrix, (*) items resolved | Harsh (draft) |
+| 1.0 | 17 Nov 2026 | Reviewed and confirmed by the team | Hansika |

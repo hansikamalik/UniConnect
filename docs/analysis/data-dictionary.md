@@ -1,6 +1,6 @@
 # Data Dictionary (MVP)
 
-Version: 0.1 (draft for review)
+Version: 1.0
 Date: 17 November 2026
 Owner: Harsh (System Analyst & Software Architect)
 
@@ -10,12 +10,12 @@ Lists all data the MVP stores. The ER diagram in Design is drawn from this. PK =
 
 These came up while modelling. Each needs team confirmation; fill in the "Decided on" date once confirmed.
 
-| # | Question | Proposed decision | Decided on |
+| # | Question | Decision | Decided on |
 |---|---|---|---|
-| D-1 | Who links faculty and students to courses? | University Admin does it during account setup. | (date) |
-| D-2 | How is a warden tied to a hostel? | One warden per hostel. A warden sees only their own hostel's complaints. | (date) |
-| D-3 | What does the audit log cover? | Every change to marks and grades (who, what, when). | (date) |
-| D-4 | Which student profiles can faculty view? | Only students enrolled in a course the faculty member teaches. | (date) |
+| D-1 | Who links faculty and students to courses? | University Admin does it during account setup. | 17 Nov 2026 |
+| D-2 | How is a warden tied to a hostel? | One warden per hostel. A warden sees only their own hostel's complaints. | 17 Nov 2026 |
+| D-3 | What does the audit log cover? | Every change to marks and grades (who, what, when). | 17 Nov 2026 |
+| D-4 | Which student profiles can faculty view? | Only students enrolled in a course the faculty member teaches. | 17 Nov 2026 |
 
 ## 2. Entities
 
@@ -160,3 +160,4 @@ The weekly menu is the seven daily menus for that week. It is not stored separat
 | Version | Date | Change | Author |
 |---|---|---|---|
 | 0.1 | 17 Nov 2026 | Draft MVP data dictionary and analysis decisions | Harsh (draft) |
+| 1.0 | 17 Nov 2026 | Reviewed and confirmed by the team | Hansika |

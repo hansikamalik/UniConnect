@@ -1,6 +1,6 @@
 # Software Requirements Specification (SRS)
 
-Version: 1.1
+Version: 1.2
 Date: 17 November 2026
 Author: Hansika (Project Lead & Requirements Engineer)
 
