@@ -25,6 +25,7 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 | FR-3 | Only the University Administration shall be able to create, edit and deactivate user accounts. | MVP |
 | FR-4 | The system shall not allow self-registration. | MVP |
 | FR-5 | The University Administration shall be able to reset a user's password. | Later |
+| FR-31 | The University Administration shall be able to assign faculty to courses and enrol students in courses. | MVP |
 
 ### 3.2 Noticeboard
 
@@ -124,3 +125,4 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 |---|---|---|---|
 | 1.0 | 16 Nov 2026 | Initial SRS | Hansika |
 | 1.1 | 17 Nov 2026 | Added decision dates to assumptions in section 5 | Hansika |
+| 1.2 | 17 Nov 2026 | Added FR-31 (course assignment) found during analysis | Hansika |
