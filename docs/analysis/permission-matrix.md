@@ -14,7 +14,7 @@ Legend: V = view, R = raise/submit, C = create, U = update, D = delete, - = no a
 |---|---|---|---|---|---|---|
 | Login and own dashboard | V | V | V | V | V | FR-1, FR-2 |
 | User accounts | - | - | - | - | C, U, V | FR-3, FR-4 |
-| Course assignments (faculty and student to course) | - | V (own courses) | - | - | C, U, V | D-1 |
+| Course assignments (faculty and student to course) | - | V (own courses) | - | - | C, U, V | FR-31 |
 | Student profile | V (own) | V (students in own courses) | - | - | C, U, V | FR-9, FR-10 |
 | Marks and grades | V (own) | C, U, V (own courses only) | - | - | V | FR-8, FR-10, FR-19 |
 | Mark audit log | - | - | - | - | V | FR-11 |
