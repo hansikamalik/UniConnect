@@ -1,7 +1,7 @@
 # Software Requirements Specification (SRS)
 
-Version: 1.0
-Date: 16 November 2026
+Version: 1.1
+Date: 17 November 2026
 Author: Hansika (Project Lead & Requirements Engineer)
 
 ## 1. Introduction
@@ -122,5 +122,5 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 
 | Version | Date | Change | Author |
 |---|---|---|---|
-| 1.1 | 17 Nov 2026 | Initial SRS | Hansika |
+| 1.0 | 16 Nov 2026 | Initial SRS | Hansika |
 | 1.1 | 17 Nov 2026 | Added decision dates to assumptions in section 5 | Hansika |
