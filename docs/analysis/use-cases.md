@@ -1,6 +1,6 @@
 # Use Cases (MVP)
 
-Version: 0.1 (draft for review)
+Version: 1.0
 Date: 17 November 2026
 Owner: Harsh (System Analyst & Software Architect)
 
@@ -97,3 +97,4 @@ FR-18 (access control) is not a separate use case. It applies to every use case 
 | Version | Date | Change | Author |
 |---|---|---|---|
 | 0.1 | 17 Nov 2026 | Draft of MVP use cases | Harsh (draft) |
+| 1.0 | 17 Nov 2026 | Reviewed and confirmed by the team | Hansika |
