@@ -101,11 +101,11 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 
 | # | Assumption | Decided on |
 |---|---|---|
-| 1 | Students cannot change institutional records, but they can submit requests. | (date) |
-| 2 | Faculty create assignments and deadlines. | (date) |
-| 3 | Faculty can edit marks only for courses they teach, and every change is logged. | (date) |
-| 4 | University Administration can view hostel and mess data for oversight. | (date) |
-| 5 | Hostels, mess timings and departments are configurable. | (date) |
+| 1 | Students cannot change institutional records, but they can submit requests. | 16 Nov 2026 |
+| 2 | Faculty create assignments and deadlines. | 16 Nov 2026 |
+| 3 | Faculty can edit marks only for courses they teach, and every change is logged. | 16 Nov 2026 |
+| 4 | University Administration can view hostel and mess data for oversight. | 16 Nov 2026 |
+| 5 | Hostels, mess timings and departments are configurable. | 16 Nov 2026 |
 
 ## 6. Traceability to research
 
@@ -122,4 +122,5 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 
 | Version | Date | Change | Author |
 |---|---|---|---|
-| 1.0 | 16 Nov 2026 | Initial SRS | Hansika |
+| 1.1 | 17 Nov 2026 | Initial SRS | Hansika |
+| 1.1 | 17 Nov 2026 | Added decision dates to assumptions in section 5 | Hansika |
