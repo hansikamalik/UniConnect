@@ -8,7 +8,7 @@ Lists all data the MVP stores. The ER diagram in Design is drawn from this. PK =
 
 ## 1. Analysis decisions
 
-These came up while modelling. Each needs team confirmation; fill in the "Decided on" date once confirmed.
+These came up while modelling. Confirmed by the team on 17 Nov 2026.; fill in the "Decided on" date once confirmed.
 
 | # | Question | Decision | Decided on |
 |---|---|---|---|

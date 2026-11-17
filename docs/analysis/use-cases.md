@@ -56,7 +56,7 @@ FR-18 (access control) is not a separate use case. It applies to every use case 
 | ID | Use case | Actor | Short description | SRS |
 |---|---|---|---|---|
 | UC-1 | Log in | All roles | User enters username and password. System checks them and opens the dashboard for the user's role. No self-registration. | FR-1, FR-2, FR-4, NFR-1 |
-| UC-2 | Manage user accounts and course assignments | University Admin | Admin creates, edits and deactivates accounts, and links faculty and students to courses. | FR-3 (course links: see decision D-1) |
+| UC-2 | Manage user accounts and course assignments | University Admin | Admin creates, edits and deactivates accounts, and links faculty and students to courses. | FR-3, FR-31 |
 | UC-3 | Publish, edit, delete notices | University Admin | Admin writes a notice, edits it, or deletes it. | FR-6 |
 | UC-4 | View notices | All roles | Logged-in user sees all notices in one list, newest first. | FR-7 |
 | UC-5 | Enter and update marks | Faculty | Faculty picks one of their courses and a student in it, enters or changes marks and grade. Each change is written to the audit log. | FR-8, FR-11 |
@@ -91,6 +91,7 @@ FR-18 (access control) is not a separate use case. It applies to every use case 
 | FR-17 | UC-13 | Mess menu | MenuItem |
 | FR-18 | All | Whole matrix | User.role |
 | FR-19 | UC-14 | "Univ. Admin" column | All |
+| FR-31 | UC-2 | Course assignments | Course, CourseFaculty, Enrollment |
 
 ## 4. Change log
 
