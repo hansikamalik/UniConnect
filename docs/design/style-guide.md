@@ -1,8 +1,8 @@
 # Style Guide (MVP)
 
-Version: 1.0
-Date: 18 November 2026
-Owner: Saumya (UI/UX Designer)
+Version: 1.1
+Date: 19 November 2026
+Owner: Saumya (UI/UX Designer), updated with Development Team
 
 Keeps all UniConnect screens consistent (NFR-6). It applies to the wireframes in `wireframes.md`. Values are kept in one place in the code (CSS variables) so another institution can change the colours without touching every page (NFR-11).
 
@@ -10,7 +10,7 @@ Keeps all UniConnect screens consistent (NFR-6). It applies to the wireframes in
 
 | Use | Name | Hex |
 |---|---|---|
-| Main colour (header, primary buttons, links) | Primary blue | #1F4E8C |
+| Main colour (header, primary buttons, links) | Primary blue | #00408d |
 | Page background | Light grey | #F5F7FA |
 | Cards, forms, tables | White | #FFFFFF |
 | Main text | Dark grey | #1F2937 |
@@ -79,3 +79,4 @@ Status is always shown as a small rounded label with the status written in words
 | Version | Date | Change | Author |
 |---|---|---|---|
 | 1.0 | 18 Nov 2026 | Initial style guide | Saumya |
+| 1.1 | 19 Nov 2026 | Updated primary blue to official South Asian University navy blue (#00408d) | Vikryansh |

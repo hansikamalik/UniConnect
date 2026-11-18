@@ -1,12 +1,12 @@
 /* ==========================================================================
    UniConnect - South Asian University Theme
-   Primary: #1F4E8C | Background: #F5F7FA | Border: #E2E8F0
+   Primary: #00408d | Background: #F5F7FA | Border: #E2E8F0
    ========================================================================== */
 
 :root {
-  --sau-blue: #1F4E8C;
-  --sau-blue-dark: #153763;
-  --sau-blue-light: #2A69BC;
+  --sau-blue: #00408d;
+  --sau-blue-dark: #002e66;
+  --sau-blue-light: #0056bd;
   --sau-bg: #F5F7FA;
   --sau-card-bg: #FFFFFF;
   --sau-text: #1E293B;
