@@ -205,35 +205,62 @@ async function seedStudentsAndTimetable() {
       }
     }
 
-    // 3. Parse Students from Room Seating
-    const seatingFilePath = fs.existsSync('/tmp/room_seating.txt')
-      ? '/tmp/room_seating.txt'
-      : path.join(__dirname, '../../.local/room_seating.txt');
+    // 3. Parse Students from Room Seating (All 104 students: B.Tech and DM.Tech)
+    const { execSync } = require('child_process');
+    const pdfPath = path.join(__dirname, '../../.local/Room Seating - 24b.pdf');
+    let content = '';
 
-    if (!fs.existsSync(seatingFilePath)) {
-      throw new Error(`Room seating text file not found at ${seatingFilePath}`);
+    if (fs.existsSync('/tmp/all_room_seating.txt')) {
+      content = fs.readFileSync('/tmp/all_room_seating.txt', 'utf8');
+    } else if (fs.existsSync(pdfPath)) {
+      content = execSync(`pdftotext "${pdfPath}" -`, { encoding: 'utf8' });
+    } else if (fs.existsSync('/tmp/room_seating.txt')) {
+      content = fs.readFileSync('/tmp/room_seating.txt', 'utf8');
     }
 
-    const content = fs.readFileSync(seatingFilePath, 'utf8');
-    const lines = content.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-
+    const lines = content.split('\n').map(l => l.trim()).filter(Boolean);
     const parsedStudents = [];
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].includes('SAU/CS/BTECH(CSE)/')) {
-        const enrollment = lines[i];
-        const rawName = lines[i - 1];
-        const examRoom = lines[i + 1];
-        parsedStudents.push({
-          rawName,
-          titleName: toTitleCase(rawName),
-          username: toUsernameSlug(rawName),
-          enrollment,
-          examRoom
-        });
+
+    for (let sl = 1; sl <= 104; sl++) {
+      const slIdx = lines.findIndex((l, idx) => l === String(sl) && idx >= 4);
+      if (slIdx !== -1) {
+        let j = slIdx + 1;
+        let name = '';
+        let enrollment = '';
+        let room = '';
+
+        while (j < lines.length && !/^\d+$/.test(lines[j])) {
+          const line = lines[j];
+          const enrMatch = line.match(/(SAU\/CS\/(?:BTECH|DMTECH)\(CSE\)\/2024\/\d+)/);
+          if (enrMatch) {
+            enrollment = enrMatch[1];
+            const before = line.replace(enrMatch[1], '').trim();
+            if (before && !name) {
+              name = before;
+            }
+          } else if (line.startsWith('CSE')) {
+            room = line;
+          } else if (!line.includes('Rooms Allocation') && !line.includes('Sl No.') && !line.includes('Enrollment') && !line.includes('Room No.')) {
+            if (!name) name = line;
+            else if (!enrollment) name += ' ' + line;
+          }
+          j++;
+        }
+
+        if (name && enrollment) {
+          parsedStudents.push({
+            sl,
+            rawName: name,
+            titleName: toTitleCase(name),
+            username: toUsernameSlug(name),
+            enrollment,
+            examRoom: room
+          });
+        }
       }
     }
 
-    console.log(`Parsed ${parsedStudents.length} students from ${seatingFilePath}`);
+    console.log(`Parsed all ${parsedStudents.length} students (B.Tech & Dual Degree M.Tech).`);
 
     let createdStudentsCount = 0;
     let enrolledRecordsCount = 0;
