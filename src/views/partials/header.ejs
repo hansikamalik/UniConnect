@@ -29,10 +29,65 @@
             <li class="nav-item">
               <a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
             </li>
+
+            <% if (user.role === 'Student') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/academic/marks"><i class="bi bi-journal-bookmark me-1"></i> Grades</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/academic/posts"><i class="bi bi-calendar-event me-1"></i> Deadlines</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/mess/menu"><i class="bi bi-cup-hot me-1"></i> Mess</a>
+              </li>
+              <% if (user.customHostelId) { %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/hostel/complaints"><i class="bi bi-building me-1"></i> Hostel</a>
+                </li>
+              <% } %>
+            <% } %>
+
+            <% if (user.role === 'Faculty') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/academic/marks/entry"><i class="bi bi-pencil-square me-1"></i> Marks Entry</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/academic/posts"><i class="bi bi-calendar-plus me-1"></i> Deadlines</a>
+              </li>
+            <% } %>
+
+            <% if (user.role === 'Warden') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/hostel/complaints/manage"><i class="bi bi-tools me-1"></i> Complaints</a>
+              </li>
+            <% } %>
+
+            <% if (user.role === 'Mess Admin') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/mess/menu"><i class="bi bi-calendar3 me-1"></i> Menus</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/mess/subscriptions/manage"><i class="bi bi-cash-stack me-1"></i> Subscriptions</a>
+              </li>
+            <% } %>
+
+            <% if (user.role === 'Admin') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/users"><i class="bi bi-people me-1"></i> Users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/courses"><i class="bi bi-book me-1"></i> Courses</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/audit"><i class="bi bi-journal-text me-1"></i> Audit Trail</a>
+              </li>
+            <% } %>
+
             <li class="nav-item">
               <a class="nav-link" href="/notices"><i class="bi bi-megaphone me-1"></i> Notices</a>
             </li>
           </ul>
+
           <div class="d-flex align-items-center gap-3">
             <div class="text-white text-end">
               <div class="fw-semibold small"><%= user.fullName %></div>
