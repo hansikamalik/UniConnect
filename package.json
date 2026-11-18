@@ -1,0 +1,30 @@
+{
+  "name": "uniconnect",
+  "version": "1.0.0",
+  "description": "Integrated University Management System for South Asian University, New Delhi",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "migrate": "node src/database/migrate.js",
+    "seed": "node src/database/seed.js"
+  },
+  "keywords": [
+    "university-management",
+    "express",
+    "postgresql",
+    "ejs",
+    "bootstrap"
+  ],
+  "author": "UniConnect Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.13.1"
+  }
+}

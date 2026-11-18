@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="h4 mb-1">Hostel Warden Dashboard</h2>
+    <p class="text-muted small mb-0">Welcome, <%= user.fullName %> | Role: <strong>Hostel Warden</strong></p>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-primary-subtle text-primary p-2 rounded">
+          <i class="bi bi-tools fs-3"></i>
+        </div>
+        <h3 class="h5 mb-0">Hostel Complaints</h3>
+      </div>
+      <p class="text-muted small mb-3">View and update maintenance complaints for your assigned hostel. Manage status lifecycle: Pending &rarr; In Progress &rarr; Resolved.</p>
+      <a href="/hostel/complaints/manage" class="btn btn-sau-primary btn-sm mt-auto">Manage Complaints</a>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-success-subtle text-success p-2 rounded">
+          <i class="bi bi-megaphone fs-3"></i>
+        </div>
+        <h3 class="h5 mb-0">Campus Notices</h3>
+      </div>
+      <p class="text-muted small mb-3">Read official notices published across the campus.</p>
+      <a href="/notices" class="btn btn-outline-success btn-sm mt-auto">View Notices</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

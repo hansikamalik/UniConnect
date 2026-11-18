@@ -1,0 +1,51 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="h4 mb-1">Faculty Dashboard</h2>
+    <p class="text-muted small mb-0">Welcome, <%= user.fullName %> | Department ID: <strong><%= user.departmentId || 'General' %></strong></p>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-6 col-lg-4">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-primary-subtle text-primary p-2 rounded">
+          <i class="bi bi-pencil-square fs-3"></i>
+        </div>
+        <h3 class="h5 mb-0">Internal Marks Entry</h3>
+      </div>
+      <p class="text-muted small mb-3">Enter and update student marks. Automatically calculates percentage, assigns grade, and appends audit logs.</p>
+      <a href="/academic/marks/entry" class="btn btn-sau-primary btn-sm mt-auto">Enter Marks</a>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-info-subtle text-info p-2 rounded">
+          <i class="bi bi-calendar-event fs-3"></i>
+        </div>
+        <h3 class="h5 mb-0">Course Content & Deadlines</h3>
+      </div>
+      <p class="text-muted small mb-3">Publish quizzes, lab evaluation slots, assignment due dates, and study materials for your courses.</p>
+      <a href="/academic/posts" class="btn btn-outline-info btn-sm mt-auto">Manage Course Posts</a>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-success-subtle text-success p-2 rounded">
+          <i class="bi bi-megaphone fs-3"></i>
+        </div>
+        <h3 class="h5 mb-0">Campus Notices</h3>
+      </div>
+      <p class="text-muted small mb-3">Read university-wide announcements and notifications.</p>
+      <a href="/notices" class="btn btn-outline-success btn-sm mt-auto">View Notices</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,64 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="h4 mb-1">System Administration Dashboard</h2>
+    <p class="text-muted small mb-0">Welcome, <%= user.fullName %> | Role: <strong>System Admin</strong></p>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-6 col-lg-3">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-primary-subtle text-primary p-2 rounded">
+          <i class="bi bi-people-fill fs-4"></i>
+        </div>
+        <h3 class="h6 mb-0">User Management</h3>
+      </div>
+      <p class="text-muted small mb-3">Provision accounts, deactivate users, and assign institutional roles.</p>
+      <a href="/admin/users" class="btn btn-sau-primary btn-sm mt-auto">Manage Users</a>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-3">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-info-subtle text-info p-2 rounded">
+          <i class="bi bi-book-half fs-4"></i>
+        </div>
+        <h3 class="h6 mb-0">Courses & Faculty</h3>
+      </div>
+      <p class="text-muted small mb-3">Configure academic courses, assign faculty instructors, and enroll students.</p>
+      <a href="/admin/courses" class="btn btn-outline-info btn-sm mt-auto">Manage Courses</a>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-3">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-warning-subtle text-warning p-2 rounded">
+          <i class="bi bi-megaphone-fill fs-4"></i>
+        </div>
+        <h3 class="h6 mb-0">Noticeboard</h3>
+      </div>
+      <p class="text-muted small mb-3">Publish and manage official university notices and broadcasts.</p>
+      <a href="/notices" class="btn btn-outline-warning btn-sm mt-auto">Manage Notices</a>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-3">
+    <div class="card sau-card h-100 p-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <div class="bg-secondary-subtle text-secondary p-2 rounded">
+          <i class="bi bi-journal-text fs-4"></i>
+        </div>
+        <h3 class="h6 mb-0">Audit Logs</h3>
+      </div>
+      <p class="text-muted small mb-3">Inspect immutable audit trail of academic marks changes and system activities.</p>
+      <a href="/admin/audit" class="btn btn-outline-secondary btn-sm mt-auto">View Audit Logs</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

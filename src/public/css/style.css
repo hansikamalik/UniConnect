@@ -1,0 +1,108 @@
+/* ==========================================================================
+   UniConnect - South Asian University Theme
+   Primary: #1F4E8C | Background: #F5F7FA | Border: #E2E8F0
+   ========================================================================== */
+
+:root {
+  --sau-blue: #1F4E8C;
+  --sau-blue-dark: #153763;
+  --sau-blue-light: #2A69BC;
+  --sau-bg: #F5F7FA;
+  --sau-card-bg: #FFFFFF;
+  --sau-text: #1E293B;
+  --sau-text-muted: #64748B;
+  --sau-border: #E2E8F0;
+  --sau-success: #10B981;
+  --sau-warning: #F59E0B;
+  --sau-danger: #EF4444;
+}
+
+body {
+  background-color: var(--sau-bg);
+  color: var(--sau-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Navbar */
+.navbar-sau {
+  background-color: var(--sau-blue);
+}
+.navbar-sau .navbar-brand {
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.navbar-sau .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+.navbar-sau .nav-link:hover,
+.navbar-sau .nav-link.active {
+  color: #FFFFFF;
+}
+
+/* Primary Button */
+.btn-sau-primary {
+  background-color: var(--sau-blue);
+  color: #FFFFFF;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.15s ease-in-out;
+}
+.btn-sau-primary:hover {
+  background-color: var(--sau-blue-dark);
+  color: #FFFFFF;
+}
+
+/* Card Styling */
+.sau-card {
+  background: var(--sau-card-bg);
+  border: 1px solid var(--sau-border);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Badges */
+.badge-pending {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+.badge-inprogress {
+  background-color: #DBEAFE;
+  color: #1E40AF;
+}
+.badge-resolved, .badge-verified {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+.badge-rejected {
+  background-color: #FEE2E2;
+  color: #991B1B;
+}
+
+/* Auth / Login Container */
+.login-container {
+  max-width: 440px;
+  margin: 60px auto;
+}
+.login-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.login-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--sau-blue);
+  margin-bottom: 6px;
+}
+.login-header p {
+  color: var(--sau-text-muted);
+  font-size: 0.95rem;
+}
