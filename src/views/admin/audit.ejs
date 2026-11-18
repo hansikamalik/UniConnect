@@ -1,0 +1,83 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 mb-1">Academic Audit Trail Inspector</h1>
+    <p class="text-muted small mb-0">Immutable system record of marks and grade changes per Architecture Decision AD-7</p>
+  </div>
+</div>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<div class="alert alert-info py-2 px-3 small rounded border d-flex align-items-center gap-2 mb-3">
+  <i class="bi bi-shield-lock-fill fs-5 text-primary"></i>
+  <div>
+    <strong>Immutable Audit Policy (AD-7 / D-3):</strong> Audit logs are created within the same database transaction as marks entry. Records cannot be edited, deleted, or bypassed even by administrators.
+  </div>
+</div>
+
+<% if (logs.length === 0) { %>
+  <div class="card sau-card p-5 text-center text-muted">
+    <i class="bi bi-journal-check fs-1 mb-2 text-secondary"></i>
+    <h5>No audit logs on record</h5>
+    <p class="small mb-0">No marks or grades have been entered or updated in the system yet.</p>
+  </div>
+<% } else { %>
+  <div class="card sau-card">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light small text-uppercase text-secondary">
+          <tr>
+            <th class="ps-3">Log ID</th>
+            <th>Timestamp</th>
+            <th>Changed By</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Operation</th>
+            <th>Previous Value</th>
+            <th>New Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% logs.forEach(log => { %>
+            <tr>
+              <td class="ps-3 fw-semibold text-muted">#<%= log.log_id %></td>
+              <td class="small text-muted">
+                <%= new Date(log.changed_at).toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'medium' }) %>
+              </td>
+              <td>
+                <div class="fw-semibold text-dark"><%= log.changer_name %></div>
+                <div class="text-muted small"><%= log.changer_role %></div>
+              </td>
+              <td>
+                <div class="fw-semibold text-dark"><%= log.student_name %></div>
+                <div class="text-muted small"><code><%= log.enrollment_id %></code></div>
+              </td>
+              <td>
+                <span class="badge bg-light text-dark border"><%= log.course_code %></span>
+              </td>
+              <td>
+                <span class="badge <%= log.field_changed === 'marks_created' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning text-dark' %>">
+                  <%= log.field_changed %>
+                </span>
+              </td>
+              <td class="small text-muted">
+                <%= log.old_value || '<em>(None)</em>' %>
+              </td>
+              <td class="small fw-semibold text-primary">
+                <%= log.new_value %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

@@ -7,6 +7,8 @@ const authRoutes = require('./modules/auth/authRoutes');
 const noticeRoutes = require('./modules/notices/noticeRoutes');
 const hostelRoutes = require('./modules/hostel/hostelRoutes');
 const messRoutes = require('./modules/mess/messRoutes');
+const academicRoutes = require('./modules/academic/academicRoutes');
+const adminRoutes = require('./modules/admin/adminRoutes');
 const { requireAuth } = require('./middleware/auth');
 const requireRole = require('./middleware/requireRole');
 
@@ -65,6 +67,12 @@ app.use('/hostel', hostelRoutes);
 
 // Mess Routes
 app.use('/mess', messRoutes);
+
+// Academic Routes
+app.use('/academic', academicRoutes);
+
+// Admin Routes
+app.use('/admin', adminRoutes);
 
 // Central Dashboard Router
 app.get('/dashboard', requireAuth, (req, res) => {

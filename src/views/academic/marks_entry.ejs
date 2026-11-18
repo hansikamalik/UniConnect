@@ -1,0 +1,191 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 mb-1">Internal Marks Entry</h1>
+    <p class="text-muted small mb-0">Record internal assessment marks. Audit logs are automatically created inside the same transaction.</p>
+  </div>
+  <!-- Course Selector -->
+  <form action="/academic/marks/entry" method="GET" class="d-flex align-items-center gap-2">
+    <select name="course_id" class="form-select form-select-sm" onchange="this.form.submit()">
+      <% if (courses.length === 0) { %>
+        <option value="" disabled selected>No courses assigned</option>
+      <% } else { %>
+        <% courses.forEach(c => { %>
+          <option value="<%= c.course_id %>" <%= String(c.course_id) === String(selectedCourseId) ? 'selected' : '' %>>
+            <%= c.code %>: <%= c.name %>
+          </option>
+        <% }) %>
+      <% } %>
+    </select>
+    <noscript><button type="submit" class="btn btn-sm btn-outline-secondary">Go</button></noscript>
+  </form>
+</div>
+
+<% if (locals.success) { %>
+  <div class="alert alert-success alert-dismissible fade show small" role="alert">
+    <i class="bi bi-check-circle-fill me-1"></i> <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (!currentCourse) { %>
+  <div class="card sau-card p-5 text-center text-muted">
+    <i class="bi bi-exclamation-circle fs-1 mb-2 text-warning"></i>
+    <h5>No course selected or assigned</h5>
+    <p class="small mb-0">You are not currently assigned as instructor to any courses.</p>
+  </div>
+<% } else if (students.length === 0) { %>
+  <div class="card sau-card p-5 text-center text-muted">
+    <i class="bi bi-people fs-1 mb-2 text-secondary"></i>
+    <h5>No students enrolled in <%= currentCourse.code %></h5>
+    <p class="small mb-0">Ask the administrator to enroll students into this course.</p>
+  </div>
+<% } else { %>
+  <div class="card sau-card">
+    <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+      <div>
+        <h2 class="h5 mb-0 fw-bold"><%= currentCourse.code %> &ndash; <%= currentCourse.name %></h2>
+        <span class="text-muted small"><%= students.length %> enrolled students</span>
+      </div>
+      <span class="badge bg-primary-subtle text-primary border small">Grade Scale: 90% (A+), 80% (A), 70% (B+), 60% (B), 50% (C), 40% (D)</span>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light small text-uppercase text-secondary">
+          <tr>
+            <th class="ps-3">Enrollment ID</th>
+            <th>Student Name</th>
+            <th class="text-center">Obtained</th>
+            <th class="text-center">Max Marks</th>
+            <th class="text-center">Percentage</th>
+            <th class="text-center">Grade</th>
+            <th class="text-end pe-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% students.forEach(s => { %>
+            <tr>
+              <td class="ps-3 fw-semibold text-dark"><%= s.enrollment_id %></td>
+              <td><%= s.student_name %></td>
+              <td class="text-center">
+                <% if (s.marks_obtained !== null && s.marks_obtained !== undefined) { %>
+                  <span class="fw-bold"><%= s.marks_obtained %></span>
+                <% } else { %>
+                  <span class="text-muted italic small">Not Entered</span>
+                <% } %>
+              </td>
+              <td class="text-center">
+                <%= s.max_marks || '&ndash;' %>
+              </td>
+              <td class="text-center">
+                <% if (s.marks_obtained !== null && s.max_marks) { %>
+                  <% const pct = ((s.marks_obtained / s.max_marks) * 100).toFixed(1); %>
+                  <span class="badge <%= pct >= 60 ? 'bg-success-subtle text-success' : (pct >= 40 ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger') %>">
+                    <%= pct %>%
+                  </span>
+                <% } else { %>
+                  <span class="text-muted small">&ndash;</span>
+                <% } %>
+              </td>
+              <td class="text-center">
+                <% if (s.grade) { %>
+                  <span class="badge bg-primary px-3 py-1"><%= s.grade %></span>
+                <% } else { %>
+                  <span class="badge bg-secondary-subtle text-secondary small">&ndash;</span>
+                <% } %>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= s.student_id %>">
+                  <i class="bi bi-pencil me-1"></i> <%= s.marks_obtained !== null ? 'Edit Marks' : 'Enter Marks' %>
+                </button>
+
+                <!-- Modal for entering/editing marks -->
+                <div class="modal fade text-start" id="modal-<%= s.student_id %>" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form action="/academic/marks/save" method="POST">
+                        <input type="hidden" name="course_id" value="<%= currentCourse.course_id %>">
+                        <input type="hidden" name="student_id" value="<%= s.student_id %>">
+                        <div class="modal-header">
+                          <h5 class="modal-title h6">Record Marks: <%= s.student_name %></h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="mb-3">
+                            <label class="form-label text-muted small mb-0">Course & Student</label>
+                            <div class="fw-semibold"><%= currentCourse.code %> &bull; <%= s.enrollment_id %> (<%= s.student_name %>)</div>
+                          </div>
+                          <div class="row g-3 mb-3">
+                            <div class="col-6">
+                              <label for="marks_<%= s.student_id %>" class="form-label fw-semibold small">Marks Obtained</label>
+                              <input type="number" step="0.5" min="0" class="form-control" id="marks_<%= s.student_id %>" name="marks_obtained" value="<%= s.marks_obtained !== null ? s.marks_obtained : '' %>" required oninput="calcPreview('<%= s.student_id %>')">
+                            </div>
+                            <div class="col-6">
+                              <label for="max_<%= s.student_id %>" class="form-label fw-semibold small">Max Marks</label>
+                              <input type="number" step="0.5" min="1" class="form-control" id="max_<%= s.student_id %>" name="max_marks" value="<%= s.max_marks || 100 %>" required oninput="calcPreview('<%= s.student_id %>')">
+                            </div>
+                          </div>
+                          <div class="p-3 bg-light rounded border text-center">
+                            <span class="text-muted small">Calculated Grade Preview:</span>
+                            <div id="preview_<%= s.student_id %>" class="fw-bold fs-5 text-primary mt-1">
+                              <%= s.grade ? `${s.grade}` : 'Enter marks to calculate' %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-light btn-sm border" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-sau-primary btn-sm">Save & Audit</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% } %>
+
+<script>
+  function calcPreview(studentId) {
+    const obtained = parseFloat(document.getElementById('marks_' + studentId).value);
+    const max = parseFloat(document.getElementById('max_' + studentId).value);
+    const previewEl = document.getElementById('preview_' + studentId);
+
+    if (isNaN(obtained) || isNaN(max) || max <= 0) {
+      previewEl.innerText = 'Enter marks to calculate';
+      return;
+    }
+    if (obtained > max) {
+      previewEl.innerText = 'Marks cannot exceed max marks';
+      previewEl.className = 'fw-bold fs-6 text-danger mt-1';
+      return;
+    }
+
+    const pct = (obtained / max) * 100;
+    let grade = 'F';
+    if (pct >= 90) grade = 'A+';
+    else if (pct >= 80) grade = 'A';
+    else if (pct >= 70) grade = 'B+';
+    else if (pct >= 60) grade = 'B';
+    else if (pct >= 50) grade = 'C';
+    else if (pct >= 40) grade = 'D';
+
+    previewEl.className = 'fw-bold fs-5 text-primary mt-1';
+    previewEl.innerText = `${pct.toFixed(1)}% &rarr; Grade: ${grade}`;
+  }
+</script>
+
+<%- include('../partials/footer') %>
