@@ -116,7 +116,7 @@ app.use((req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Unhandled server error:', err);
-  res.status(500).render('errors/403', {
+  res.status(500).render('errors/500', {
     title: 'Server Error',
     message: process.env.NODE_ENV === 'production' ? 'An unexpected error occurred.' : err.message,
     user: req.session ? req.session.user : null
