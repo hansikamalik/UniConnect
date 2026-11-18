@@ -9,6 +9,7 @@ const hostelRoutes = require('./modules/hostel/hostelRoutes');
 const messRoutes = require('./modules/mess/messRoutes');
 const academicRoutes = require('./modules/academic/academicRoutes');
 const adminRoutes = require('./modules/admin/adminRoutes');
+const dashboardController = require('./modules/dashboard/dashboardController');
 const { requireAuth } = require('./middleware/auth');
 const requireRole = require('./middleware/requireRole');
 
@@ -75,38 +76,14 @@ app.use('/academic', academicRoutes);
 app.use('/admin', adminRoutes);
 
 // Central Dashboard Router
-app.get('/dashboard', requireAuth, (req, res) => {
-  const roleRedirects = {
-    'Student': '/dashboard/student',
-    'Faculty': '/dashboard/faculty',
-    'Warden': '/dashboard/warden',
-    'Mess Admin': '/dashboard/mess',
-    'Admin': '/dashboard/admin'
-  };
-  const target = roleRedirects[req.session.user.role] || '/auth/login';
-  res.redirect(target);
-});
+app.get('/dashboard', requireAuth, dashboardController.getDashboardRedirect);
 
 // Role-Specific Dashboard Routes
-app.get('/dashboard/student', requireAuth, requireRole('Student'), (req, res) => {
-  res.render('dashboard/student', { title: 'Student Dashboard - UniConnect' });
-});
-
-app.get('/dashboard/faculty', requireAuth, requireRole('Faculty'), (req, res) => {
-  res.render('dashboard/faculty', { title: 'Faculty Dashboard - UniConnect' });
-});
-
-app.get('/dashboard/warden', requireAuth, requireRole('Warden'), (req, res) => {
-  res.render('dashboard/warden', { title: 'Warden Dashboard - UniConnect' });
-});
-
-app.get('/dashboard/mess', requireAuth, requireRole('Mess Admin'), (req, res) => {
-  res.render('dashboard/mess', { title: 'Mess Dashboard - UniConnect' });
-});
-
-app.get('/dashboard/admin', requireAuth, requireRole('Admin'), (req, res) => {
-  res.render('dashboard/admin', { title: 'Admin Dashboard - UniConnect' });
-});
+app.get('/dashboard/student', requireAuth, requireRole('Student'), dashboardController.getStudentDashboard);
+app.get('/dashboard/faculty', requireAuth, requireRole('Faculty'), dashboardController.getFacultyDashboard);
+app.get('/dashboard/warden', requireAuth, requireRole('Warden'), dashboardController.getWardenDashboard);
+app.get('/dashboard/mess', requireAuth, requireRole('Mess Admin'), dashboardController.getMessDashboard);
+app.get('/dashboard/admin', requireAuth, requireRole('Admin'), dashboardController.getAdminDashboard);
 
 // 404 Handler
 app.use((req, res) => {

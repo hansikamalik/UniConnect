@@ -1,0 +1,844 @@
+/* ==========================================================================
+   UniConnect - Theme 3: Heritage Collegiate Crimson & Ivory
+   Aesthetic: Prestigious Ivy-League Collegiate Heritage
+   Palette:
+     - Primary Deep Crimson:  #7A0019 / #560011
+     - Warm Antique Ivory:    #FAF7F2
+     - Card / Clean Ivory:    #FFFFFF / #FDFBF7
+     - Gold Foil Accents:     #C5A059 / #B38F48 / #DFBF7A
+     - Typography Dark:       #2B2320
+     - Typography Muted:      #6E6259
+     - Classic Trim Borders:  #E6DFD5 / #D5CABE
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@600;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   Theme Variables & Color Foundations
+   -------------------------------------------------------------------------- */
+:root[data-theme="collegiate-crimson"],
+[data-theme="collegiate-crimson"],
+html[data-theme="collegiate-crimson"] {
+  /* Crimson Tones */
+  --sau-blue: #7A0019;
+  --sau-blue-dark: #560011;
+  --sau-blue-light: #9B1B30;
+  --collegiate-crimson: #7A0019;
+  --collegiate-crimson-dark: #560011;
+  --collegiate-crimson-deep: #3E000C;
+  --collegiate-crimson-light: #9B1B30;
+  --collegiate-crimson-soft: #FDF1F3;
+
+  /* Ivory & Cream Surfaces */
+  --sau-bg: #FAF7F2;
+  --sau-card-bg: #FFFFFF;
+  --collegiate-ivory: #FAF7F2;
+  --collegiate-ivory-warm: #F4EFEB;
+  --collegiate-cream-light: #FAF8F5;
+  --collegiate-parchment: #EFE9E0;
+
+  /* Gold Heraldic Accents */
+  --collegiate-gold: #C5A059;
+  --collegiate-gold-dark: #B38F48;
+  --collegiate-gold-light: #DFBF7A;
+  --collegiate-gold-subtle: #FAF5EB;
+  --collegiate-gold-shadow: rgba(197, 160, 89, 0.25);
+
+  /* Typography & Neutral Inks */
+  --sau-text: #2B2320;
+  --sau-text-muted: #6E6259;
+  --collegiate-text-subtle: #8D8177;
+  --collegiate-text-crimson: #7A0019;
+
+  /* Architectural Borders */
+  --sau-border: #E6DFD5;
+  --collegiate-border-strong: #D5CABE;
+  --collegiate-border-gold: #C5A059;
+
+  /* Semantic University Accents */
+  --sau-success: #1E663B;
+  --sau-warning: #B45309;
+  --sau-danger: #8B0000;
+  --sau-info: #1A365D;
+
+  /* Bootstrap Variable Mappings */
+  --bs-primary: #7A0019;
+  --bs-primary-rgb: 122, 0, 25;
+  --bs-primary-hover-bg: #560011;
+  --bs-body-bg: #FAF7F2;
+  --bs-body-color: #2B2320;
+  --bs-border-color: #E6DFD5;
+  --bs-card-bg: #FFFFFF;
+  --bs-card-border-color: #E6DFD5;
+}
+
+/* --------------------------------------------------------------------------
+   Base Document & Body Styling
+   -------------------------------------------------------------------------- */
+html[data-theme="collegiate-crimson"] body,
+body[data-theme="collegiate-crimson"] {
+  background-color: #FAF7F2 !important;
+  color: #2B2320 !important;
+  font-family: 'Lora', Georgia, 'Times New Roman', Cambria, serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection Highlight */
+[data-theme="collegiate-crimson"] ::selection,
+html[data-theme="collegiate-crimson"] body ::selection {
+  background-color: rgba(197, 160, 89, 0.35);
+  color: #560011;
+}
+
+/* Scrollbar Heritage Touch */
+[data-theme="collegiate-crimson"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+[data-theme="collegiate-crimson"] ::-webkit-scrollbar-track {
+  background: #FAF7F2;
+  border-left: 1px solid #E6DFD5;
+}
+[data-theme="collegiate-crimson"] ::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border: 2px solid #FAF7F2;
+  border-radius: 5px;
+}
+[data-theme="collegiate-crimson"] ::-webkit-scrollbar-thumb:hover {
+  background: #B38F48;
+}
+
+/* --------------------------------------------------------------------------
+   Typography: Academic Heritage & Prestige
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] h1,
+[data-theme="collegiate-crimson"] h2,
+[data-theme="collegiate-crimson"] h3,
+[data-theme="collegiate-crimson"] h4,
+[data-theme="collegiate-crimson"] h5,
+[data-theme="collegiate-crimson"] h6,
+[data-theme="collegiate-crimson"] .h1,
+[data-theme="collegiate-crimson"] .h2,
+[data-theme="collegiate-crimson"] .h3,
+[data-theme="collegiate-crimson"] .h4,
+[data-theme="collegiate-crimson"] .h5,
+[data-theme="collegiate-crimson"] .h6,
+[data-theme="collegiate-crimson"] .navbar-brand {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  color: #2B2320;
+  font-weight: 700;
+  letter-spacing: 0.25px;
+}
+
+[data-theme="collegiate-crimson"] h1 {
+  color: #7A0019;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+[data-theme="collegiate-crimson"] h2,
+[data-theme="collegiate-crimson"] h3 {
+  color: #560011;
+}
+
+[data-theme="collegiate-crimson"] .text-muted {
+  color: #6E6259 !important;
+}
+
+[data-theme="collegiate-crimson"] a {
+  color: #7A0019;
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+[data-theme="collegiate-crimson"] a:hover {
+  color: #560011;
+  text-decoration: underline;
+}
+
+[data-theme="collegiate-crimson"] hr {
+  border-top: 1px solid #E6DFD5;
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation: Collegiate Crimson & Gold Foil Trim
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .navbar-sau {
+  background: linear-gradient(180deg, #87001C 0%, #7A0019 65%, #6B0016 100%) !important;
+  border-bottom: 2px solid #C5A059 !important;
+  box-shadow: 0 4px 14px rgba(86, 0, 17, 0.18), 0 1px 0 #DFBF7A !important;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .navbar-brand {
+  color: #FFFFFF !important;
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .navbar-brand i {
+  color: #DFBF7A;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .navbar-brand .badge {
+  background: #C5A059 !important;
+  color: #3E000C !important;
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700 !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 1px;
+  border: 1px solid #DFBF7A;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .nav-link {
+  color: rgba(250, 247, 242, 0.88) !important;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.85rem !important;
+  margin: 0 0.15rem;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .nav-link:hover {
+  color: #FFFFFF !important;
+  background-color: rgba(255, 255, 255, 0.08);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .nav-link.active {
+  color: #FFFFFF !important;
+  background-color: rgba(0, 0, 0, 0.18);
+  border-bottom: 2px solid #C5A059;
+  font-weight: 600;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .navbar-toggler {
+  border: 1px solid #C5A059;
+  color: #DFBF7A !important;
+  padding: 0.4rem 0.65rem;
+  border-radius: 5px;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.35);
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .btn-outline-light {
+  border: 1.5px solid #C5A059 !important;
+  color: #FAF7F2 !important;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .btn-outline-light:hover {
+  background-color: #C5A059 !important;
+  border-color: #DFBF7A !important;
+  color: #3E000C !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* User identity pill in header */
+[data-theme="collegiate-crimson"] .navbar-sau .text-white .fw-semibold {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.3px;
+  color: #FAF7F2 !important;
+}
+
+[data-theme="collegiate-crimson"] .navbar-sau .text-white-50 {
+  color: #E8D5B0 !important;
+  font-family: 'Lora', Georgia, serif;
+  letter-spacing: 0.2px;
+}
+
+/* --------------------------------------------------------------------------
+   Cards: Collegiate Academic Paneling
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .sau-card,
+[data-theme="collegiate-crimson"] .card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E6DFD5 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 3px 10px rgba(122, 0, 25, 0.05) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+}
+
+[data-theme="collegiate-crimson"] .sau-card:hover,
+[data-theme="collegiate-crimson"] .card:hover {
+  box-shadow: 0 6px 16px rgba(122, 0, 25, 0.08) !important;
+  border-color: #D5CABE !important;
+}
+
+[data-theme="collegiate-crimson"] .card-header {
+  background-color: #F4EFEB !important;
+  border-bottom: 1px solid #E6DFD5 !important;
+  color: #560011 !important;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  padding: 0.9rem 1.25rem;
+}
+
+[data-theme="collegiate-crimson"] .card-footer {
+  background-color: #FAF7F2 !important;
+  border-top: 1px solid #E6DFD5 !important;
+  color: #6E6259;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons: Prestigious Crimson & Gold Hover Trim
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .btn-sau-primary,
+[data-theme="collegiate-crimson"] .btn-primary {
+  background: #7A0019 !important;
+  background-color: #7A0019 !important;
+  color: #FAF7F2 !important;
+  border: 1px solid #7A0019 !important;
+  border-radius: 6px !important;
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-weight: 600 !important;
+  letter-spacing: 0.4px;
+  padding: 0.5rem 1.15rem;
+  box-shadow: 0 2px 4px rgba(122, 0, 25, 0.15);
+  transition: all 0.2s ease-in-out !important;
+}
+
+[data-theme="collegiate-crimson"] .btn-sau-primary:hover,
+[data-theme="collegiate-crimson"] .btn-primary:hover {
+  background: #560011 !important;
+  background-color: #560011 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #C5A059 !important; /* Gold hover border as required */
+  box-shadow: 0 4px 12px rgba(122, 0, 25, 0.28), 0 0 0 1px #C5A059 !important;
+  transform: translateY(-1px);
+}
+
+[data-theme="collegiate-crimson"] .btn-sau-primary:focus,
+[data-theme="collegiate-crimson"] .btn-primary:focus,
+[data-theme="collegiate-crimson"] .btn-sau-primary:active,
+[data-theme="collegiate-crimson"] .btn-primary:active {
+  background: #3E000C !important;
+  background-color: #3E000C !important;
+  border-color: #C5A059 !important;
+  box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.35) !important;
+  color: #FFFFFF !important;
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+[data-theme="collegiate-crimson"] .btn-secondary {
+  background-color: #6E6259 !important;
+  border-color: #6E6259 !important;
+  color: #FAF7F2 !important;
+  border-radius: 6px !important;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 500;
+}
+
+[data-theme="collegiate-crimson"] .btn-secondary:hover {
+  background-color: #4A3F35 !important;
+  border-color: #B38F48 !important;
+  color: #FFFFFF !important;
+}
+
+/* Outline Buttons */
+[data-theme="collegiate-crimson"] .btn-outline-primary {
+  border: 1.5px solid #7A0019 !important;
+  color: #7A0019 !important;
+  background-color: transparent !important;
+  border-radius: 6px !important;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+}
+
+[data-theme="collegiate-crimson"] .btn-outline-primary:hover {
+  background-color: #7A0019 !important;
+  border-color: #C5A059 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 8px rgba(122, 0, 25, 0.2);
+}
+
+[data-theme="collegiate-crimson"] .btn-outline-secondary {
+  border: 1.5px solid #D5CABE !important;
+  color: #564B44 !important;
+  background-color: #FAF7F2 !important;
+  border-radius: 6px !important;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 500;
+}
+
+[data-theme="collegiate-crimson"] .btn-outline-secondary:hover {
+  background-color: #F4EFEB !important;
+  border-color: #B38F48 !important;
+  color: #2B2320 !important;
+}
+
+/* Success Button (Collegiate Forest Green) */
+[data-theme="collegiate-crimson"] .btn-success {
+  background-color: #1E663B !important;
+  border-color: #1E663B !important;
+  color: #FFFFFF !important;
+  border-radius: 6px !important;
+  font-family: 'Lora', Georgia, serif;
+}
+
+[data-theme="collegiate-crimson"] .btn-success:hover {
+  background-color: #154C2B !important;
+  border-color: #C5A059 !important;
+}
+
+/* Danger Button (Collegiate Deep Crimson) */
+[data-theme="collegiate-crimson"] .btn-danger {
+  background-color: #8B0000 !important;
+  border-color: #8B0000 !important;
+  color: #FFFFFF !important;
+  border-radius: 6px !important;
+  font-family: 'Lora', Georgia, serif;
+}
+
+[data-theme="collegiate-crimson"] .btn-danger:hover {
+  background-color: #5E0000 !important;
+  border-color: #C5A059 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Tables: Warm Cream Headers & Crimson Ledger Accents
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .table {
+  color: #2B2320 !important;
+  border-color: #E6DFD5 !important;
+  vertical-align: middle;
+}
+
+[data-theme="collegiate-crimson"] .table th,
+[data-theme="collegiate-crimson"] .table thead th {
+  background-color: #F4EFEB !important; /* Warm cream tint as required */
+  color: #7A0019 !important;          /* Deep crimson text as required */
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid #C5A059 !important; /* Golden divider under header */
+  border-top: none !important;
+  padding: 0.85rem 1rem;
+}
+
+[data-theme="collegiate-crimson"] .table td {
+  border-color: #E6DFD5 !important;
+  padding: 0.85rem 1rem;
+  font-size: 0.93rem;
+}
+
+[data-theme="collegiate-crimson"] .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #FAF8F5 !important;
+}
+
+[data-theme="collegiate-crimson"] .table-hover > tbody > tr:hover {
+  background-color: rgba(197, 160, 89, 0.08) !important;
+  transition: background-color 0.15s ease;
+}
+
+[data-theme="collegiate-crimson"] .table-bordered {
+  border: 1px solid #E6DFD5 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Badges: University Heraldry Ribbons & Traditional Seals
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .badge {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  padding: 0.35em 0.65em;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Pending: Amber Heraldic Seal */
+[data-theme="collegiate-crimson"] .badge-pending,
+[data-theme="collegiate-crimson"] .badge.bg-warning-subtle {
+  background-color: #FEF3C7 !important;
+  color: #854D0E !important;
+  border: 1px solid #FCD34D !important;
+}
+
+/* In Progress: Navy Academic Ribbon */
+[data-theme="collegiate-crimson"] .badge-inprogress,
+[data-theme="collegiate-crimson"] .badge.bg-info-subtle {
+  background-color: #EFF6FF !important;
+  color: #1E40AF !important;
+  border: 1px solid #BFDBFE !important;
+}
+
+/* Resolved / Verified: Dean's Laurel Green Seal */
+[data-theme="collegiate-crimson"] .badge-resolved,
+[data-theme="collegiate-crimson"] .badge-verified,
+[data-theme="collegiate-crimson"] .badge.bg-success-subtle {
+  background-color: #ECFDF5 !important;
+  color: #065F46 !important;
+  border: 1px solid #A7F3D0 !important;
+}
+
+/* Rejected: Crimson Disciplinary Ribbon */
+[data-theme="collegiate-crimson"] .badge-rejected,
+[data-theme="collegiate-crimson"] .badge.bg-danger-subtle {
+  background-color: #FEF2F2 !important;
+  color: #7A0019 !important;
+  border: 1px solid #FECACA !important;
+}
+
+/* Primary Ribbon */
+[data-theme="collegiate-crimson"] .badge.bg-primary {
+  background-color: #7A0019 !important;
+  color: #FAF7F2 !important;
+  border: 1px solid #C5A059 !important;
+}
+
+/* Secondary Ribbon */
+[data-theme="collegiate-crimson"] .badge.bg-secondary,
+[data-theme="collegiate-crimson"] .badge.bg-secondary-subtle {
+  background-color: #F4EFEB !important;
+  color: #564B44 !important;
+  border: 1px solid #D5CABE !important;
+}
+
+/* Light / Neutral Ribbon */
+[data-theme="collegiate-crimson"] .badge.bg-light {
+  background-color: #FAF7F2 !important;
+  color: #560011 !important;
+  border: 1px solid #D5CABE !important;
+}
+
+/* --------------------------------------------------------------------------
+   Forms & Modals: Ivory Inset, Cream Focus & Gold/Crimson Ring
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .form-label {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2B2320;
+  margin-bottom: 0.35rem;
+}
+
+[data-theme="collegiate-crimson"] .form-control,
+[data-theme="collegiate-crimson"] .form-select {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E6DFD5 !important;
+  color: #2B2320 !important;
+  border-radius: 5px !important;
+  font-family: 'Lora', Georgia, serif;
+  padding: 0.55rem 0.85rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="collegiate-crimson"] .form-control:focus,
+[data-theme="collegiate-crimson"] .form-select:focus {
+  background-color: #FFFFFF !important;
+  border-color: #C5A059 !important; /* Gold trim on focus */
+  color: #2B2320 !important;
+  outline: 0;
+  /* Warm cream focus with gold/crimson ring as specified */
+  box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.3), inset 0 1px 2px rgba(122, 0, 25, 0.05) !important;
+}
+
+[data-theme="collegiate-crimson"] .form-control::placeholder {
+  color: #9C9187;
+  font-style: italic;
+}
+
+[data-theme="collegiate-crimson"] .form-check-input {
+  border-color: #D5CABE;
+  background-color: #FFFFFF;
+}
+
+[data-theme="collegiate-crimson"] .form-check-input:checked {
+  background-color: #7A0019;
+  border-color: #7A0019;
+  box-shadow: 0 0 0 0.2rem rgba(197, 160, 89, 0.25);
+}
+
+[data-theme="collegiate-crimson"] .input-group-text {
+  background-color: #F4EFEB;
+  border-color: #E6DFD5;
+  color: #560011;
+  font-family: 'Lora', Georgia, serif;
+}
+
+/* Modals */
+[data-theme="collegiate-crimson"] .modal-content {
+  background-color: #FFFFFF !important;
+  border: 1px solid #D5CABE !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 36px rgba(86, 0, 17, 0.18) !important;
+  overflow: hidden;
+}
+
+[data-theme="collegiate-crimson"] .modal-header {
+  background-color: #F4EFEB !important;
+  border-bottom: 2px solid #C5A059 !important;
+  padding: 1.15rem 1.5rem;
+}
+
+[data-theme="collegiate-crimson"] .modal-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #7A0019 !important;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+[data-theme="collegiate-crimson"] .modal-body {
+  padding: 1.5rem;
+  background-color: #FFFFFF;
+  color: #2B2320;
+}
+
+[data-theme="collegiate-crimson"] .modal-footer {
+  background-color: #FAF7F2 !important;
+  border-top: 1px solid #E6DFD5 !important;
+  padding: 1rem 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Alerts: Traditional Collegiate Notice Enclosures
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .alert {
+  border-radius: 6px;
+  font-family: 'Lora', Georgia, serif;
+  border: 1px solid transparent;
+  padding: 0.85rem 1.15rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="collegiate-crimson"] .alert-primary,
+[data-theme="collegiate-crimson"] .alert-primary-subtle {
+  background-color: #FDF1F3 !important;
+  border-color: #F5CCD3 !important;
+  border-left: 4px solid #7A0019 !important;
+  color: #560011 !important;
+}
+
+[data-theme="collegiate-crimson"] .alert-success {
+  background-color: #F0FDF4 !important;
+  border-color: #BBF7D0 !important;
+  border-left: 4px solid #1E663B !important;
+  color: #14532D !important;
+}
+
+[data-theme="collegiate-crimson"] .alert-danger {
+  background-color: #FEF2F2 !important;
+  border-color: #FECACA !important;
+  border-left: 4px solid #8B0000 !important;
+  color: #7A0019 !important;
+}
+
+[data-theme="collegiate-crimson"] .alert-warning {
+  background-color: #FFFBEB !important;
+  border-color: #FDE68A !important;
+  border-left: 4px solid #C5A059 !important;
+  color: #78350F !important;
+}
+
+[data-theme="collegiate-crimson"] .alert-info {
+  background-color: #F0F9FF !important;
+  border-color: #BAE6FD !important;
+  border-left: 4px solid #1A365D !important;
+  color: #0C4A6E !important;
+}
+
+[data-theme="collegiate-crimson"] .alert-light {
+  background-color: #F4EFEB !important;
+  border-color: #E6DFD5 !important;
+  border-left: 4px solid #C5A059 !important;
+  color: #4A3F35 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Auth / Login Experience
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .login-container {
+  max-width: 450px;
+  margin: 60px auto;
+}
+
+[data-theme="collegiate-crimson"] .login-header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7A0019;
+  letter-spacing: -0.3px;
+  position: relative;
+  display: inline-block;
+}
+
+[data-theme="collegiate-crimson"] .login-header h1::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  background-color: #C5A059;
+  margin: 8px auto 0 auto;
+  border-radius: 2px;
+}
+
+[data-theme="collegiate-crimson"] .login-header p {
+  color: #6E6259;
+  font-style: italic;
+  font-size: 0.98rem;
+  margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Dropdowns, Tabs & List Groups
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] .dropdown-menu {
+  background-color: #FFFFFF;
+  border: 1px solid #D5CABE;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(86, 0, 17, 0.12);
+  padding: 0.5rem 0;
+}
+
+[data-theme="collegiate-crimson"] .dropdown-item {
+  color: #2B2320;
+  font-family: 'Lora', Georgia, serif;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.15s ease;
+}
+
+[data-theme="collegiate-crimson"] .dropdown-item:hover,
+[data-theme="collegiate-crimson"] .dropdown-item:focus {
+  background-color: #FAF4E8;
+  color: #7A0019;
+}
+
+[data-theme="collegiate-crimson"] .dropdown-divider {
+  border-top-color: #E6DFD5;
+}
+
+/* Nav Tabs / Pills */
+[data-theme="collegiate-crimson"] .nav-tabs {
+  border-bottom: 2px solid #E6DFD5;
+}
+
+[data-theme="collegiate-crimson"] .nav-tabs .nav-link {
+  color: #6E6259;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  margin-bottom: -2px;
+  padding: 0.65rem 1.25rem;
+}
+
+[data-theme="collegiate-crimson"] .nav-tabs .nav-link:hover {
+  border-color: #E6DFD5 #E6DFD5 transparent;
+  color: #7A0019;
+  background-color: #F4EFEB;
+}
+
+[data-theme="collegiate-crimson"] .nav-tabs .nav-link.active {
+  color: #7A0019;
+  background-color: #FFFFFF;
+  border-color: #E6DFD5 #E6DFD5 #FFFFFF;
+  border-top: 3px solid #7A0019;
+}
+
+/* List Groups */
+[data-theme="collegiate-crimson"] .list-group-item {
+  background-color: #FFFFFF;
+  border-color: #E6DFD5;
+  color: #2B2320;
+}
+
+[data-theme="collegiate-crimson"] .list-group-item-action:hover {
+  background-color: #FAF4E8;
+  color: #7A0019;
+}
+
+[data-theme="collegiate-crimson"] .list-group-item.active {
+  background-color: #7A0019;
+  border-color: #7A0019;
+  color: #FAF7F2;
+}
+
+/* Pagination */
+[data-theme="collegiate-crimson"] .pagination .page-link {
+  color: #7A0019;
+  background-color: #FFFFFF;
+  border-color: #E6DFD5;
+  font-family: 'Lora', Georgia, serif;
+}
+
+[data-theme="collegiate-crimson"] .pagination .page-link:hover {
+  background-color: #FAF4E8;
+  border-color: #C5A059;
+  color: #560011;
+}
+
+[data-theme="collegiate-crimson"] .pagination .active .page-link {
+  background-color: #7A0019;
+  border-color: #7A0019;
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   Footer: Academic Archive Seal
+   -------------------------------------------------------------------------- */
+[data-theme="collegiate-crimson"] footer.footer,
+html[data-theme="collegiate-crimson"] body footer.footer {
+  background-color: #FAF7F2 !important;
+  border-top: 1px solid #E6DFD5 !important;
+  color: #6E6259 !important;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.25px;
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="collegiate-crimson"] footer.footer a {
+  color: #7A0019;
+  font-weight: 500;
+}
+
+[data-theme="collegiate-crimson"] footer.footer a:hover {
+  color: #C5A059;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Micro-Interactions & Polish
+   -------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+  [data-theme="collegiate-crimson"] .navbar-sau .navbar-collapse {
+    background-color: #6B0016;
+    border: 1px solid #C5A059;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}

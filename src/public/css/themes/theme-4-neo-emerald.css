@@ -1,0 +1,917 @@
+/* ==========================================================================
+   UniConnect Theme 4: Futuristic Neo-Emerald & Cyber-Teal
+   Design Paradigm: Ultra-Modern SaaS / Fintech Frosted Glassmorphism
+   Palette: Vivid Emerald Green (#059669, #10B981), Cyber Teal & Cyan (#06B6D4, #0891B2),
+            Deep Slate Text (#0F172A), Frosted Pearlescent Backdrop
+   Accessibility: WCAG AA/AAA Compliant High-Contrast Typography
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & CSS Custom Properties
+   -------------------------------------------------------------------------- */
+:root[data-theme="neo-emerald"],
+[data-theme="neo-emerald"] {
+  /* Brand Palette: Neo-Emerald & Cyber-Teal */
+  --neo-emerald-900: #064e3b;
+  --neo-emerald-800: #065f46;
+  --neo-emerald-700: #047857;
+  --neo-emerald-600: #059669;
+  --neo-emerald-500: #10b981;
+  --neo-emerald-400: #34d399;
+  --neo-emerald-300: #6ee7b7;
+  --neo-emerald-200: #a7f3d0;
+  --neo-emerald-100: #d1fae5;
+  --neo-emerald-50:  #f0fdf4;
+
+  --neo-cyan-900:    #164e63;
+  --neo-cyan-800:    #155e75;
+  --neo-cyan-700:    #0e7490;
+  --neo-cyan-600:    #0891b2;
+  --neo-cyan-500:    #06b6d4;
+  --neo-cyan-400:    #22d3ee;
+  --neo-cyan-300:    #67e8f9;
+  --neo-cyan-200:    #a5f3fc;
+  --neo-cyan-100:    #cffafe;
+  --neo-cyan-50:     #ecfeff;
+
+  --neo-teal-600:    #0d9488;
+  --neo-teal-500:    #14b8a6;
+
+  /* Typography & Neutral Grays */
+  --neo-slate-950:   #020617;
+  --neo-slate-900:   #0f172a;
+  --neo-slate-800:   #1e293b;
+  --neo-slate-700:   #334155;
+  --neo-slate-600:   #475569;
+  --neo-slate-500:   #64748b;
+  --neo-slate-400:   #94a3b8;
+  --neo-slate-300:   #cbd5e1;
+  --neo-slate-200:   #e2e8f0;
+  --neo-slate-100:   #f1f5f9;
+  --neo-slate-50:    #f8fafc;
+  --neo-white:       #ffffff;
+
+  /* Semantic UI Colors */
+  --neo-text-primary:   var(--neo-slate-900);
+  --neo-text-secondary: var(--neo-slate-600);
+  --neo-text-muted:     var(--neo-slate-500);
+  --neo-bg-body:        #f0fdf4;
+  --neo-bg-surface:     rgba(255, 255, 255, 0.85);
+  --neo-bg-surface-alt: rgba(240, 253, 244, 0.7);
+
+  /* Glassmorphism Tokens */
+  --neo-glass-card-bg:       rgba(255, 255, 255, 0.85);
+  --neo-glass-blur:          blur(16px);
+  --neo-glass-webkit-blur:   blur(16px);
+  --neo-glass-card-border:   1px solid rgba(16, 185, 129, 0.22);
+  --neo-glass-card-hover-border: 1px solid rgba(6, 182, 212, 0.45);
+  --neo-glass-card-radius:   14px;
+  --neo-pill-radius:         50px;
+
+  /* Gradients */
+  --neo-gradient-primary: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --neo-gradient-hover:   linear-gradient(135deg, #059669 0%, #0891b2 100%);
+  --neo-gradient-navbar:  linear-gradient(135deg, #065f46 0%, #047857 50%, #0e7490 100%);
+  --neo-gradient-badge:   linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --neo-gradient-glow:    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.15), transparent 70%);
+
+  /* Shadows */
+  --neo-shadow-sm:        0 2px 8px -1px rgba(6, 182, 212, 0.06), 0 1px 3px rgba(16, 185, 129, 0.05);
+  --neo-shadow-card:      0 10px 25px -5px rgba(6, 182, 212, 0.08), 0 8px 10px -6px rgba(16, 185, 129, 0.04);
+  --neo-shadow-card-hover: 0 15px 30px -5px rgba(16, 185, 129, 0.18), 0 10px 15px -5px rgba(6, 182, 212, 0.12);
+  --neo-shadow-btn-glow:  0 6px 18px rgba(16, 185, 129, 0.35);
+  --neo-shadow-btn-hover: 0 8px 24px rgba(6, 182, 212, 0.45);
+  --neo-focus-ring:       0 0 0 3px rgba(16, 185, 129, 0.28), 0 0 12px rgba(6, 182, 212, 0.2);
+
+  /* Transitions */
+  --neo-transition-spring: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease;
+  --neo-transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base Body & Root Typography
+   -------------------------------------------------------------------------- */
+html[data-theme="neo-emerald"] body,
+[data-theme="neo-emerald"] body,
+body[data-theme="neo-emerald"] {
+  background-color: var(--neo-bg-body);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(20, 184, 166, 0.08) 0px, transparent 50%),
+    linear-gradient(135deg, #f0fdf4 0%, #f7fefc 50%, #ecfeff 100%);
+  background-attachment: fixed;
+  color: var(--neo-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Headings with Neo-Fintech Polish */
+[data-theme="neo-emerald"] h1,
+[data-theme="neo-emerald"] h2,
+[data-theme="neo-emerald"] h3,
+[data-theme="neo-emerald"] h4,
+[data-theme="neo-emerald"] h5,
+[data-theme="neo-emerald"] h6,
+[data-theme="neo-emerald"] .h1,
+[data-theme="neo-emerald"] .h2,
+[data-theme="neo-emerald"] .h3,
+[data-theme="neo-emerald"] .h4,
+[data-theme="neo-emerald"] .h5,
+[data-theme="neo-emerald"] .h6 {
+  color: var(--neo-slate-900);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+[data-theme="neo-emerald"] .text-muted {
+  color: var(--neo-slate-600) !important;
+}
+
+[data-theme="neo-emerald"] a {
+  color: var(--neo-emerald-700);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+[data-theme="neo-emerald"] a:hover {
+  color: var(--neo-cyan-600);
+}
+
+/* --------------------------------------------------------------------------
+   3. Ultra-Sleek Glassmorphic Navbar
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .navbar,
+[data-theme="neo-emerald"] .navbar-sau {
+  background: var(--neo-gradient-navbar) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 8px 24px -4px rgba(6, 95, 70, 0.25), 0 2px 6px -1px rgba(14, 116, 144, 0.15) !important;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+/* Brand Identity */
+[data-theme="neo-emerald"] .navbar-brand {
+  color: #ffffff !important;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+[data-theme="neo-emerald"] .navbar-brand i {
+  color: #a7f3d0;
+  filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.6));
+  font-size: 1.35rem;
+  transition: transform 0.25s ease;
+}
+
+[data-theme="neo-emerald"] .navbar-brand:hover {
+  transform: translateY(-1px);
+}
+
+[data-theme="neo-emerald"] .navbar-brand:hover i {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+/* Rounded Pill Brand Badge */
+[data-theme="neo-emerald"] .navbar-brand .badge {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1)) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: var(--neo-pill-radius) !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+  padding: 0.3em 0.7em !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+/* Navigation Links */
+[data-theme="neo-emerald"] .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 0.5rem 0.95rem !important;
+  border-radius: var(--neo-pill-radius);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+[data-theme="neo-emerald"] .navbar-nav .nav-link i {
+  color: var(--neo-cyan-200);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+[data-theme="neo-emerald"] .navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="neo-emerald"] .navbar-nav .nav-link:hover i {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+[data-theme="neo-emerald"] .navbar-nav .nav-link.active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="neo-emerald"] .navbar-toggler {
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 10px;
+  padding: 0.4rem 0.65rem;
+  transition: background 0.2s ease;
+}
+
+[data-theme="neo-emerald"] .navbar-toggler:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Navbar Logout / Outline Buttons */
+[data-theme="neo-emerald"] .navbar .btn-outline-light {
+  border-radius: var(--neo-pill-radius) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 0.38rem 1rem !important;
+  transition: all 0.2s ease;
+}
+
+[data-theme="neo-emerald"] .navbar .btn-outline-light:hover {
+  background: #ffffff !important;
+  color: var(--neo-emerald-800) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Glassmorphic Card Architecture & Micro-Interactions
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .card,
+[data-theme="neo-emerald"] .sau-card {
+  background: var(--neo-glass-card-bg) !important;
+  backdrop-filter: var(--neo-glass-blur) !important;
+  -webkit-backdrop-filter: var(--neo-glass-webkit-blur) !important;
+  border: var(--neo-glass-card-border) !important;
+  border-radius: var(--neo-glass-card-radius) !important;
+  box-shadow: var(--neo-shadow-card) !important;
+  transition: var(--neo-transition-spring) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Subtle Glass Specular Highlight */
+[data-theme="neo-emerald"] .card::before,
+[data-theme="neo-emerald"] .sau-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.45), rgba(34, 211, 238, 0.45), transparent);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Card Hover Micro-Interaction */
+[data-theme="neo-emerald"] .card:hover,
+[data-theme="neo-emerald"] .sau-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--neo-shadow-card-hover) !important;
+  border-color: rgba(6, 182, 212, 0.35) !important;
+}
+
+[data-theme="neo-emerald"] .card:hover::before,
+[data-theme="neo-emerald"] .sau-card:hover::before {
+  opacity: 1;
+}
+
+/* Card Headers and Footers */
+[data-theme="neo-emerald"] .card-header {
+  background: rgba(240, 253, 244, 0.6) !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.15) !important;
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  color: var(--neo-slate-900);
+}
+
+[data-theme="neo-emerald"] .card-footer {
+  background: rgba(240, 253, 244, 0.4) !important;
+  border-top: 1px solid rgba(16, 185, 129, 0.12) !important;
+  padding: 0.85rem 1.25rem;
+}
+
+/* Service/Dashboard Feature Icon Container Micro-Styling */
+[data-theme="neo-emerald"] .bg-primary-subtle,
+[data-theme="neo-emerald"] .bg-info-subtle,
+[data-theme="neo-emerald"] .bg-warning-subtle,
+[data-theme="neo-emerald"] .bg-success-subtle,
+[data-theme="neo-emerald"] .bg-danger-subtle {
+  border-radius: 12px !important;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.6), 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+[data-theme="neo-emerald"] .bg-primary-subtle {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15)) !important;
+  color: var(--neo-emerald-700) !important;
+}
+
+[data-theme="neo-emerald"] .bg-info-subtle {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(14, 116, 144, 0.15)) !important;
+  color: var(--neo-cyan-700) !important;
+}
+
+[data-theme="neo-emerald"] .bg-warning-subtle {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15)) !important;
+  color: #b45309 !important;
+}
+
+[data-theme="neo-emerald"] .card:hover .bg-primary-subtle,
+[data-theme="neo-emerald"] .card:hover .bg-info-subtle,
+[data-theme="neo-emerald"] .card:hover .bg-warning-subtle {
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   5. Glowing Pill Buttons & Controls
+   -------------------------------------------------------------------------- */
+/* Primary Action Buttons */
+[data-theme="neo-emerald"] .btn-sau-primary,
+[data-theme="neo-emerald"] .btn-primary {
+  background: var(--neo-gradient-primary) !important;
+  border: none !important;
+  border-radius: var(--neo-pill-radius) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px;
+  padding: 0.55rem 1.45rem !important;
+  box-shadow: var(--neo-shadow-btn-glow) !important;
+  transition: var(--neo-transition-smooth) !important;
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="neo-emerald"] .btn-sau-primary::after,
+[data-theme="neo-emerald"] .btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--neo-pill-radius);
+  background: var(--neo-gradient-hover);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.25s ease;
+}
+
+[data-theme="neo-emerald"] .btn-sau-primary:hover,
+[data-theme="neo-emerald"] .btn-primary:hover {
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: var(--neo-shadow-btn-hover) !important;
+}
+
+[data-theme="neo-emerald"] .btn-sau-primary:hover::after,
+[data-theme="neo-emerald"] .btn-primary:hover::after {
+  opacity: 1;
+}
+
+[data-theme="neo-emerald"] .btn-sau-primary:active,
+[data-theme="neo-emerald"] .btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Outline Buttons (Pill Glass) */
+[data-theme="neo-emerald"] .btn-outline-primary {
+  color: var(--neo-emerald-700) !important;
+  border: 1.5px solid var(--neo-emerald-500) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(8px);
+  border-radius: var(--neo-pill-radius) !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1.3rem !important;
+  transition: var(--neo-transition-smooth) !important;
+}
+
+[data-theme="neo-emerald"] .btn-outline-primary:hover {
+  background: var(--neo-gradient-primary) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: var(--neo-shadow-btn-glow) !important;
+}
+
+[data-theme="neo-emerald"] .btn-outline-info {
+  color: var(--neo-cyan-700) !important;
+  border: 1.5px solid var(--neo-cyan-500) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(8px);
+  border-radius: var(--neo-pill-radius) !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1.3rem !important;
+  transition: var(--neo-transition-smooth) !important;
+}
+
+[data-theme="neo-emerald"] .btn-outline-info:hover {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.35) !important;
+}
+
+[data-theme="neo-emerald"] .btn-outline-warning {
+  color: #b45309 !important;
+  border: 1.5px solid #f59e0b !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(8px);
+  border-radius: var(--neo-pill-radius) !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1.3rem !important;
+  transition: var(--neo-transition-smooth) !important;
+}
+
+[data-theme="neo-emerald"] .btn-outline-warning:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35) !important;
+}
+
+[data-theme="neo-emerald"] .btn-outline-secondary {
+  color: var(--neo-slate-600) !important;
+  border: 1px solid var(--neo-slate-300) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-radius: var(--neo-pill-radius) !important;
+  transition: var(--neo-transition-smooth) !important;
+}
+
+[data-theme="neo-emerald"] .btn-outline-secondary:hover {
+  background: var(--neo-slate-200) !important;
+  color: var(--neo-slate-900) !important;
+  border-color: var(--neo-slate-400) !important;
+}
+
+/* Small Buttons & Button Groups */
+[data-theme="neo-emerald"] .btn-sm {
+  padding: 0.35rem 0.95rem !important;
+  font-size: 0.84rem !important;
+  border-radius: var(--neo-pill-radius) !important;
+}
+
+[data-theme="neo-emerald"] .btn-group {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--neo-pill-radius);
+  padding: 4px;
+  box-shadow: var(--neo-shadow-sm);
+}
+
+[data-theme="neo-emerald"] .btn-group .btn {
+  border-radius: var(--neo-pill-radius) !important;
+  margin: 0 2px;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+[data-theme="neo-emerald"] .btn-group .btn.active,
+[data-theme="neo-emerald"] .btn-group .btn.btn-primary {
+  background: var(--neo-gradient-primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Secondary & Danger Buttons */
+[data-theme="neo-emerald"] .btn-secondary {
+  background: var(--neo-slate-200) !important;
+  color: var(--neo-slate-700) !important;
+  border: none !important;
+  border-radius: var(--neo-pill-radius) !important;
+}
+
+[data-theme="neo-emerald"] .btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border: none !important;
+  border-radius: var(--neo-pill-radius) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+[data-theme="neo-emerald"] .btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.45);
+}
+
+[data-theme="neo-emerald"] .btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: none !important;
+  border-radius: var(--neo-pill-radius) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   6. Vibrantly Styled Pill Badges & Pulsing Status Indicators
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .badge {
+  border-radius: var(--neo-pill-radius) !important;
+  font-weight: 600 !important;
+  padding: 0.35em 0.85em !important;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Generic Bootstrap Badges */
+[data-theme="neo-emerald"] .badge.bg-primary {
+  background: var(--neo-gradient-primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
+}
+
+[data-theme="neo-emerald"] .badge.bg-secondary {
+  background: rgba(100, 116, 139, 0.15) !important;
+  color: var(--neo-slate-700) !important;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+}
+
+[data-theme="neo-emerald"] .badge.bg-info {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  color: #ffffff !important;
+}
+
+/* UniConnect Workflow Status Badges */
+[data-theme="neo-emerald"] .badge-pending {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+  color: #92400e !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+}
+
+[data-theme="neo-emerald"] .badge-pending::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f59e0b;
+  animation: neoPulseAmber 1.8s infinite;
+}
+
+[data-theme="neo-emerald"] .badge-inprogress {
+  background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%) !important;
+  color: #0e7490 !important;
+  border: 1px solid rgba(6, 182, 212, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+}
+
+[data-theme="neo-emerald"] .badge-inprogress::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #06b6d4;
+  animation: neoPulseCyan 1.8s infinite;
+}
+
+[data-theme="neo-emerald"] .badge-resolved,
+[data-theme="neo-emerald"] .badge-verified {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%) !important;
+  color: #065f46 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+[data-theme="neo-emerald"] .badge-resolved::before,
+[data-theme="neo-emerald"] .badge-verified::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: neoPulseEmerald 1.8s infinite;
+}
+
+[data-theme="neo-emerald"] .badge-rejected {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+  color: #991b1b !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+
+[data-theme="neo-emerald"] .badge-rejected::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+/* --------------------------------------------------------------------------
+   7. Modern Borderless Table Rows & Hover Highlight Cards
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .table-responsive {
+  border-radius: var(--neo-glass-card-radius);
+  overflow-x: auto;
+}
+
+[data-theme="neo-emerald"] .table {
+  color: var(--neo-text-primary);
+  border-collapse: separate !important;
+  border-spacing: 0 4px !important;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+[data-theme="neo-emerald"] .table thead,
+[data-theme="neo-emerald"] .table thead.table-light {
+  background: transparent !important;
+}
+
+[data-theme="neo-emerald"] .table thead tr th {
+  background: rgba(240, 253, 244, 0.85) !important;
+  color: var(--neo-slate-600) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.9rem 1rem !important;
+  border-top: none !important;
+  border-bottom: 2px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+[data-theme="neo-emerald"] .table tbody tr {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background 0.18s ease, box-shadow 0.18s ease;
+}
+
+[data-theme="neo-emerald"] .table tbody tr td {
+  padding: 0.95rem 1rem !important;
+  border-top: 1px solid rgba(16, 185, 129, 0.08) !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.08) !important;
+}
+
+[data-theme="neo-emerald"] .table tbody tr td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-left: 1px solid rgba(16, 185, 129, 0.08);
+}
+
+[data-theme="neo-emerald"] .table tbody tr td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-right: 1px solid rgba(16, 185, 129, 0.08);
+}
+
+/* Hover Row Highlight Micro-Interaction */
+[data-theme="neo-emerald"] .table-hover tbody tr:hover,
+[data-theme="neo-emerald"] .table tbody tr:hover {
+  background: rgba(240, 253, 244, 0.98) !important;
+  transform: translateY(-2px) scale(1.002);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.12), 0 2px 6px rgba(6, 182, 212, 0.08) !important;
+}
+
+[data-theme="neo-emerald"] .table-hover tbody tr:hover td {
+  border-top-color: rgba(16, 185, 129, 0.25) !important;
+  border-bottom-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+[data-theme="neo-emerald"] .table-hover tbody tr:hover td:first-child {
+  border-left-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+[data-theme="neo-emerald"] .table-hover tbody tr:hover td:last-child {
+  border-right-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Form Controls, Inputs & Cyber-Emerald Focus Rings
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .form-control,
+[data-theme="neo-emerald"] .form-select {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.28) !important;
+  border-radius: 10px !important;
+  color: var(--neo-slate-900) !important;
+  font-size: 0.94rem;
+  padding: 0.6rem 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+[data-theme="neo-emerald"] .form-control:focus,
+[data-theme="neo-emerald"] .form-select:focus {
+  background-color: #ffffff !important;
+  border-color: var(--neo-emerald-500) !important;
+  box-shadow: var(--neo-focus-ring) !important;
+  outline: none;
+}
+
+[data-theme="neo-emerald"] .form-control::placeholder {
+  color: var(--neo-slate-400);
+}
+
+[data-theme="neo-emerald"] .form-label {
+  font-weight: 600;
+  color: var(--neo-slate-800);
+  margin-bottom: 0.4rem;
+  font-size: 0.88rem;
+}
+
+[data-theme="neo-emerald"] .form-check-input {
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-theme="neo-emerald"] .form-check-input:checked {
+  background-color: var(--neo-emerald-500) !important;
+  border-color: var(--neo-emerald-500) !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4) !important;
+}
+
+/* --------------------------------------------------------------------------
+   9. Alerts & Flash Notifications
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .alert {
+  border-radius: 12px !important;
+  backdrop-filter: blur(12px) !important;
+  border-width: 1px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+  font-weight: 500;
+}
+
+[data-theme="neo-emerald"] .alert-success {
+  background: rgba(209, 250, 229, 0.85) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: #065f46 !important;
+}
+
+[data-theme="neo-emerald"] .alert-danger {
+  background: rgba(254, 226, 226, 0.85) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  color: #991b1b !important;
+}
+
+[data-theme="neo-emerald"] .alert-info {
+  background: rgba(207, 250, 254, 0.85) !important;
+  border-color: rgba(6, 182, 212, 0.4) !important;
+  color: #0e7490 !important;
+}
+
+[data-theme="neo-emerald"] .alert-warning {
+  background: rgba(254, 243, 199, 0.85) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #92400e !important;
+}
+
+/* --------------------------------------------------------------------------
+   10. Auth / Login Container & Specialized Views
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .login-container {
+  max-width: 440px;
+  margin: 60px auto;
+  position: relative;
+}
+
+[data-theme="neo-emerald"] .login-header h1 {
+  background: linear-gradient(135deg, var(--neo-emerald-700) 0%, var(--neo-cyan-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+[data-theme="neo-emerald"] .login-header p {
+  color: var(--neo-slate-600);
+}
+
+/* --------------------------------------------------------------------------
+   11. Modals, Dropdowns & Overlays
+   -------------------------------------------------------------------------- */
+[data-theme="neo-emerald"] .modal-content {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 25px 50px -12px rgba(6, 95, 70, 0.25) !important;
+}
+
+[data-theme="neo-emerald"] .modal-header {
+  border-bottom: 1px solid rgba(16, 185, 129, 0.15) !important;
+  background: rgba(240, 253, 244, 0.6) !important;
+}
+
+[data-theme="neo-emerald"] .modal-footer {
+  border-top: 1px solid rgba(16, 185, 129, 0.15) !important;
+  background: rgba(240, 253, 244, 0.3) !important;
+}
+
+[data-theme="neo-emerald"] .dropdown-menu {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 30px -4px rgba(6, 182, 212, 0.15) !important;
+  padding: 0.5rem;
+}
+
+[data-theme="neo-emerald"] .dropdown-item {
+  border-radius: 8px;
+  color: var(--neo-slate-800);
+  font-weight: 500;
+  padding: 0.5rem 0.95rem;
+  transition: all 0.18s ease;
+}
+
+[data-theme="neo-emerald"] .dropdown-item:hover {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: var(--neo-emerald-700) !important;
+  transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   12. Micro-Animations & Keyframes
+   -------------------------------------------------------------------------- */
+@keyframes neoPulseEmerald {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes neoPulseCyan {
+  0% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(6, 182, 212, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+  }
+}
+
+@keyframes neoPulseAmber {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+/* Custom Scrollbar */
+[data-theme="neo-emerald"] ::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+[data-theme="neo-emerald"] ::-webkit-scrollbar-track {
+  background: rgba(240, 253, 244, 0.5);
+}
+
+[data-theme="neo-emerald"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #10b981 0%, #06b6d4 100%);
+  border-radius: var(--neo-pill-radius);
+  border: 2px solid #f0fdf4;
+}
+
+[data-theme="neo-emerald"] ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #059669 0%, #0891b2 100%);
+}
