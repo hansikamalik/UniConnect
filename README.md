@@ -1,28 +1,165 @@
-# UniConnect
+# UniConnect 🎓
 
-Integrated University Management System, built for Software Engineering Project 2026 (B.Tech track).
+**Integrated University Management System**  
+Built for the Software Engineering Project 2026 (B.Tech Computer Science & Engineering Track), South Asian University, New Delhi.
 
-UniConnect is a web platform that connects students, faculty, hostel wardens, mess administrators and the university administration in one place, with role-based access.
+UniConnect is an all-in-one university management portal connecting students, faculty members, hostel wardens, mess administrators, and university administration into a single, cohesive, role-based platform.
 
-## Team
+---
 
-| Role | Member |
-|---|---|
-| Project Lead & Requirements Engineer | Hansika |
-| System Analyst & Software Architect | Harsh |
-| UI/UX Designer | Saumya |
-| Developer | Vikryansh |
-| QA & DevOps Engineer | Siya |
+## 👥 Project Team
 
-## Repository structure
+| Role | Member | Responsibilities |
+|---|---|---|
+| **Project Lead & Requirements Engineer** | Hansika | SRS, Backlog, Stakeholder Alignment |
+| **System Analyst & Software Architect** | Harsh | Architecture, Decision Records, ER Model |
+| **UI/UX Designer** | Saumya | Personas, User Flows, Wireframes, Style Guide |
+| **Developer** | Vikryansh | Backend Engine, Monolith Implementation, Database, UI Themes |
+| **QA & DevOps Engineer** | Siya | Test Plan, Automated Verification, Branching Strategy |
 
-- src/ : source code
-- docs/requirements/ : SRS, backlog
-- docs/analysis/ : use case diagram, permission matrix, data dictionary
-- docs/design/ : wireframes, mock-ups, ER and sequence diagrams
-- docs/architecture/ : architecture diagram, decision record
-- docs/testing/ : test plan, test cases, bug log
+---
 
-## Setup
+## ✨ Key System Features
 
-Setup steps will be added once the first prototype is ready.
+### 1. Universal Multi-Identifier Authentication
+* **Universal Sign-In:** Users can log in using their **Enrollment ID** (e.g. `SAU/CS/DMTECH(CSE)/2024/36`), their **University Email** (`vikryansh.singh@students.sau.int`), or their standard **Username** (`vikryansh.singh`).
+* **Session Security:** Server-side sessions with bcrypt-hashed credentials and automatic role-based landing redirection.
+* **Granular RBAC:** Middleware enforcement ensuring users only access endpoints authorized for their designated role (`Student`, `Faculty`, `Warden`, `Mess Admin`, `Admin`).
+
+### 2. UI Theme Showcase (4 Designer Themes + Instant Switcher)
+UniConnect features an instant client-side theme engine with persistent `localStorage` support and a quick-switch dropdown in the top navigation header:
+1. 🏛️ **SAU Official Navy Blue (`sau-official`):** Authoritative South Asian University institutional identity (`#00408d`).
+2. 🌙 **SAU Midnight Dark (`sau-dark`):** High-contrast dark mode featuring deep slate backgrounds (`#080E1A`) and electric cyan accents (`#38BDF8`).
+3. 🎓 **Heritage Collegiate Crimson (`collegiate-crimson`):** Oxbridge / Ivy League academic aesthetic in deep collegiate crimson (`#7A0019`) and warm gold (`#C5A059`).
+4. ⚡ **Futuristic Neo-Emerald (`neo-emerald`):** Modern glassmorphism palette using vibrant emerald (`#059669`) and cyan gradients.
+
+### 3. Role-Specific Dashboards
+* **Student Dashboard:** Enrolled course progress, grades snapshot, upcoming quiz/assignment deadlines, today's 3 dining hall meals, room maintenance status, and active campus broadcasts.
+* **Faculty Portal:** Active teaching load, enrolled student counts, deadline publication console, marks entry portal, and announcement authoring.
+* **Warden Console:** Resident ticket queue strictly isolated to the warden's assigned building (`BH1`, `BH2`, `GH1`, `GH2`), pending repair reviews, and status lifecycles.
+* **Mess Admin Station:** Real-time 3-meal menu editor, monthly subscription verifications, UPI transaction proof approvals, and cash payment recording.
+* **Admin Command Center:** System-wide user provisioning, course catalogue management, instructor assignments, and immutable marks audit log inspection.
+
+### 4. Academic Marks & Atomic Audit Trail
+* Course-based marks entry with real-time percentage and letter grade calculation (`A+` down to `F`).
+* **AD-7 / D-3 Single-Transaction Audit:** Every marks modification and its corresponding `audit_log` entry execute in the exact same database transaction (`BEGIN ... COMMIT`).
+
+### 5. Hostel & Dining Lifecycle
+* **Hostel Maintenance:** Resident students submit room issues; non-resident day scholars are prevented from opening hostel tickets.
+* **Mess Dining & Subscriptions:** Daily 3-meal schedule (Breakfast, Lunch, Dinner). Students opt-in monthly via QR UPI upload or cash; admins verify and approve subscriptions.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+* **Architecture:** Modular MVC Monolith (`src/modules/*`) with central Express routing.
+* **Runtime & Framework:** Node.js, Express.js.
+* **Template Engine:** EJS (Embedded JavaScript) with reusable partials.
+* **Styling:** Bootstrap 5, Bootstrap Icons, Custom CSS Variable Theme Engine.
+* **Database:** PostgreSQL (hosted on Supabase) utilizing connection pooling (`pg.Pool`).
+* **Authentication:** `express-session`, `bcryptjs`.
+* **File Uploads:** `multer` (payment proof receipts).
+
+---
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+* Node.js (v18.0.0 or higher)
+* PostgreSQL database instance (or Supabase project)
+
+### 2. Installation
+```bash
+# Clone the repository
+git clone https://github.com/hansikamalik/UniConnect.git
+cd UniConnect
+
+# Install dependencies
+npm install
+```
+
+### 3. Environment Configuration
+Create a `.env` file in the project root:
+```env
+PORT=3000
+NODE_ENV=development
+SESSION_SECRET=uniconnect_super_secret_session_key_2026
+DATABASE_URL=postgresql://postgres.your_id:your_password@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require
+```
+
+### 4. Database Setup & Seeding
+```bash
+# 1. Run migrations to create schema tables
+npm run migrate
+
+# 2. Seed basic institutional defaults (Departments, Hostels, 3 Meal Slots, Grading Scale, Admin)
+npm run seed
+
+# 3. Seed official SAU Faculty and Wardens
+npm run seed:sau
+
+# 4. Seed all 104 B.Tech/Dual Degree students & 5th Semester Timetable courses
+npm run seed:students
+```
+
+### 5. Launch Application
+```bash
+# Production start
+npm start
+
+# Development mode with hot-reloading
+npm run dev
+```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+
+---
+
+## 🔑 Sample Login Credentials
+
+All users can sign in using their **Username**, **Enrollment ID**, or **Institutional Email**:
+
+| Role | Username / Identifier | Password | Description |
+|---|---|---|---|
+| **Admin** | `admin` | `Admin@123` | System Superuser |
+| **Student** | `vikryansh.singh` *or* `SAU/CS/DMTECH(CSE)/2024/36` | `Sau@2026` | Dual Degree Student (Day Scholar) |
+| **Student** | `aanvi.sharma` *or* `SAU/CS/BTECH(CSE)/2024/01` | `Sau@2026` | B.Tech CSE Student |
+| **Faculty** | `bijoy.chatterjee` *or* `bijoycc@sau.int` | `Sau@2026` | Dr. Bijoy Chand Chatterjee (CSE) |
+| **Faculty** | `taniya.seth` *or* `taniyaseth@sau.int` | `Sau@2026` | Dr. Taniya Seth (CSE) |
+| **Warden** | `amit.shukla` *or* `amitkshukla@sau.int` | `Sau@2026` | Dr. Amit Kumar Shukla (Boys Hostel 1) |
+| **Warden** | `shyamli.singh` *or* `shyamli.singh@sau.int` | `Sau@2026` | Dr. Shyamli Singh (Girls Hostel 1) |
+
+---
+
+## 📂 Repository Structure
+
+```text
+UniConnect/
+├── docs/                        # Complete project documentation
+│   ├── analysis/                # Data dictionary, permission matrix, use cases
+│   ├── architecture/            # Architecture diagrams, decision records (AD-1 to AD-7)
+│   ├── design/                  # ER diagram, personas, user flows, style guide, wireframes
+│   ├── requirements/            # Problem statement, research notes, SRS v1.3
+│   └── testing/                 # Test plan, test cases, branching strategy
+├── src/
+│   ├── app.js                   # Express application entry & middleware orchestration
+│   ├── config/                  # Database connection pool (pg.Pool)
+│   ├── database/                # Schema DDL, migrations, and seeder scripts
+│   ├── middleware/              # Auth guard, role-based access control (requireRole)
+│   ├── modules/                 # Modular domain features
+│   │   ├── academic/            # Course catalogue, posts, deadlines, marks & audits
+│   │   ├── admin/               # User management, course assignment, audit inspector
+│   │   ├── auth/                # Universal multi-identifier login & session management
+│   │   ├── dashboard/           # Real-time aggregated data dashboard controller
+│   │   ├── hostel/              # Resident complaints & warden resolution workflows
+│   │   ├── mess/                # 3-meal daily menu & monthly fee subscriptions
+│   │   └── notices/             # Campus announcements & circulars
+│   ├── public/                  # Static assets: custom CSS, themes, JavaScript
+│   └── views/                   # EJS templates grouped by feature module
+├── tests/                       # Verification suite
+└── PULL_REQUEST.md              # Formal pull request documentation
+```
+
+---
+
+## 📜 License
+Developed for educational and institutional research purposes under the South Asian University Computer Science & Engineering program.

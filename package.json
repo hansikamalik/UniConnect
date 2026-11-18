@@ -11,6 +11,7 @@
     "seed": "node src/database/seed.js",
     "seed:demo": "node src/database/seed_demo.js",
     "seed:sau": "node src/database/seed_sau_faculty_wardens.js",
+    "seed:students": "node src/database/seed_students_and_timetable.js",
     "flush:users": "node src/database/flush_users.js"
   },
   "keywords": [
