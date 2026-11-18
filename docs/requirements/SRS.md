@@ -1,18 +1,18 @@
 # Software Requirements Specification (SRS)
 
-Version: 1.2
-Date: 17 November 2026
-Author: Hansika (Project Lead & Requirements Engineer)
+Version: 1.3
+Date: 19 November 2026
+Author: Hansika (Project Lead & Requirements Engineer), updated with Development Team
 
 ## 1. Introduction
 
 UniConnect is a web platform for students, faculty, hostel wardens, mess administrators and the university administration. This document lists what the system must do. Priority "MVP" means it will be built in release v1.0. Priority "Later" means it is specified but not built in v1.0.
 
-Sources: team project document v1.0, student research notes v1.0.
+Sources: team project document v1.0, student research notes v1.0, architecture and design reviews v1.0.
 
 ## 2. User roles
 
-Student, Faculty, Hostel Warden, Mess Administrator, University Administration. Accounts are created only by the University Administration.
+Student, Faculty, Hostel Warden, Mess Administrator, University Administration. Accounts are created only by the University Administration. Students are uniquely identified across all academic and campus records by their `enrollment_id`. Resident students are assigned a `custom_hostel_id`.
 
 ## 3. Functional requirements
 
@@ -22,10 +22,12 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 |---|---|---|
 | FR-1 | The system shall provide one login page for all five roles. | MVP |
 | FR-2 | After login, the system shall show the dashboard for the user's role. | MVP |
-| FR-3 | Only the University Administration shall be able to create, edit and deactivate user accounts. | MVP |
+| FR-3 | Only the University Administration shall be able to create, edit, deactivate and reactivate user accounts. | MVP |
 | FR-4 | The system shall not allow self-registration. | MVP |
 | FR-5 | The University Administration shall be able to reset a user's password. | Later |
 | FR-31 | The University Administration shall be able to assign faculty to courses and enrol students in courses. | MVP |
+| FR-32 | The University Administration shall be able to create and manage courses (code, name). | MVP |
+| FR-35 | Authenticated users shall be able to change their own password. | MVP |
 
 ### 3.2 Noticeboard
 
@@ -34,30 +36,33 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 | FR-6 | The University Administration shall be able to publish, edit and delete notices. | MVP |
 | FR-7 | All logged-in users shall be able to view all notices in one place. | MVP |
 
-### 3.3 Student profile and marks
+### 3.3 Student profile, marks and course content
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-8 | Faculty shall be able to enter and update subject-wise marks and grades for students. | MVP |
-| FR-9 | Faculty shall be able to view a student's profile details. | MVP |
-| FR-10 | A student shall be able to view only their own profile, marks and grades. | MVP |
-| FR-11 | The system shall record who changed a mark, what was changed and when. | MVP |
+| FR-8 | Faculty shall be able to enter and update subject-wise marks and grades for enrolled students. | MVP |
+| FR-9 | Faculty shall be able to view profile details of students enrolled in courses they teach. | MVP |
+| FR-10 | A student shall be able to view only their own profile, marks and grades identified by their enrollment ID. | MVP |
+| FR-11 | The system shall record who changed a mark, what was changed and when in an immutable audit log. | MVP |
+| FR-36 | Faculty shall be able to post course content, and schedule notices and dates for quizzes, lab evaluations, and assignment submissions with detailed descriptions for courses they teach. | MVP |
 
 ### 3.4 Hostel complaints
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-12 | A student shall be able to register a hostel complaint with a title and description. | MVP |
+| FR-12 | A student residing in a hostel (assigned a custom hostel ID) shall be able to register a hostel complaint with a title and description. | MVP |
 | FR-13 | A student shall be able to view the status of their own complaints (Pending, In Progress, Resolved). | MVP |
-| FR-14 | A hostel warden shall be able to view all hostel complaints. | MVP |
-| FR-15 | A hostel warden shall be able to change a complaint's status from Pending to In Progress to Resolved. | MVP |
+| FR-14 | A hostel warden shall be able to view all hostel complaints for their assigned hostel block. | MVP |
+| FR-15 | A hostel warden shall be able to change a complaint's status from Pending to In Progress to Resolved, and record resolution remarks upon completion. | MVP |
 
-### 3.5 Mess menu
+### 3.5 Mess menu and subscriptions
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-16 | A mess administrator shall be able to publish and update the daily and weekly menu. | MVP |
-| FR-17 | Students shall be able to view the daily and weekly menu. | MVP |
+| FR-16 | A mess administrator shall be able to publish and update menus for Breakfast (8:30-10:30), Lunch (12:30-14:30), and Dinner (19:30-21:30). | MVP |
+| FR-17 | Students shall be able to view today's menu by default and select any date using a calendar date picker. | MVP |
+| FR-33 | Students shall be able to choose a monthly mess subscription (subscribe or opt-out); subscribing students can view the mess payment QR code, enter transaction ID (UTR), and upload screenshot proof. | MVP |
+| FR-34 | The mess administrator shall be able to verify submitted online subscription payments (approve or reject with remarks) and manually record cash payments for students. | MVP |
 
 ### 3.6 Access control
 
@@ -74,9 +79,7 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 | FR-21 | Hostel forms with warden approval. | Later |
 | FR-22 | Leave and outpass applications, reviewed by the warden. | Later |
 | FR-23 | Meal feedback and ratings. | Later |
-| FR-24 | Temporary meal opt-out or absence registration. | Later |
 | FR-25 | Linking approved leave to automatic meal opt-out. | Later |
-| FR-26 | Assignment and academic deadline reminders. | Later |
 | FR-27 | Anonymous complaints and student queries to the administration. | Later |
 | FR-28 | Academic calendar and examination schedule management. | Later |
 | FR-29 | Mess complaints. | Later |
@@ -107,6 +110,9 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 | 3 | Faculty can edit marks only for courses they teach, and every change is logged. | 16 Nov 2026 |
 | 4 | University Administration can view hostel and mess data for oversight. | 16 Nov 2026 |
 | 5 | Hostels, mess timings and departments are configurable. | 16 Nov 2026 |
+| 6 | Students are universally identified by enrollment ID; resident students have a custom hostel ID. | 19 Nov 2026 |
+| 7 | Mess operates on a monthly subscription with UPI QR and cash payment verification. | 19 Nov 2026 |
+| 8 | Faculty manage course content and assessment schedules for their courses. | 19 Nov 2026 |
 
 ## 6. Traceability to research
 
@@ -116,7 +122,7 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 | No way to report hostel problems or see if they are fixed | FR-12 to FR-15 |
 | Menu is shared on WhatsApp and a whiteboard | FR-16, FR-17 |
 | No single place for everything | FR-1, FR-2 |
-| Leave should pause mess automatically | FR-24, FR-25 |
+| Leave should pause mess automatically / opt-out needed | FR-33, FR-25 |
 | Timetable and campus map wanted | FR-30 |
 
 ## 7. Change log
@@ -126,3 +132,4 @@ Student, Faculty, Hostel Warden, Mess Administrator, University Administration. 
 | 1.0 | 16 Nov 2026 | Initial SRS | Hansika |
 | 1.1 | 17 Nov 2026 | Added decision dates to assumptions in section 5 | Hansika |
 | 1.2 | 17 Nov 2026 | Added FR-31 (course assignment) found during analysis | Hansika |
+| 1.3 | 19 Nov 2026 | Added FR-32 (courses), FR-33/FR-34 (mess subscription & cash), FR-35 (password), FR-36 (faculty content & deadlines), enrollment ID & custom hostel ID | Team |
