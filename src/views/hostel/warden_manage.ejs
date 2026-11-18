@@ -1,0 +1,131 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 mb-1">Hostel Complaints Management</h1>
+    <p class="text-muted small mb-0">Review maintenance issues and update resolution progress for resident students</p>
+  </div>
+  <!-- Filter tabs -->
+  <div class="btn-group" role="group">
+    <a href="/hostel/complaints/manage?status=ALL" class="btn btn-sm <%= statusFilter === 'ALL' ? 'btn-primary' : 'btn-outline-secondary' %>">All</a>
+    <a href="/hostel/complaints/manage?status=Pending" class="btn btn-sm <%= statusFilter === 'Pending' ? 'btn-warning text-dark' : 'btn-outline-secondary' %>">Pending</a>
+    <a href="/hostel/complaints/manage?status=In Progress" class="btn btn-sm <%= statusFilter === 'In Progress' ? 'btn-info text-white' : 'btn-outline-secondary' %>">In Progress</a>
+    <a href="/hostel/complaints/manage?status=Resolved" class="btn btn-sm <%= statusFilter === 'Resolved' ? 'btn-success text-white' : 'btn-outline-secondary' %>">Resolved</a>
+  </div>
+</div>
+
+<% if (locals.success) { %>
+  <div class="alert alert-success alert-dismissible fade show small" role="alert">
+    <i class="bi bi-check-circle-fill me-1"></i> <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (complaints.length === 0) { %>
+  <div class="card sau-card p-5 text-center text-muted">
+    <i class="bi bi-inbox fs-1 mb-2 text-secondary"></i>
+    <h5>No complaints found</h5>
+    <p class="small mb-0">No complaints matching filter "<%= statusFilter %>".</p>
+  </div>
+<% } else { %>
+  <div class="card sau-card">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light small text-uppercase text-secondary">
+          <tr>
+            <th class="ps-3">ID</th>
+            <th>Student</th>
+            <th>Room</th>
+            <th>Issue</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th class="text-end pe-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% complaints.forEach(c => { %>
+            <tr>
+              <td class="ps-3 fw-semibold text-muted">#<%= c.complaint_id %></td>
+              <td>
+                <div class="fw-semibold text-dark"><%= c.student_name %></div>
+                <div class="text-muted small"><%= c.enrollment_id %></div>
+              </td>
+              <td><span class="badge bg-light text-dark border"><%= c.custom_hostel_id || 'N/A' %></span></td>
+              <td>
+                <div class="fw-semibold text-dark"><%= c.title %></div>
+                <div class="text-muted small text-truncate" style="max-width: 280px;"><%= c.description %></div>
+              </td>
+              <td>
+                <% if (c.status === 'Pending') { %>
+                  <span class="badge badge-pending px-2 py-1"><i class="bi bi-hourglass-split me-1"></i>Pending</span>
+                <% } else if (c.status === 'In Progress') { %>
+                  <span class="badge badge-inprogress px-2 py-1"><i class="bi bi-arrow-repeat me-1"></i>In Progress</span>
+                <% } else if (c.status === 'Resolved') { %>
+                  <span class="badge badge-resolved px-2 py-1"><i class="bi bi-check-circle me-1"></i>Resolved</span>
+                <% } %>
+              </td>
+              <td class="small text-muted">
+                <%= new Date(c.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) %>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= c.complaint_id %>">
+                  <i class="bi bi-pencil-square me-1"></i> Update
+                </button>
+
+                <!-- Modal for updating complaint status -->
+                <div class="modal fade text-start" id="modal-<%= c.complaint_id %>" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form action="/hostel/complaints/<%= c.complaint_id %>/status" method="POST">
+                        <div class="modal-header">
+                          <h5 class="modal-title h6">Update Complaint #<%= c.complaint_id %></h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="mb-3">
+                            <label class="form-label text-muted small mb-1">Student & Room</label>
+                            <div class="fw-semibold"><%= c.student_name %> (<%= c.enrollment_id %>) &bull; <%= c.custom_hostel_id %></div>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label text-muted small mb-1">Issue Description</label>
+                            <div class="p-2 bg-light rounded small"><%= c.description %></div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="status-<%= c.complaint_id %>" class="form-label fw-semibold small">Complaint Status</label>
+                            <select class="form-select form-select-sm" id="status-<%= c.complaint_id %>" name="status" required>
+                              <option value="Pending" <%= c.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                              <option value="In Progress" <%= c.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                              <option value="Resolved" <%= c.status === 'Resolved' ? 'selected' : '' %>>Resolved</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label for="notes-<%= c.complaint_id %>" class="form-label fw-semibold small">Resolution Notes / Action Taken</label>
+                            <textarea class="form-control form-control-sm" id="notes-<%= c.complaint_id %>" name="resolution_notes" rows="3" placeholder="e.g. Electrician visited and replaced faulty heating element."><%= c.resolution_notes || '' %></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-light btn-sm border" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-sau-primary btn-sm">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

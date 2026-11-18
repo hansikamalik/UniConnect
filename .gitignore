@@ -8,3 +8,6 @@ __pycache__/
 .vscode/
 .idea/
 .local/
+uploads/*
+!uploads/.gitkeep
+

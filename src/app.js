@@ -4,6 +4,9 @@ const path = require('path');
 require('dotenv').config();
 
 const authRoutes = require('./modules/auth/authRoutes');
+const noticeRoutes = require('./modules/notices/noticeRoutes');
+const hostelRoutes = require('./modules/hostel/hostelRoutes');
+const messRoutes = require('./modules/mess/messRoutes');
 const { requireAuth } = require('./middleware/auth');
 const requireRole = require('./middleware/requireRole');
 
@@ -53,6 +56,15 @@ app.get('/', (req, res) => {
 
 // Authentication Routes
 app.use('/auth', authRoutes);
+
+// Notices Routes
+app.use('/notices', noticeRoutes);
+
+// Hostel Routes
+app.use('/hostel', hostelRoutes);
+
+// Mess Routes
+app.use('/mess', messRoutes);
 
 // Central Dashboard Router
 app.get('/dashboard', requireAuth, (req, res) => {
