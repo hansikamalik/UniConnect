@@ -38,7 +38,7 @@ exports.postLogin = async (req, res) => {
        FROM users u
        LEFT JOIN students s ON u.user_id = s.user_id
        LEFT JOIN faculty f ON u.user_id = f.user_id
-       WHERE u.username = $1`,
+       WHERE u.username = $1 OR s.enrollment_id = $1 OR LOWER(u.email) = LOWER($1)`,
       [username.trim()]
     );
 
