@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="sau-official">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <!-- Custom SAU Styles -->
+  
+  <!-- Base Styles -->
   <link rel="stylesheet" href="/css/style.css">
+
+  <!-- 4 Designer Showcase Themes -->
+  <link rel="stylesheet" href="/css/themes/theme-1-official-blue.css">
+  <link rel="stylesheet" href="/css/themes/theme-2-midnight-dark.css">
+  <link rel="stylesheet" href="/css/themes/theme-3-collegiate-crimson.css">
+  <link rel="stylesheet" href="/css/themes/theme-4-neo-emerald.css">
+
+  <!-- Instant Theme Switcher Engine -->
+  <script src="/js/theme-switcher.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-sau mb-4 shadow-sm">
@@ -17,7 +27,7 @@
       <a class="navbar-brand d-flex align-items-center gap-2" href="/">
         <i class="bi bi-mortarboard-fill"></i>
         <span>UniConnect</span>
-        <span class="badge bg-light text-primary ms-1" style="font-size: 0.65rem; font-weight: 600;">SAU</span>
+        <span class="badge bg-light text-primary ms-1 brand-badge" style="font-size: 0.65rem; font-weight: 600;">SAU</span>
       </a>
       <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
         <i class="bi bi-list"></i>
@@ -88,19 +98,111 @@
             </li>
           </ul>
 
-          <div class="d-flex align-items-center gap-3">
-            <div class="text-white text-end">
+          <div class="d-flex align-items-center gap-2">
+            <!-- Theme Showcase Dropdown -->
+            <div class="dropdown me-1">
+              <button class="btn btn-sm btn-outline-light dropdown-toggle d-flex align-items-center gap-2" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 20px; font-size: 0.8rem; padding: 4px 12px; background: rgba(255,255,255,0.12);">
+                <span id="currentThemeDot" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#00408d; border: 1px solid rgba(255,255,255,0.8);"></span>
+                <span id="currentThemeLabel">Theme</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="themeDropdown" style="min-width: 270px; border-radius: 12px; padding: 8px;">
+                <li><h6 class="dropdown-header text-uppercase text-muted" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px;">UI Design Showcase</h6></li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="sau-official" onclick="setTheme('sau-official')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#00408d; flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">🏛️ SAU Official Blue</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 1: Official University Navy</div>
+                    </div>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="sau-dark" onclick="setTheme('sau-dark')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#080E1A; border:1px solid #38bdf8; flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">🌙 SAU Midnight Dark</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 2: Deep Slate & Electric Blue</div>
+                    </div>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="collegiate-crimson" onclick="setTheme('collegiate-crimson')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#7A0019; border:1px solid #C5A059; flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">🎓 Heritage Collegiate</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 3: Oxbridge Crimson & Gold</div>
+                    </div>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="neo-emerald" onclick="setTheme('neo-emerald')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:linear-gradient(135deg, #059669, #06b6d4); flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">⚡ Futuristic Neo Emerald</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 4: Modern Glassmorphic Teal</div>
+                    </div>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div class="text-white text-end d-none d-md-block">
               <div class="fw-semibold small"><%= user.fullName %></div>
               <div class="text-white-50" style="font-size: 0.75rem;"><%= user.role %> <%= user.enrollmentId ? `(${user.enrollmentId})` : '' %></div>
             </div>
             <a href="/auth/logout" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-right me-1"></i> Logout</a>
           </div>
         <% } else { %>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/login"><i class="bi bi-box-arrow-in-right me-1"></i> Login</a>
-            </li>
-          </ul>
+          <div class="d-flex align-items-center ms-auto gap-2">
+            <!-- Theme Showcase Dropdown (Guest / Login page) -->
+            <div class="dropdown me-1">
+              <button class="btn btn-sm btn-outline-light dropdown-toggle d-flex align-items-center gap-2" type="button" id="themeDropdownGuest" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 20px; font-size: 0.8rem; padding: 4px 12px; background: rgba(255,255,255,0.12);">
+                <span id="currentThemeDot" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#00408d; border: 1px solid rgba(255,255,255,0.8);"></span>
+                <span id="currentThemeLabel">Theme</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="themeDropdownGuest" style="min-width: 270px; border-radius: 12px; padding: 8px;">
+                <li><h6 class="dropdown-header text-uppercase text-muted" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px;">UI Design Showcase</h6></li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="sau-official" onclick="setTheme('sau-official')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#00408d; flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">🏛️ SAU Official Blue</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 1: Official University Navy</div>
+                    </div>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="sau-dark" onclick="setTheme('sau-dark')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#080E1A; border:1px solid #38bdf8; flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">🌙 SAU Midnight Dark</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 2: Deep Slate & Electric Blue</div>
+                    </div>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="collegiate-crimson" onclick="setTheme('collegiate-crimson')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:#7A0019; border:1px solid #C5A059; flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">🎓 Heritage Collegiate</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 3: Oxbridge Crimson & Gold</div>
+                    </div>
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 py-2 rounded" type="button" data-theme-choice="neo-emerald" onclick="setTheme('neo-emerald')">
+                    <span style="display:inline-block; width:14px; height:14px; border-radius:50%; background:linear-gradient(135deg, #059669, #06b6d4); flex-shrink:0;"></span>
+                    <div>
+                      <div class="fw-semibold small">⚡ Futuristic Neo Emerald</div>
+                      <div class="text-muted" style="font-size: 0.7rem;">Agent 4: Modern Glassmorphic Teal</div>
+                    </div>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <a class="nav-link text-white small" href="/auth/login"><i class="bi bi-box-arrow-in-right me-1"></i> Login</a>
+          </div>
         <% } %>
       </div>
     </div>

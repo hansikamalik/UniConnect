@@ -1,0 +1,429 @@
+/* ==========================================================================
+   UniConnect - Theme 1: Official SAU Blue Theme
+   Designed for South Asian University Official Portal
+   Primary: #00408d (Official Navy) | Secondary: #00285a (Dark Navy)
+   Accent: #1a62bf (Royal Accent)  | Gold Trim: #d4af37
+   Cards: #ffffff | Borders: #e2e8f0 | Background: #f4f6fa
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS Variables & Design Tokens
+   -------------------------------------------------------------------------- */
+:root[data-theme="sau-official"],
+[data-theme="sau-official"] {
+  --sau-blue: #00408d;
+  --sau-blue-dark: #00285a;
+  --sau-blue-light: #1a62bf;
+  --sau-blue-subtle: #ebf2fa;
+  --sau-blue-glow: rgba(0, 64, 141, 0.18);
+  --sau-gold: #c59b27;
+  --sau-gold-light: #f3e5ab;
+
+  --sau-bg: #f4f6fa;
+  --sau-card-bg: #ffffff;
+  --sau-card-shadow: 0 2px 8px rgba(0, 64, 141, 0.08);
+  --sau-card-shadow-hover: 0 6px 16px rgba(0, 64, 141, 0.12);
+
+  --sau-text: #1e293b;
+  --sau-text-dark: #0f172a;
+  --sau-text-muted: #64748b;
+  --sau-border: #e2e8f0;
+  --sau-border-subtle: #edf2f7;
+
+  /* Status Colors */
+  --sau-pending-bg: #fef3c7;
+  --sau-pending-text: #92400e;
+  --sau-pending-border: #fde68a;
+
+  --sau-inprogress-bg: #dbeafe;
+  --sau-inprogress-text: #1e40af;
+  --sau-inprogress-border: #bfdbfe;
+
+  --sau-resolved-bg: #d1fae5;
+  --sau-resolved-text: #065f46;
+  --sau-resolved-border: #a7f3d0;
+
+  --sau-verified-bg: #ccfbf1;
+  --sau-verified-text: #0f766e;
+  --sau-verified-border: #99f6e4;
+
+  --sau-rejected-bg: #fee2e2;
+  --sau-rejected-text: #991b1b;
+  --sau-rejected-border: #fecaca;
+}
+
+/* --------------------------------------------------------------------------
+   Global Background & Typography
+   -------------------------------------------------------------------------- */
+html[data-theme="sau-official"] body,
+body[data-theme="sau-official"],
+[data-theme="sau-official"] {
+  background-color: var(--sau-bg) !important;
+  color: var(--sau-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Crisp University Typography */
+[data-theme="sau-official"] h1,
+[data-theme="sau-official"] h2,
+[data-theme="sau-official"] h3,
+[data-theme="sau-official"] h4,
+[data-theme="sau-official"] h5,
+[data-theme="sau-official"] h6,
+html[data-theme="sau-official"] h1,
+html[data-theme="sau-official"] h2,
+html[data-theme="sau-official"] h3,
+html[data-theme="sau-official"] h4,
+html[data-theme="sau-official"] h5,
+html[data-theme="sau-official"] h6 {
+  color: var(--sau-blue-dark);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="sau-official"] .text-muted,
+html[data-theme="sau-official"] .text-muted {
+  color: var(--sau-text-muted) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation Bar (Official SAU Deep Navy + Subtle Gold Trim)
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] .navbar-sau,
+html[data-theme="sau-official"] .navbar-sau {
+  background: linear-gradient(180deg, #00408d 0%, #003373 100%) !important;
+  border-bottom: 3px solid var(--sau-gold);
+  box-shadow: 0 4px 16px rgba(0, 40, 90, 0.15) !important;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  transition: all 0.25s ease;
+}
+
+[data-theme="sau-official"] .navbar-sau .navbar-brand,
+html[data-theme="sau-official"] .navbar-sau .navbar-brand {
+  color: #ffffff !important;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  font-size: 1.25rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="sau-official"] .navbar-sau .navbar-brand i,
+html[data-theme="sau-official"] .navbar-sau .navbar-brand i {
+  color: var(--sau-gold-light);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+[data-theme="sau-official"] .navbar-sau .navbar-brand .badge,
+html[data-theme="sau-official"] .navbar-sau .navbar-brand .badge {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+[data-theme="sau-official"] .navbar-sau .nav-link,
+html[data-theme="sau-official"] .navbar-sau .nav-link {
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-weight: 500;
+  padding: 0.45rem 0.85rem !important;
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="sau-official"] .navbar-sau .nav-link:hover,
+html[data-theme="sau-official"] .navbar-sau .nav-link:hover {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+[data-theme="sau-official"] .navbar-sau .nav-link.active,
+html[data-theme="sau-official"] .navbar-sau .nav-link.active {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.18);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--sau-gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons & Interactive Elements
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] .btn-sau-primary,
+html[data-theme="sau-official"] .btn-sau-primary {
+  background-color: var(--sau-blue) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--sau-blue) !important;
+  font-weight: 600;
+  padding: 0.5rem 1.15rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 64, 141, 0.18);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+[data-theme="sau-official"] .btn-sau-primary:hover,
+html[data-theme="sau-official"] .btn-sau-primary:hover {
+  background-color: var(--sau-blue-dark) !important;
+  border-color: var(--sau-blue-dark) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 40, 90, 0.28);
+}
+
+[data-theme="sau-official"] .btn-sau-primary:active,
+html[data-theme="sau-official"] .btn-sau-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 40, 90, 0.2);
+}
+
+[data-theme="sau-official"] .btn-outline-primary,
+html[data-theme="sau-official"] .btn-outline-primary {
+  color: var(--sau-blue) !important;
+  border: 1.5px solid var(--sau-blue) !important;
+  background-color: transparent !important;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="sau-official"] .btn-outline-primary:hover,
+html[data-theme="sau-official"] .btn-outline-primary:hover {
+  background-color: var(--sau-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--sau-blue) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 64, 141, 0.22);
+}
+
+[data-theme="sau-official"] .btn-outline-light:hover,
+html[data-theme="sau-official"] .btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   Cards & Surfaces (.sau-card)
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] .sau-card,
+[data-theme="sau-official"] .card,
+html[data-theme="sau-official"] .sau-card,
+html[data-theme="sau-official"] .card {
+  background-color: var(--sau-card-bg) !important;
+  border: 1px solid var(--sau-border) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--sau-card-shadow) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="sau-official"] .sau-card:hover,
+[data-theme="sau-official"] .card:hover,
+html[data-theme="sau-official"] .sau-card:hover,
+html[data-theme="sau-official"] .card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sau-card-shadow-hover) !important;
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="sau-official"] .card-header,
+html[data-theme="sau-official"] .card-header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid var(--sau-border) !important;
+  font-weight: 600;
+  color: var(--sau-blue-dark);
+}
+
+[data-theme="sau-official"] .card-footer,
+html[data-theme="sau-official"] .card-footer {
+  background-color: #fafbfd !important;
+  border-top: 1px solid var(--sau-border) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Status Badges (Crisp High-Contrast WCAG Compliant)
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] .badge,
+html[data-theme="sau-official"] .badge {
+  font-weight: 600;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+  padding: 0.4em 0.75em;
+}
+
+[data-theme="sau-official"] .badge-pending,
+html[data-theme="sau-official"] .badge-pending {
+  background-color: var(--sau-pending-bg) !important;
+  color: var(--sau-pending-text) !important;
+  border: 1px solid var(--sau-pending-border) !important;
+}
+
+[data-theme="sau-official"] .badge-inprogress,
+html[data-theme="sau-official"] .badge-inprogress {
+  background-color: var(--sau-inprogress-bg) !important;
+  color: var(--sau-inprogress-text) !important;
+  border: 1px solid var(--sau-inprogress-border) !important;
+}
+
+[data-theme="sau-official"] .badge-resolved,
+html[data-theme="sau-official"] .badge-resolved {
+  background-color: var(--sau-resolved-bg) !important;
+  color: var(--sau-resolved-text) !important;
+  border: 1px solid var(--sau-resolved-border) !important;
+}
+
+[data-theme="sau-official"] .badge-verified,
+html[data-theme="sau-official"] .badge-verified {
+  background-color: var(--sau-verified-bg) !important;
+  color: var(--sau-verified-text) !important;
+  border: 1px solid var(--sau-verified-border) !important;
+}
+
+[data-theme="sau-official"] .badge-rejected,
+html[data-theme="sau-official"] .badge-rejected {
+  background-color: var(--sau-rejected-bg) !important;
+  color: var(--sau-rejected-text) !important;
+  border: 1px solid var(--sau-rejected-border) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Tables (Subtle Blue Tinted Headers & Smooth Hover)
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] table.table,
+html[data-theme="sau-official"] table.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+[data-theme="sau-official"] table.table thead,
+[data-theme="sau-official"] table.table thead th,
+[data-theme="sau-official"] .table-light th,
+html[data-theme="sau-official"] table.table thead,
+html[data-theme="sau-official"] table.table thead th,
+html[data-theme="sau-official"] .table-light th {
+  background-color: var(--sau-blue-subtle) !important;
+  color: var(--sau-blue-dark) !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.6px;
+  border-bottom: 2px solid #cbd5e1 !important;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+[data-theme="sau-official"] table.table tbody tr,
+html[data-theme="sau-official"] table.table tbody tr {
+  transition: background-color 0.15s ease-in-out;
+}
+
+[data-theme="sau-official"] table.table tbody tr:hover,
+html[data-theme="sau-official"] table.table tbody tr:hover {
+  background-color: rgba(0, 64, 141, 0.035) !important;
+}
+
+[data-theme="sau-official"] table.table td,
+html[data-theme="sau-official"] table.table td {
+  border-color: var(--sau-border-subtle);
+  vertical-align: middle;
+  padding: 0.85rem 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Form Inputs & Focus Glow
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] .form-control,
+[data-theme="sau-official"] .form-select,
+html[data-theme="sau-official"] .form-control,
+html[data-theme="sau-official"] .form-select {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.95rem;
+  color: var(--sau-text);
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="sau-official"] .form-control:focus,
+[data-theme="sau-official"] .form-select:focus,
+html[data-theme="sau-official"] .form-control:focus,
+html[data-theme="sau-official"] .form-select:focus {
+  border-color: var(--sau-blue) !important;
+  box-shadow: 0 0 0 0.25rem var(--sau-blue-glow) !important;
+  outline: none;
+}
+
+[data-theme="sau-official"] .form-label,
+html[data-theme="sau-official"] .form-label {
+  font-weight: 600;
+  color: var(--sau-text-dark);
+  font-size: 0.88rem;
+  margin-bottom: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   Auth & Login Component
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] .login-container,
+html[data-theme="sau-official"] .login-container {
+  max-width: 440px;
+  margin: 60px auto;
+}
+
+[data-theme="sau-official"] .login-header h1,
+html[data-theme="sau-official"] .login-header h1 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--sau-blue);
+  margin-bottom: 6px;
+}
+
+[data-theme="sau-official"] .login-header p,
+html[data-theme="sau-official"] .login-header p {
+  color: var(--sau-text-muted);
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   Alerts, Notices & Highlights
+   -------------------------------------------------------------------------- */
+[data-theme="sau-official"] .alert-primary,
+html[data-theme="sau-official"] .alert-primary {
+  background-color: var(--sau-blue-subtle) !important;
+  border-color: #bfdbfe !important;
+  color: var(--sau-blue-dark) !important;
+}
+
+[data-theme="sau-official"] .alert,
+html[data-theme="sau-official"] .alert {
+  border-radius: 8px;
+}
+
+/* Accent borders and decorative flourishes */
+[data-theme="sau-official"] .border-sau-primary,
+html[data-theme="sau-official"] .border-sau-primary {
+  border-color: var(--sau-blue) !important;
+}
+
+[data-theme="sau-official"] .bg-sau-primary,
+html[data-theme="sau-official"] .bg-sau-primary {
+  background-color: var(--sau-blue) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="sau-official"] .text-sau-primary,
+html[data-theme="sau-official"] .text-sau-primary {
+  color: var(--sau-blue) !important;
+}
