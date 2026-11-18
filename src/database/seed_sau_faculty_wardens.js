@@ -51,16 +51,25 @@ const WARDENS = [
 const FACULTY = [
   // Computer Science & Engineering (Department ID: 1)
   { username: 'pranab.muhuri', fullName: 'Prof. Pranab Kumar Muhuri', email: 'pranabmuhuri@cs.sau.ac.in', deptId: 1 },
+  { username: 'amita.dev', fullName: 'Prof. Amita Dev', email: 'amitadev@sau.int', deptId: 1 },
   { username: 'muhammad.abulaish', fullName: 'Prof. Muhammad Abulaish', email: 'abulaish@cs.sau.ac.in', deptId: 1 },
   { username: 'kavita.khanna', fullName: 'Prof. Kavita Khanna', email: 'kavitakhanna@sau.int', deptId: 1 },
+  { username: 'nasib.gill', fullName: 'Prof. Nasib Singh Gill', email: 'nasib.gill@sau.int', deptId: 1 },
   { username: 'reshma.rastogi', fullName: 'Dr. Reshma Rastogi', email: 'reshma.khemchandani@cs.sau.ac.in', deptId: 1 },
   { username: 'amit.banerjee', fullName: 'Dr. Amit Banerjee', email: 'amit@cs.sau.ac.in', deptId: 1 },
   { username: 'shachi.sharma', fullName: 'Dr. Shachi Sharma', email: 'shachi@sau.int', deptId: 1 },
   { username: 'bijoy.chatterjee', fullName: 'Dr. Bijoy Chand Chatterjee', email: 'bijoycc@sau.int', deptId: 1 },
   { username: 'tamalika.chaira', fullName: 'Dr. Tamalika Chaira', email: 'tamalikachaira@sau.int', deptId: 1 },
+  { username: 'shashank.singh', fullName: 'Dr. Shashank Sheshar Singh', email: 'shashank.sheshar@sau.int', deptId: 1 },
+  { username: 'ashwini.b', fullName: 'Dr. Ashwini B.', email: 'ashwinib@sau.int', deptId: 1 },
+  { username: 'rajesh.ranjan', fullName: 'Dr. Rajesh Ranjan', email: 'rajesh.ranjan@sau.int', deptId: 1 },
   { username: 'sandeep.kumar', fullName: 'Dr. Sandeep Kumar', email: 'sandeepkumar@sau.int', deptId: 1 },
   { username: 'anurag.tiwari', fullName: 'Dr. Anurag Tiwari', email: 'anuragtiwari@sau.int', deptId: 1 },
   { username: 'ankit.jain', fullName: 'Dr. Ankit Jain', email: 'ankit.jain@sau.int', deptId: 1 },
+  { username: 'alok.agarwal', fullName: 'Dr. Alok Agarwal', email: 'alokagarwal@sau.int', deptId: 1 },
+  { username: 'neha.agrawal', fullName: 'Dr. Neha Agrawal', email: 'nehaagrawal@sau.int', deptId: 1 },
+  { username: 'taniya.seth', fullName: 'Dr. Taniya Seth', email: 'taniyaseth@sau.int', deptId: 1 },
+  { username: 'chandra.kumar', fullName: 'Dr. Chandra Bhushan Kumar', email: 'chandra.bhushan@sau.int', deptId: 1 },
 
   // Mathematics (Department ID: 2)
   { username: 'deepa.sinha', fullName: 'Prof. Deepa Sinha (Dean & Proctor)', email: 'deepasinha@sau.ac.in', deptId: 2 },
