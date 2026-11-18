@@ -1,4 +1,9 @@
 <%- include('../partials/header') %>
+<%
+  const stats = locals.stats || { pending: 0, active: 0, cashPending: 0, total: 0 };
+  const todayMeals = locals.todayMeals || [];
+  const pendingSubscriptions = locals.pendingSubscriptions || [];
+%>
 
 <!-- Welcome Hero Banner -->
 <div class="card sau-card mb-4 p-4 border-0 shadow-sm overflow-hidden">

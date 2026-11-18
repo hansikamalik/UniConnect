@@ -1,4 +1,10 @@
 <%- include('../partials/header') %>
+<%
+  const roleCounts = locals.roleCounts || { total: 0, Student: 0, Faculty: 0, Warden: 0, 'Mess Admin': 0, Admin: 0 };
+  const courseCount = locals.courseCount || 0;
+  const recentAudits = locals.recentAudits || [];
+  const recentUsers = locals.recentUsers || [];
+%>
 
 <!-- Welcome Hero Banner -->
 <div class="card sau-card mb-4 p-4 border-0 shadow-sm overflow-hidden">
