@@ -1,62 +1,168 @@
 <%- include('../partials/header') %>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h2 class="h4 mb-1">System Administration Dashboard</h2>
-    <p class="text-muted small mb-0">Welcome, <%= user.fullName %> | Role: <strong>System Admin</strong></p>
+<!-- Welcome Hero Banner -->
+<div class="card sau-card mb-4 p-4 border-0 shadow-sm overflow-hidden">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 58px; height: 58px; font-size: 1.5rem; flex-shrink: 0;">
+        <i class="bi bi-shield-lock-fill"></i>
+      </div>
+      <div>
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <h1 class="h4 mb-0 fw-bold">System Administration Console</h1>
+          <span class="badge bg-danger text-white border small">Superuser</span>
+        </div>
+        <p class="text-muted small mb-0 mt-1">
+          Institutional Management &amp; Audit Oversight &bull; South Asian University
+        </p>
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="/admin/users/create" class="btn btn-sau-primary btn-sm">
+        <i class="bi bi-person-plus me-1"></i> Provision User
+      </a>
+      <a href="/admin/courses" class="btn btn-outline-primary btn-sm">
+        <i class="bi bi-book me-1"></i> Manage Courses
+      </a>
+    </div>
   </div>
 </div>
 
-<div class="row g-4">
-  <div class="col-md-6 col-lg-3">
-    <div class="card sau-card h-100 p-4">
-      <div class="d-flex align-items-center gap-3 mb-2">
-        <div class="bg-primary-subtle text-primary p-2 rounded">
-          <i class="bi bi-people-fill fs-4"></i>
+<!-- 4 Key Stat Cards -->
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card sau-card p-3 h-100">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="text-muted small d-block mb-1">Total Users</span>
+          <h2 class="h3 mb-0 fw-bold"><%= roleCounts.total %></h2>
         </div>
-        <h3 class="h6 mb-0">User Management</h3>
+        <div class="p-3 bg-primary-subtle text-primary rounded-circle">
+          <i class="bi bi-people fs-4"></i>
+        </div>
       </div>
-      <p class="text-muted small mb-3">Provision accounts, deactivate users, and assign institutional roles.</p>
-      <a href="/admin/users" class="btn btn-sau-primary btn-sm mt-auto">Manage Users</a>
+      <div class="mt-3 pt-2 border-top small text-muted">
+        <%= roleCounts.Student %> Students &bull; <%= roleCounts.Faculty %> Faculty
+      </div>
     </div>
   </div>
 
-  <div class="col-md-6 col-lg-3">
-    <div class="card sau-card h-100 p-4">
-      <div class="d-flex align-items-center gap-3 mb-2">
-        <div class="bg-info-subtle text-info p-2 rounded">
-          <i class="bi bi-book-half fs-4"></i>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card sau-card p-3 h-100">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="text-muted small d-block mb-1">Academic Courses</span>
+          <h2 class="h3 mb-0 fw-bold text-success"><%= totalCourses %></h2>
         </div>
-        <h3 class="h6 mb-0">Courses & Faculty</h3>
+        <div class="p-3 bg-success-subtle text-success rounded-circle">
+          <i class="bi bi-journal-bookmark fs-4"></i>
+        </div>
       </div>
-      <p class="text-muted small mb-3">Configure academic courses, assign faculty instructors, and enroll students.</p>
-      <a href="/admin/courses" class="btn btn-outline-info btn-sm mt-auto">Manage Courses</a>
+      <div class="mt-3 pt-2 border-top">
+        <a href="/admin/courses" class="small text-decoration-none fw-semibold">View Catalog &rarr;</a>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-6 col-lg-3">
-    <div class="card sau-card h-100 p-4">
-      <div class="d-flex align-items-center gap-3 mb-2">
-        <div class="bg-warning-subtle text-warning p-2 rounded">
-          <i class="bi bi-megaphone-fill fs-4"></i>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card sau-card p-3 h-100">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="text-muted small d-block mb-1">Open Complaints</span>
+          <h2 class="h3 mb-0 fw-bold <%= openComplaints > 0 ? 'text-warning' : 'text-success' %>"><%= openComplaints %></h2>
         </div>
-        <h3 class="h6 mb-0">Noticeboard</h3>
+        <div class="p-3 bg-warning-subtle text-warning rounded-circle">
+          <i class="bi bi-tools fs-4"></i>
+        </div>
       </div>
-      <p class="text-muted small mb-3">Publish and manage official university notices and broadcasts.</p>
-      <a href="/notices" class="btn btn-outline-warning btn-sm mt-auto">Manage Notices</a>
+      <div class="mt-3 pt-2 border-top">
+        <a href="/hostel/complaints/manage" class="small text-decoration-none fw-semibold">Hostel Tickets &rarr;</a>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-6 col-lg-3">
-    <div class="card sau-card h-100 p-4">
-      <div class="d-flex align-items-center gap-3 mb-2">
-        <div class="bg-secondary-subtle text-secondary p-2 rounded">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card sau-card p-3 h-100">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="text-muted small d-block mb-1">Audit Trail</span>
+          <h2 class="h3 mb-0 fw-bold text-info"><i class="bi bi-shield-check"></i> Active</h2>
+        </div>
+        <div class="p-3 bg-info-subtle text-info rounded-circle">
           <i class="bi bi-journal-text fs-4"></i>
         </div>
-        <h3 class="h6 mb-0">Audit Logs</h3>
       </div>
-      <p class="text-muted small mb-3">Inspect immutable audit trail of academic marks changes and system activities.</p>
-      <a href="/admin/audit" class="btn btn-outline-secondary btn-sm mt-auto">View Audit Logs</a>
+      <div class="mt-3 pt-2 border-top">
+        <a href="/admin/audit" class="small text-decoration-none fw-semibold">Inspect Audit Log &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Admin Grid -->
+<div class="row g-4">
+  <div class="col-lg-8">
+    <!-- Recent Audit Logs -->
+    <div class="card sau-card mb-4">
+      <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+        <h2 class="h6 mb-0 fw-bold"><i class="bi bi-clock-history text-primary me-2"></i>Recent Academic Audit Events (AD-7)</h2>
+        <a href="/admin/audit" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size: 0.75rem;">Full Log &rarr;</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light small text-uppercase text-secondary">
+            <tr>
+              <th class="ps-3">ID</th>
+              <th>Changer</th>
+              <th>Student</th>
+              <th>Course</th>
+              <th>Change</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (recentAudit.length === 0) { %>
+              <tr>
+                <td colspan="6" class="text-center py-4 text-muted small">No audit log entries on record.</td>
+              </tr>
+            <% } else { %>
+              <% recentAudit.forEach(log => { %>
+                <tr>
+                  <td class="ps-3 fw-semibold text-muted">#<%= log.log_id %></td>
+                  <td><span class="fw-semibold small"><%= log.changer_name %></span></td>
+                  <td><code><%= log.enrollment_id %></code></td>
+                  <td><span class="badge bg-light text-dark border"><%= log.course_code %></span></td>
+                  <td><span class="small text-primary"><%= log.new_value %></span></td>
+                  <td class="small text-muted"><%= new Date(log.changed_at).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) %></td>
+                </tr>
+              <% }) %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <!-- Quick Management Actions -->
+    <div class="card sau-card mb-4">
+      <div class="card-header bg-white py-3 border-bottom">
+        <h2 class="h6 mb-0 fw-bold"><i class="bi bi-lightning-charge-fill text-warning me-2"></i>Quick Actions</h2>
+      </div>
+      <div class="p-3 d-grid gap-2">
+        <a href="/admin/users/create" class="btn btn-sau-primary btn-sm text-start py-2">
+          <i class="bi bi-person-plus me-2"></i> Provision New User Account
+        </a>
+        <a href="/admin/courses" class="btn btn-outline-primary btn-sm text-start py-2">
+          <i class="bi bi-journal-plus me-2"></i> Create Course &amp; Assign Faculty
+        </a>
+        <a href="/notices/create" class="btn btn-outline-success btn-sm text-start py-2">
+          <i class="bi bi-broadcast me-2"></i> Publish Campus Notice
+        </a>
+        <a href="/mess/menu" class="btn btn-outline-warning btn-sm text-start py-2 text-dark">
+          <i class="bi bi-cup-hot me-2"></i> Inspect Daily Dining Menu
+        </a>
+      </div>
     </div>
   </div>
 </div>
