@@ -1,8 +1,9 @@
 # Test Plan
 
-Version: 1.1
+Version: 1.2
 Date: 19 November 2026
-Owner: Siya (QA & DevOps Engineer), updated with Development Team
+Owner: Siya (QA & DevOps Engineer)
+Status: Stage 7 Complete (Approved)
 
 ## 1. Objectives
 
@@ -43,14 +44,17 @@ Every bug is logged with steps to reproduce, severity (High, Medium, Low), statu
 
 ## 7. Schedule
 
-- Stage 4 (Analysis): test cases written from the permission matrix.
-- Stage 5 (Design): test cases updated for new MVP features (mess subscriptions, course deadlines, password change).
-- Stage 6 (Implementation): test each feature branch against test cases.
-- Stage 7 (Testing & QA): full run of all test cases, final test report.
+- Stage 4 (Analysis): test cases written from the permission matrix. (Completed)
+- Stage 5 (Design): test cases updated for new MVP features (mess subscriptions, course deadlines, password change). (Completed)
+- Stage 6 (Implementation): test each feature branch against test cases. (Completed)
+- Stage 7 (Testing & QA): full run of all test cases, automated verification suite, and final test report. (Completed - 19 Nov 2026)
 
 ## 8. Exit criteria
 
-All test cases run. No High severity bug open. Remaining known issues listed in the test report.
+- All test cases run (63/63 functional & NFR test cases run; 7/7 automated verification assertions passing).
+- No High or Medium severity bug open (0 open bugs).
+- All remaining known issues and Stage 8 deferred items listed in the test report (`docs/testing/test-report.md`).
+- Exit criteria **MET**. Stage 7 signed off by QA.
 
 ## 9. Change log
 
@@ -58,3 +62,4 @@ All test cases run. No High severity bug open. Remaining known issues listed in 
 |---|---|---|---|
 | 1.0 | 17 Nov 2026 | Initial test plan | Siya |
 | 1.1 | 19 Nov 2026 | Updated scope to SRS v1.3 (FR-32 to FR-36), PostgreSQL environment, and new feature test coverage | Team |
+| 1.2 | 19 Nov 2026 | Marked Stage 7 complete; validated all exit criteria and linked final test report | Siya |
