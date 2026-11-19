@@ -7,14 +7,16 @@
 -- Passwords:
 -- student1 / student2: Student@123 ($2a$10$q2b7HsS3V1w337l8gMrAy.OI3rMpOiIIdlF4MXhXa4jTknWceLRHu)
 -- faculty1:            Faculty@123 ($2a$10$AyiDeN6xyVYYkOjF1nn/HeWq4HAg20apXB.mOdJCjmGDWEplhOh0W)
--- warden1:             Warden@123  ($2a$10$WkM0av5ubM335UNR8lYm5e.XwFXcYgvD6G4aBzcMbQBZARHf6mXKy)
+-- warden1 / warden2:   Warden@123  ($2a$10$WkM0av5ubM335UNR8lYm5e.XwFXcYgvD6G4aBzcMbQBZARHf6mXKy)
 -- messadmin1:          Mess@123    ($2a$10$jbQJycVpgoeXbiv5cFpdMOeAX/X/ZpdfzDzQx8r7GFq7nSf3zrv9e)
 
 INSERT INTO users (username, password_hash, role, full_name, email, is_active) VALUES
     ('student1',   '$2a$10$q2b7HsS3V1w337l8gMrAy.OI3rMpOiIIdlF4MXhXa4jTknWceLRHu', 'Student',    'Aarav Sharma',     'aarav@students.sau.int',   TRUE),
     ('student2',   '$2a$10$q2b7HsS3V1w337l8gMrAy.OI3rMpOiIIdlF4MXhXa4jTknWceLRHu', 'Student',    'Priya Nair',       'priya@students.sau.int',   TRUE),
     ('faculty1',   '$2a$10$AyiDeN6xyVYYkOjF1nn/HeWq4HAg20apXB.mOdJCjmGDWEplhOh0W', 'Faculty',    'Dr. Rajesh Kumar', 'rajesh.kumar@sau.int',     TRUE),
+    ('faculty2',   '$2a$10$AyiDeN6xyVYYkOjF1nn/HeWq4HAg20apXB.mOdJCjmGDWEplhOh0W', 'Faculty',    'Dr. Sunita Sharma','sunita.sharma@sau.int',    TRUE),
     ('warden1',    '$2a$10$WkM0av5ubM335UNR8lYm5e.XwFXcYgvD6G4aBzcMbQBZARHf6mXKy', 'Warden',     'Mr. Vikram Singh', 'vikram.warden@sau.int',    TRUE),
+    ('warden2',    '$2a$10$WkM0av5ubM335UNR8lYm5e.XwFXcYgvD6G4aBzcMbQBZARHf6mXKy', 'Warden',     'Dr. Anita Roy',    'anita.warden@sau.int',     TRUE),
     ('messadmin1', '$2a$10$jbQJycVpgoeXbiv5cFpdMOeAX/X/ZpdfzDzQx8r7GFq7nSf3zrv9e', 'Mess Admin', 'Mr. Ramesh Chand', 'mess.admin@sau.int',       TRUE)
 ON CONFLICT (username) DO NOTHING;
 
@@ -31,18 +33,29 @@ SELECT u.user_id, 'SAU/2026/CS/002', NULL
 FROM users u WHERE u.username = 'student2'
 ON CONFLICT (enrollment_id) DO NOTHING;
 
--- 3. Faculty Profile
+-- 3. Faculty Profiles
 -- Dr. Rajesh Kumar is in Computer Science (dept 1)
+-- Dr. Sunita Sharma is in Mathematics (dept 2)
 INSERT INTO faculty (user_id, department_id)
 SELECT u.user_id, 1
 FROM users u WHERE u.username = 'faculty1'
 ON CONFLICT (user_id) DO NOTHING;
 
--- 4. Warden Assignment
+INSERT INTO faculty (user_id, department_id)
+SELECT u.user_id, 2
+FROM users u WHERE u.username = 'faculty2'
+ON CONFLICT (user_id) DO NOTHING;
+
+-- 4. Warden Assignments
 -- Mr. Vikram Singh is assigned to Boys Hostel 1 (BH1)
+-- Dr. Anita Roy is assigned to Girls Hostel 1 (GH1)
 UPDATE hostels
 SET warden_user_id = (SELECT user_id FROM users WHERE username = 'warden1')
 WHERE code = 'BH1';
+
+UPDATE hostels
+SET warden_user_id = (SELECT user_id FROM users WHERE username = 'warden2')
+WHERE code = 'GH1';
 
 -- 5. Courses
 INSERT INTO courses (code, name, department_id) VALUES
@@ -53,11 +66,19 @@ ON CONFLICT (code) DO NOTHING;
 
 -- 6. Course Faculty Assignments
 -- Dr. Rajesh Kumar teaches CS101 and CS201
+-- Dr. Sunita Sharma teaches MA101
 INSERT INTO course_faculty (course_id, faculty_id)
 SELECT c.course_id, f.faculty_id
 FROM courses c, faculty f
 JOIN users u ON f.user_id = u.user_id
 WHERE u.username = 'faculty1' AND c.code IN ('CS101', 'CS201')
+ON CONFLICT (course_id, faculty_id) DO NOTHING;
+
+INSERT INTO course_faculty (course_id, faculty_id)
+SELECT c.course_id, f.faculty_id
+FROM courses c, faculty f
+JOIN users u ON f.user_id = u.user_id
+WHERE u.username = 'faculty2' AND c.code = 'MA101'
 ON CONFLICT (course_id, faculty_id) DO NOTHING;
 
 -- 7. Course Enrollments

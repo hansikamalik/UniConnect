@@ -113,17 +113,18 @@ Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 ## 🔑 Sample Login Credentials
 
-All users can sign in using their **Username**, **Enrollment ID**, or **Institutional Email**:
+All users can sign in using their **Username**, **Universal Enrollment ID**, or **Institutional Email**:
 
 | Role | Username / Identifier | Password | Description |
 |---|---|---|---|
-| **Admin** | `admin` | `Admin@123` | System Superuser |
-| **Student** | `vikryansh.singh` *or* `SAU/CS/DMTECH(CSE)/2024/36` | `Sau@2026` | Dual Degree Student (Day Scholar) |
-| **Student** | `aanvi.sharma` *or* `SAU/CS/BTECH(CSE)/2024/01` | `Sau@2026` | B.Tech CSE Student |
-| **Faculty** | `bijoy.chatterjee` *or* `bijoycc@sau.int` | `Sau@2026` | Dr. Bijoy Chand Chatterjee (CSE) |
-| **Faculty** | `taniya.seth` *or* `taniyaseth@sau.int` | `Sau@2026` | Dr. Taniya Seth (CSE) |
-| **Warden** | `amit.shukla` *or* `amitkshukla@sau.int` | `Sau@2026` | Dr. Amit Kumar Shukla (Boys Hostel 1) |
-| **Warden** | `shyamli.singh` *or* `shyamli.singh@sau.int` | `Sau@2026` | Dr. Shyamli Singh (Girls Hostel 1) |
+| **Admin** | `admin` *or* `admin@sau.int` | `Admin@123` | System Superuser |
+| **Student** | `student1` *or* `SAU/2026/CS/001` *or* `aarav@students.sau.int` | `Student@123` | Aarav Sharma (Hostel Resident, Room BH1-304) |
+| **Student** | `student2` *or* `SAU/2026/CS/002` *or* `priya@students.sau.int` | `Student@123` | Priya Nair (Day Scholar) |
+| **Faculty** | `faculty1` *or* `rajesh.kumar@sau.int` | `Faculty@123` | Dr. Rajesh Kumar (Dept. of Computer Science) |
+| **Faculty** | `faculty2` *or* `sunita.sharma@sau.int` | `Faculty@123` | Dr. Sunita Sharma (Dept. of Mathematics) |
+| **Warden** | `warden1` *or* `vikram.warden@sau.int` | `Warden@123` | Mr. Vikram Singh (Boys Hostel 1 - BH1) |
+| **Warden** | `warden2` *or* `anita.warden@sau.int` | `Warden@123` | Dr. Anita Roy (Girls Hostel 1 - GH1) |
+| **Mess Admin** | `messadmin1` *or* `mess.admin@sau.int` | `Mess@123` | Mr. Ramesh Chand (Campus Central Mess) |
 
 ---
 

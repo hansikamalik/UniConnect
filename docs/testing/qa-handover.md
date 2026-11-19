@@ -33,10 +33,12 @@ All test accounts are active and pre-configured in the database.
 
 | Role | Username | Identifier / Email | Password | Primary Dashboard & Landing |
 | :--- | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin` | `admin` | `Admin@123` | `/dashboard/admin` |
+| **Administrator** | `admin` | `admin@sau.int` | `Admin@123` | `/dashboard/admin` |
 | **Mess Admin** | `messadmin1` | `mess.admin@sau.int` | `Mess@123` | `/dashboard/mess` |
 | **Hostel Warden** | `warden1` | `vikram.warden@sau.int` | `Warden@123` | `/dashboard/warden` (BH1) |
-| **Faculty Instructor** | `faculty1` | `rajesh.kumar@sau.int` | `Faculty@123` | `/dashboard/faculty` |
+| **Hostel Warden** | `warden2` | `anita.warden@sau.int` | `Warden@123` | `/dashboard/warden` (GH1) |
+| **Faculty Instructor** | `faculty1` | `rajesh.kumar@sau.int` | `Faculty@123` | `/dashboard/faculty` (CS) |
+| **Faculty Instructor** | `faculty2` | `sunita.sharma@sau.int` | `Faculty@123` | `/dashboard/faculty` (Math) |
 | **Student (Hostel Resident)** | `student1` | `SAU/2026/CS/001` | `Student@123` | `/dashboard/student` (Room: BH1-304) |
 | **Student (Day Scholar)** | `student2` | `SAU/2026/CS/002` | `Student@123` | `/dashboard/student` (Day Scholar) |
 
@@ -51,13 +53,13 @@ All test accounts are active and pre-configured in the database.
 1. Log in as `admin` (`Admin@123`).
 2. Navigate to **Users** (`/admin/users`).
 3. Verify that each row in the user table displays an **Edit** button in the Actions column.
-4. Click **Edit** on a student (e.g., `student1` or `aanvi.sharma`):
+4. Click **Edit** on a student (e.g., `student1` or `student2`):
    - Verify fields are pre-populated (Full Name, Username, Email, Enrollment ID, Hostel Room).
    - Verify role is immutable/locked to prevent data corruption.
-   - Update full name or hostel room, leave password blank, click **Save Changes**.
-   - Verify the update persists without altering the password.
-5. Test optional password reset:
-   - Enter a new password, submit, log out, and verify authentication with the new password.
+   - Update full name or hostel room, click **Save Changes**.
+   - Verify the update persists.
+5. Test Self-Service Password Change (FR-35):
+   - Log in as any user, navigate to **Profile** &rarr; **Change Password** (`/auth/change-password`), change password, and verify re-authentication. (Note: Admin-initiated password reset is preserved for Stage 8 as per FR-5).
 6. Test uniqueness validation:
    - Try changing username or email to an existing one (e.g. `admin`); verify conflict error is displayed.
 
