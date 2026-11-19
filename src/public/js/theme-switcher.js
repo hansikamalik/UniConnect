@@ -8,22 +8,22 @@
   // Theme registry
   const THEMES = {
     'sau-official': {
-      name: 'SAU Official Blue (Agent 1)',
+      name: 'SAU Official Blue',
       icon: '🏛️',
       color: '#00408d'
     },
     'sau-dark': {
-      name: 'SAU Midnight Dark (Agent 2)',
+      name: 'SAU Midnight Dark',
       icon: '🌙',
       color: '#080E1A'
     },
     'collegiate-crimson': {
-      name: 'Heritage Collegiate Crimson (Agent 3)',
+      name: 'Heritage Collegiate Crimson',
       icon: '🎓',
       color: '#7A0019'
     },
     'neo-emerald': {
-      name: 'Futuristic Neo Emerald (Agent 4)',
+      name: 'Futuristic Neo Emerald',
       icon: '⚡',
       color: '#059669'
     }
