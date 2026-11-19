@@ -11,10 +11,12 @@
       <input type="month" class="form-control form-control-sm" name="month" value="<%= monthYear %>" onchange="this.form.submit()">
       <noscript><button type="submit" class="btn btn-sm btn-outline-secondary">Filter</button></noscript>
     </form>
-    <!-- Record cash payment button -->
-    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#cashModal">
-      <i class="bi bi-cash-stack me-1"></i> + Record Cash Payment
-    </button>
+    <!-- Record cash payment button (Mess Admin only per Permission Matrix FR-34) -->
+    <% if (user.role !== 'Admin') { %>
+      <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#cashModal">
+        <i class="bi bi-cash-stack me-1"></i> + Record Cash Payment
+      </button>
+    <% } %>
   </div>
 </div>
 
@@ -105,7 +107,9 @@
                 <% } %>
               </td>
               <td class="text-end pe-3">
-                <% if (sub.payment_status === 'PENDING_VERIFICATION') { %>
+                <% if (user.role === 'Admin') { %>
+                  <span class="badge bg-secondary-subtle text-secondary border small px-2 py-1"><i class="bi bi-eye me-1"></i>Oversight</span>
+                <% } else if (sub.payment_status === 'PENDING_VERIFICATION') { %>
                   <div class="btn-group btn-group-sm">
                     <form action="/mess/subscriptions/<%= sub.subscription_id %>/verify" method="POST" class="d-inline">
                       <input type="hidden" name="action" value="APPROVE">

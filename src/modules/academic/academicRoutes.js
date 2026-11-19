@@ -11,6 +11,9 @@ router.get('/marks', requireAuth, requireRole('Student'), academicController.get
 router.get('/marks/entry', requireAuth, requireRole('Faculty'), academicController.getMarksEntryPage);
 router.post('/marks/save', requireAuth, requireRole('Faculty'), academicController.postSaveMarks);
 
+// FR-9 (TC-17/18): Faculty view student profile in own courses (D-4)
+router.get('/students/:id', requireAuth, requireRole(['Faculty', 'Admin']), academicController.getEnrolledStudentProfile);
+
 // Course Posts & Deadlines Feed (All can view; Faculty creates/deletes per Permission Matrix FR-36)
 router.get('/posts', requireAuth, academicController.getCoursePosts);
 router.get('/posts/create', requireAuth, requireRole('Faculty'), academicController.getCreatePostPage);

@@ -74,7 +74,11 @@
           <% students.forEach(s => { %>
             <tr>
               <td class="ps-3 fw-semibold text-dark"><%= s.enrollment_id %></td>
-              <td><%= s.student_name %></td>
+              <td>
+                <a href="/academic/students/<%= s.student_id %>" class="text-decoration-none fw-semibold text-primary" title="View Student Profile (FR-9)">
+                  <%= s.student_name %> <i class="bi bi-box-arrow-up-right small ms-1" style="font-size: 0.7rem;"></i>
+                </a>
+              </td>
               <td class="text-center">
                 <% if (s.marks_obtained !== null && s.marks_obtained !== undefined) { %>
                   <span class="fw-bold"><%= s.marks_obtained %></span>

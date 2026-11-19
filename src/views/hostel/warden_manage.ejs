@@ -75,50 +75,53 @@
                 <%= new Date(c.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) %>
               </td>
               <td class="text-end pe-3">
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= c.complaint_id %>">
-                  <i class="bi bi-pencil-square me-1"></i> Update
-                </button>
+                <% if (user.role === 'Admin') { %>
+                  <span class="badge bg-secondary-subtle text-secondary border small px-2 py-1"><i class="bi bi-eye me-1"></i>Oversight</span>
+                <% } else { %>
+                  <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-<%= c.complaint_id %>">
+                    <i class="bi bi-pencil-square me-1"></i> Update
+                  </button>
 
-                <!-- Modal for updating complaint status -->
-                <div class="modal fade text-start" id="modal-<%= c.complaint_id %>" tabindex="-1">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <form action="/hostel/complaints/<%= c.complaint_id %>/status" method="POST">
-                        <div class="modal-header">
-                          <h5 class="modal-title h6">Update Complaint #<%= c.complaint_id %></h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="mb-3">
-                            <label class="form-label text-muted small mb-1">Student & Room</label>
-                            <div class="fw-semibold"><%= c.student_name %> (<%= c.enrollment_id %>) &bull; <%= c.custom_hostel_id %></div>
+                  <!-- Modal for updating complaint status -->
+                  <div class="modal fade text-start" id="modal-<%= c.complaint_id %>" tabindex="-1">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <form action="/hostel/complaints/<%= c.complaint_id %>/status" method="POST">
+                          <div class="modal-header">
+                            <h5 class="modal-title h6">Update Complaint #<%= c.complaint_id %></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label text-muted small mb-1">Issue Description</label>
-                            <div class="p-2 bg-light rounded small"><%= c.description %></div>
+                          <div class="modal-body">
+                            <div class="mb-3">
+                              <label class="form-label text-muted small mb-1">Student & Room</label>
+                              <div class="fw-semibold"><%= c.student_name %> (<%= c.enrollment_id %>) &bull; <%= c.custom_hostel_id %></div>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label text-muted small mb-1">Issue Description</label>
+                              <div class="p-2 bg-light rounded small"><%= c.description %></div>
+                            </div>
+                            <div class="mb-3">
+                              <label for="status-<%= c.complaint_id %>" class="form-label fw-semibold small">Complaint Status</label>
+                              <select class="form-select form-select-sm" id="status-<%= c.complaint_id %>" name="status" required>
+                                <option value="Pending" <%= c.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                                <option value="In Progress" <%= c.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                                <option value="Resolved" <%= c.status === 'Resolved' ? 'selected' : '' %>>Resolved</option>
+                              </select>
+                            </div>
+                            <div class="mb-3">
+                              <label for="notes-<%= c.complaint_id %>" class="form-label fw-semibold small">Resolution Notes / Action Taken</label>
+                              <textarea class="form-control form-control-sm" id="notes-<%= c.complaint_id %>" name="resolution_notes" rows="3" placeholder="e.g. Electrician visited and replaced faulty heating element."><%= c.resolution_notes || '' %></textarea>
+                            </div>
                           </div>
-                          <div class="mb-3">
-                            <label for="status-<%= c.complaint_id %>" class="form-label fw-semibold small">Complaint Status</label>
-                            <select class="form-select form-select-sm" id="status-<%= c.complaint_id %>" name="status" required>
-                              <option value="Pending" <%= c.status === 'Pending' ? 'selected' : '' %>>Pending</option>
-                              <option value="In Progress" <%= c.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
-                              <option value="Resolved" <%= c.status === 'Resolved' ? 'selected' : '' %>>Resolved</option>
-                            </select>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-light btn-sm border" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sau-primary btn-sm">Save Changes</button>
                           </div>
-                          <div class="mb-3">
-                            <label for="notes-<%= c.complaint_id %>" class="form-label fw-semibold small">Resolution Notes / Action Taken</label>
-                            <textarea class="form-control form-control-sm" id="notes-<%= c.complaint_id %>" name="resolution_notes" rows="3" placeholder="e.g. Electrician visited and replaced faulty heating element."><%= c.resolution_notes || '' %></textarea>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-light btn-sm border" data-bs-dismiss="modal">Cancel</button>
-                          <button type="submit" class="btn btn-sau-primary btn-sm">Save Changes</button>
-                        </div>
-                      </form>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-
+                <% } %>
               </td>
             </tr>
           <% }) %>

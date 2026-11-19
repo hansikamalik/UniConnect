@@ -43,8 +43,8 @@ router.post('/menu/edit', requireAuth, requireRole('Mess Admin'), messController
 router.get('/subscription', requireAuth, requireRole('Student'), messController.getStudentSubscriptionView);
 router.post('/subscription', requireAuth, requireRole('Student'), upload.single('payment_proof'), messController.postSubmitSubscription);
 
-// Mess Admin Subscription & Fee verification routes (Mess Admin only per Permission Matrix FR-34)
-router.get('/subscriptions/manage', requireAuth, requireRole('Mess Admin'), messController.getAdminManageSubscriptions);
+// Mess Admin Subscription & Fee verification routes (Mess Admin manages; Admin has read-only oversight per FR-19)
+router.get('/subscriptions/manage', requireAuth, requireRole(['Mess Admin', 'Admin']), messController.getAdminManageSubscriptions);
 router.post('/subscriptions/:id/verify', requireAuth, requireRole('Mess Admin'), messController.postVerifyPayment);
 router.post('/subscriptions/cash', requireAuth, requireRole('Mess Admin'), messController.postRecordCashPayment);
 

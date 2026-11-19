@@ -9,8 +9,8 @@ router.get('/complaints', requireAuth, requireRole('Student'), hostelController.
 router.get('/complaints/new', requireAuth, requireRole('Student'), hostelController.getNewComplaintPage);
 router.post('/complaints/new', requireAuth, requireRole('Student'), hostelController.postNewComplaint);
 
-// Warden management routes (Warden only per Permission Matrix FR-12 to FR-15)
-router.get('/complaints/manage', requireAuth, requireRole('Warden'), hostelController.getWardenManageComplaints);
+// Warden management & Admin oversight (Warden manages own hostel; Admin has read-only oversight per FR-19)
+router.get('/complaints/manage', requireAuth, requireRole(['Warden', 'Admin']), hostelController.getWardenManageComplaints);
 router.post('/complaints/:id/status', requireAuth, requireRole('Warden'), hostelController.postUpdateComplaintStatus);
 
 module.exports = router;

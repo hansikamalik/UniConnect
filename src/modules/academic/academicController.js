@@ -358,3 +358,72 @@ exports.deletePost = async (req, res) => {
     res.redirect('/academic/posts?error=Failed+to+delete+post');
   }
 };
+
+/**
+ * FR-9: Faculty view student profile (enrolled in own courses only per D-4, TC-17, TC-18)
+ */
+exports.getEnrolledStudentProfile = async (req, res) => {
+  const studentId = req.params.id;
+  const { role, facultyId } = req.session.user;
+
+  try {
+    // 1. If Faculty, verify ownership (D-4): must teach at least one course taken by this student
+    let sharedCourses = [];
+    if (role === 'Faculty') {
+      const accessCheck = await db.query(
+        `SELECT c.course_id, c.code, c.name, m.marks_obtained, m.max_marks, m.grade
+         FROM course_faculty cf
+         JOIN enrollments e ON cf.course_id = e.course_id
+         JOIN courses c ON cf.course_id = c.course_id
+         LEFT JOIN marks m ON m.course_id = c.course_id AND m.student_id = e.student_id
+         WHERE cf.faculty_id = $1 AND e.student_id = $2
+         ORDER BY c.code ASC`,
+        [facultyId, studentId]
+      );
+
+      if (accessCheck.rows.length === 0) {
+        // TC-18: Blocked if student is not enrolled in faculty's courses
+        return res.status(403).render('errors/403', {
+          title: '403 Forbidden - UniConnect',
+          message: 'Access Denied: You can only view profiles of students enrolled in courses you teach (D-4).'
+        });
+      }
+      sharedCourses = accessCheck.rows;
+    } else if (role === 'Admin') {
+      // Admin oversight per FR-19
+      const adminCourses = await db.query(
+        `SELECT c.course_id, c.code, c.name, m.marks_obtained, m.max_marks, m.grade
+         FROM enrollments e
+         JOIN courses c ON e.course_id = c.course_id
+         LEFT JOIN marks m ON m.course_id = c.course_id AND m.student_id = e.student_id
+         WHERE e.student_id = $1
+         ORDER BY c.code ASC`,
+        [studentId]
+      );
+      sharedCourses = adminCourses.rows;
+    }
+
+    // 2. Fetch student profile details
+    const studentRes = await db.query(
+      `SELECT s.student_id, s.enrollment_id, s.custom_hostel_id,
+              u.full_name, u.email, u.username, u.created_at
+       FROM students s
+       JOIN users u ON s.user_id = u.user_id
+       WHERE s.student_id = $1`,
+      [studentId]
+    );
+
+    if (studentRes.rows.length === 0) {
+      return res.redirect('/dashboard?error=Student+not+found');
+    }
+
+    res.render('academic/student_profile', {
+      title: `Student Profile: ${studentRes.rows[0].full_name} - UniConnect`,
+      student: studentRes.rows[0],
+      sharedCourses
+    });
+  } catch (err) {
+    console.error('Error fetching enrolled student profile:', err);
+    res.redirect('/dashboard?error=Failed+to+load+student+profile');
+  }
+};

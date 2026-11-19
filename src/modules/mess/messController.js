@@ -12,14 +12,64 @@ function formatDate(d) {
 }
 
 /**
- * View Mess Menu (S-16)
- * Defaults to today's date, or query parameter ?date=YYYY-MM-DD
+ * View Mess Menu (S-16, FR-16: Daily and Weekly views)
+ * Defaults to today's date, or query parameter ?date=YYYY-MM-DD or ?view=week
  */
 exports.getMenuView = async (req, res) => {
+  const viewMode = req.query.view === 'week' ? 'week' : 'daily';
   const selectedDate = req.query.date || formatDate(new Date());
 
   try {
-    // Fetch meal slots and any matching menu items for the selected date
+    const isMessAdmin = req.session.user && ['Mess Admin', 'Admin'].includes(req.session.user.role);
+
+    if (viewMode === 'week') {
+      // Calculate current week (Monday to Sunday)
+      const baseDate = new Date(selectedDate + 'T00:00:00');
+      const dayOfWeek = baseDate.getDay(); // 0 is Sunday, 1 is Monday
+      const distanceToMonday = (dayOfWeek + 6) % 7;
+      const monday = new Date(baseDate);
+      monday.setDate(baseDate.getDate() - distanceToMonday);
+
+      const weekDates = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        weekDates.push(formatDate(d));
+      }
+
+      // Query slots and menus for all 7 days
+      const slotsRes = await db.query(`SELECT slot_id, name AS slot_name, start_time, end_time FROM meal_slots ORDER BY start_time ASC`);
+      const menuRes = await db.query(
+        `SELECT m.menu_date, m.slot_id, m.items
+         FROM menu_items m
+         WHERE m.menu_date = ANY($1::date[])`,
+        [weekDates]
+      );
+
+      // Structure: matrix of [date][slot_id] -> items
+      const menuMap = {};
+      weekDates.forEach(d => { menuMap[d] = {}; });
+      menuRes.rows.forEach(r => {
+        const dStr = formatDate(new Date(r.menu_date));
+        if (menuMap[dStr]) {
+          menuMap[dStr][r.slot_id] = r.items;
+        }
+      });
+
+      return res.render('mess/menu', {
+        title: 'Weekly Mess Schedule (FR-16) - UniConnect',
+        viewMode: 'week',
+        selectedDate,
+        slots: slotsRes.rows,
+        weekDates,
+        menuMap,
+        isMessAdmin,
+        success: req.query.success || null,
+        error: req.query.error || null
+      });
+    }
+
+    // Daily View
     const result = await db.query(
       `SELECT s.slot_id, s.name AS slot_name, s.start_time, s.end_time,
               m.menu_id, m.items, m.updated_at, u.full_name AS updated_by_name
@@ -30,12 +80,13 @@ exports.getMenuView = async (req, res) => {
       [selectedDate]
     );
 
-    const isMessAdmin = req.session.user && ['Mess Admin', 'Admin'].includes(req.session.user.role);
-
     res.render('mess/menu', {
       title: `Mess Menu (${selectedDate}) - UniConnect`,
+      viewMode: 'daily',
       selectedDate,
       slots: result.rows,
+      weekDates: [],
+      menuMap: {},
       isMessAdmin,
       success: req.query.success || null,
       error: req.query.error || null
@@ -44,8 +95,11 @@ exports.getMenuView = async (req, res) => {
     console.error('Error fetching menu:', err);
     res.render('mess/menu', {
       title: 'Mess Menu - UniConnect',
+      viewMode: 'daily',
       selectedDate,
       slots: [],
+      weekDates: [],
+      menuMap: {},
       isMessAdmin: false,
       error: 'Failed to load mess menu.',
       success: null
