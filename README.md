@@ -95,11 +95,8 @@ npm run migrate
 # 2. Seed basic institutional defaults (Departments, Hostels, 3 Meal Slots, Grading Scale, Admin)
 npm run seed
 
-# 3. Seed official SAU Faculty and Wardens
-npm run seed:sau
-
-# 4. Seed all 104 B.Tech/Dual Degree students & 5th Semester Timetable courses
-npm run seed:students
+# 3. Seed demo accounts across all 5 roles, sample courses, and test records
+npm run seed:demo
 ```
 
 ### 5. Launch Application

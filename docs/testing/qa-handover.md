@@ -36,12 +36,9 @@ All test accounts are active and pre-configured in the database.
 | **Administrator** | `admin` | `admin` | `Admin@123` | `/dashboard/admin` |
 | **Mess Admin** | `messadmin1` | `mess.admin@sau.int` | `Mess@123` | `/dashboard/mess` |
 | **Hostel Warden** | `warden1` | `vikram.warden@sau.int` | `Warden@123` | `/dashboard/warden` (BH1) |
-| **Hostel Warden (Official)** | `amit.shukla` | `amit.shukla@sau.int` | `Sau@2026` | `/dashboard/warden` (Boys Hostel) |
 | **Faculty Instructor** | `faculty1` | `rajesh.kumar@sau.int` | `Faculty@123` | `/dashboard/faculty` |
-| **Faculty (Official)** | `pranab.muhuri` | `pranabmuhuri@sau.int` | `Sau@2026` | `/dashboard/faculty` (CS Dept) |
 | **Student (Hostel Resident)** | `student1` | `SAU/2026/CS/001` | `Student@123` | `/dashboard/student` (Room: BH1-304) |
 | **Student (Day Scholar)** | `student2` | `SAU/2026/CS/002` | `Student@123` | `/dashboard/student` (Day Scholar) |
-| **Student (Real B.Tech Batch)**| `aanvi.sharma` | `SAU/CS/BTECH(CSE)/2024/01` | `Sau@2026` | `/dashboard/student` |
 
 > [!NOTE]
 > **Universal Identifier Login:** Students can authenticate using either their **Username** (`student1`), their **Universal Enrollment ID** (`SAU/2026/CS/001`), or their **Institutional Email** (`aarav@students.sau.int`).
