@@ -3,6 +3,8 @@
 **Integrated University Management System**  
 Built for the Software Engineering Project 2026 (B.Tech Computer Science & Engineering Track), South Asian University, New Delhi.
 
+![Version](https://img.shields.io/badge/version-v1.0-blue) ![Stage](https://img.shields.io/badge/SDLC%20Stage-Released%20(v1.0)-green) ![Tests](https://img.shields.io/badge/tests-70%2F70%20passed-brightgreen)
+
 UniConnect is an all-in-one university management portal connecting students, faculty members, hostel wardens, mess administrators, and university administration into a single, cohesive, role-based platform.
 
 ---
@@ -137,7 +139,7 @@ UniConnect/
 │   ├── architecture/            # Architecture diagrams, decision records (AD-1 to AD-7)
 │   ├── design/                  # ER diagram, personas, user flows, style guide, wireframes
 │   ├── requirements/            # Problem statement, research notes, SRS v1.3
-│   └── testing/                 # Test plan, test cases, branching strategy
+│   └── testing/                 # Test plan, test cases, bug log, test report, branching strategy
 ├── src/
 │   ├── app.js                   # Express application entry & middleware orchestration
 │   ├── config/                  # Database connection pool (pg.Pool)
@@ -154,6 +156,7 @@ UniConnect/
 │   ├── public/                  # Static assets: custom CSS, themes, JavaScript
 │   └── views/                   # EJS templates grouped by feature module
 ├── tests/                       # Verification suite
+├── RELEASE-NOTES.md             # v1.0 Release Notes
 └── PULL_REQUEST.md              # Formal pull request documentation
 ```
 
