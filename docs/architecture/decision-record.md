@@ -1,10 +1,10 @@
 # UniConnect Architecture Decision Record
 
 **Version:** 1.2
-**Date:** 18 November 2026
+**Date:** 19 November 2026
 **Owner:** Harsh (System Analyst & Software Architect)
 
-Each decision lists the choice, the reason, and the alternatives considered. Status "Accepted" means pending confirmation by the Developer (Vikryansh).
+Each decision lists the choice, the reason, and the alternatives considered. Status "Accepted" means confirmed by the Developer (Vikryansh) and QA (Siya).
 
 ## AD-1: Three-tier monolithic web application
 
@@ -62,9 +62,24 @@ Each decision lists the choice, the reason, and the alternatives considered. Sta
 - **Reason:** Meets the adaptability requirement so another university could reuse the product.
 - **Alternatives considered:** Hard-coding values (fast now, blocks reuse).
 
+## AD-9: Supabase Cloud PostgreSQL Hosting
+
+- **Status:** Accepted
+- **Decision:** Use managed Supabase PostgreSQL (AWS South Asia / Mumbai region) accessed via connection pooler URI (`aws-0-ap-south-1.pooler.supabase.com`).
+- **Reason:** Provides a shared, globally accessible cloud database for live team collaboration, testing across multiple devices (mobile, laptop), and professor evaluation without requiring each developer/tester to run a local PostgreSQL service.
+- **Alternatives considered:** Local PostgreSQL instances (causes data drift between team machines), SQLite (no concurrency or native network access).
+
+## AD-10: Multer Disk Storage for Mess Fee Payment Proofs
+
+- **Status:** Accepted
+- **Decision:** Use `multer.diskStorage` to persist user-submitted payment screenshots in `uploads/mess_proofs/` with unique timestamped filenames, served statically via Express.
+- **Reason:** Satisfies FR-33 (student uploads UPI receipt screenshot) and FR-34 (mess admin verifies online transaction proof). Keeps binary files out of the database and git repository (`uploads/*` gitignored).
+- **Alternatives considered:** Base64 in PostgreSQL (bloats database backups), Cloudinary/S3 (unnecessary third-party credentials and latency for MVP).
+
 ## Change Log
 
 | Version | Date | Change | Author |
 |---|---|---|---|
 | 1.0 | 18 Nov 2026 | Initial decision record (AD-1 to AD-8) | Harsh |
 | 1.1 | 18 Nov 2026 | AD-4 changed from MySQL to PostgreSQL (team decision); AD-2 wording updated | Harsh |
+| 1.2 | 19 Nov 2026 | Marked AD-1 to AD-8 Accepted; added AD-9 (Supabase PostgreSQL) and AD-10 (Multer File Uploads) | Harsh & Team |

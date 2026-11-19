@@ -1,7 +1,7 @@
 # UniConnect Architecture Diagram
 
-**Version:** 1.1
-**Date:** 18 November 2026
+**Version:** 1.2
+**Date:** 19 November 2026
 **Owner:** Harsh (System Analyst & Software Architect)
 
 ## 1. Overview
@@ -12,7 +12,7 @@ UniConnect is a three-tier web application: browser, application server, databas
 
 ```mermaid
 flowchart TD
-    B["Browser<br/>(desktop or mobile)<br/>HTML + Bootstrap pages"]
+    B["Browser<br/>(desktop or mobile)<br/>HTML + Bootstrap 5 + EJS"]
 
     subgraph APP["Application Server (Node.js + Express)"]
         R["Routes<br/>/auth /academic /hostel /mess /notices /admin"]
@@ -20,16 +20,18 @@ flowchart TD
         C["Controllers<br/>request handling, render EJS views"]
         S["Services / Models<br/>business rules, SQL queries"]
         A["Audit logger<br/>writes marks and grade changes"]
+        UP["Multer File Engine<br/>uploads/mess_proofs/"]
     end
 
-    DB[("PostgreSQL Database<br/>users, courses, marks, complaints,<br/>menus, notices, audit_log")]
+    DB[("Supabase Cloud PostgreSQL<br/>users, courses, marks, complaints,<br/>menus, notices, audit_log")]
 
     B -->|"HTTP request"| R
     R --> M
     M --> C
     C --> S
+    C --> UP
     S --> A
-    S -->|"SQL (pg)"| DB
+    S -->|"SQL via pg Pooler"| DB
     C -->|"rendered HTML"| B
 ```
 
@@ -43,7 +45,8 @@ flowchart TD
 | Controllers | Take the request, call services, render the page or redirect. |
 | Services / Models | Business rules (for example D-2: a warden sees only their hostel; D-4: faculty see only students in their own courses) and all database queries. |
 | Audit logger | Writes who, what and when to `audit_log` for every marks or grade change, in the same database transaction as the change. |
-| PostgreSQL | Stores all data. Schema follows `docs/design/er-diagram.md`. |
+| Multer Engine | Validates and stores payment proof screenshots in `uploads/mess_proofs/`. |
+| Supabase PostgreSQL | Managed cloud PostgreSQL storing all relational tables and audit logs. Schema follows `docs/design/er-diagram.md`. |
 
 ## 4. Module Structure
 
@@ -88,3 +91,4 @@ Detailed sequences: `docs/design/sequence-diagrams.md`.
 |---|---|---|---|
 | 1.0 | 18 Nov 2026 | Initial architecture diagram | Harsh |
 | 1.1 | 18 Nov 2026 | Database changed from MySQL to PostgreSQL (diagram, driver, components table) | Harsh |
+| 1.2 | 19 Nov 2026 | Added Supabase Cloud PostgreSQL and Multer file upload engine | Harsh & Team |

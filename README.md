@@ -22,7 +22,7 @@ UniConnect is an all-in-one university management portal connecting students, fa
 ## ✨ Key System Features
 
 ### 1. Universal Multi-Identifier Authentication
-* **Universal Sign-In:** Users can log in using their **Enrollment ID** (e.g. `SAU/CS/DMTECH(CSE)/2024/36`), their **University Email** (`vikryansh.singh@students.sau.int`), or their standard **Username** (`vikryansh.singh`).
+* **Universal Sign-In:** Users can log in using their **Enrollment ID** (e.g. `SAU/2026/CS/001`), their **University Email** (`student1@sau.int`), or their standard **Username** (`student1`).
 * **Session Security:** Server-side sessions with bcrypt-hashed credentials and automatic role-based landing redirection.
 * **Granular RBAC:** Middleware enforcement ensuring users only access endpoints authorized for their designated role (`Student`, `Faculty`, `Warden`, `Mess Admin`, `Admin`).
 

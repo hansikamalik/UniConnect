@@ -4,6 +4,7 @@ const path = require('path');
 require('dotenv').config();
 
 const authRoutes = require('./modules/auth/authRoutes');
+const authController = require('./modules/auth/authController');
 const noticeRoutes = require('./modules/notices/noticeRoutes');
 const hostelRoutes = require('./modules/hostel/hostelRoutes');
 const messRoutes = require('./modules/mess/messRoutes');
@@ -29,6 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Session configuration
+if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
+  throw new Error('FATAL: SESSION_SECRET must be explicitly set when running in production.');
+}
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'uniconnect_dev_fallback_secret_key_2026',
@@ -59,6 +64,7 @@ app.get('/', (req, res) => {
 
 // Authentication Routes
 app.use('/auth', authRoutes);
+app.get('/profile', requireAuth, authController.getProfilePage);
 
 // Notices Routes
 app.use('/notices', noticeRoutes);

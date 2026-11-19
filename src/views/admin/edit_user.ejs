@@ -45,6 +45,13 @@
         </div>
 
         <div class="row g-3 mb-3">
+          <div class="col-md-12">
+            <label for="full_name" class="form-label fw-semibold small">Full Name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" value="<%= user.full_name %>" required>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
           <div class="col-md-6">
             <label for="username" class="form-label fw-semibold small">Username</label>
             <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
@@ -52,18 +59,6 @@
           <div class="col-md-6">
             <label for="email" class="form-label fw-semibold small">Email Address</label>
             <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
-          </div>
-        </div>
-
-        <div class="row g-3 mb-3">
-          <div class="col-md-6">
-            <label for="full_name" class="form-label fw-semibold small">Full Name</label>
-            <input type="text" class="form-control" id="full_name" name="full_name" value="<%= user.full_name %>" required>
-          </div>
-          <div class="col-md-6">
-            <label for="password" class="form-label fw-semibold small">Reset Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Leave blank to keep unchanged">
-            <div class="form-text small text-muted">Only fill if resetting password.</div>
           </div>
         </div>
 

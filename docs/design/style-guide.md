@@ -1,6 +1,6 @@
 # Style Guide (MVP)
 
-Version: 1.1
+Version: 1.2
 Date: 19 November 2026
 Owner: Saumya (UI/UX Designer), updated with Development Team
 

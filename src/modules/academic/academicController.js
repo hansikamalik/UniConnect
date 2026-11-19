@@ -59,23 +59,15 @@ exports.getMarksEntryPage = async (req, res) => {
   const selectedCourseId = req.query.course_id || null;
 
   try {
-    // 1. Get courses taught by this faculty member (or all courses if Admin)
-    let coursesQuery = '';
-    let coursesParams = [];
-
-    if (req.session.user.role === 'Admin') {
-      coursesQuery = `SELECT course_id, code, name FROM courses ORDER BY code ASC`;
-    } else {
-      coursesQuery = `
-        SELECT c.course_id, c.code, c.name
-        FROM courses c
-        JOIN course_faculty cf ON c.course_id = cf.course_id
-        WHERE cf.faculty_id = $1
-        ORDER BY c.code ASC`;
-      coursesParams = [facultyId];
-    }
-
-    const coursesRes = await db.query(coursesQuery, coursesParams);
+    // 1. Get courses taught by this faculty member (Ownership check D-4)
+    const coursesRes = await db.query(
+      `SELECT c.course_id, c.code, c.name
+       FROM courses c
+       JOIN course_faculty cf ON c.course_id = cf.course_id
+       WHERE cf.faculty_id = $1
+       ORDER BY c.code ASC`,
+      [facultyId]
+    );
     const assignedCourses = coursesRes.rows;
 
     let students = [];
@@ -151,15 +143,13 @@ exports.postSaveMarks = async (req, res) => {
     await client.query('BEGIN');
 
     // 1. Ownership check (D-4): Faculty can only enter marks for courses they teach
-    if (role !== 'Admin') {
-      const checkFaculty = await client.query(
-        `SELECT 1 FROM course_faculty WHERE course_id = $1 AND faculty_id = $2`,
-        [course_id, facultyId]
-      );
-      if (checkFaculty.rows.length === 0) {
-        await client.query('ROLLBACK');
-        return res.status(403).send('Forbidden: You are not assigned to teach this course.');
-      }
+    const checkFaculty = await client.query(
+      `SELECT 1 FROM course_faculty WHERE course_id = $1 AND faculty_id = $2`,
+      [course_id, facultyId]
+    );
+    if (checkFaculty.rows.length === 0) {
+      await client.query('ROLLBACK');
+      return res.status(403).send('Forbidden: You are not assigned to teach this course.');
     }
 
     // 2. Calculate grade automatically

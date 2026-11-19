@@ -182,7 +182,7 @@ exports.getEditUserPage = async (req, res) => {
  */
 exports.postEditUser = async (req, res) => {
   const { id } = req.params;
-  const { full_name, email, username, password, is_active, enrollment_id, custom_hostel_id, department_id, hostel_id } = req.body;
+  const { full_name, email, username, is_active, enrollment_id, custom_hostel_id, department_id, hostel_id } = req.body;
 
   if (!full_name || !email || !username) {
     return res.redirect(`/admin/users/${id}/edit?error=Full+name,+email,+and+username+are+required`);
@@ -194,7 +194,7 @@ exports.postEditUser = async (req, res) => {
     await client.query('BEGIN');
 
     // 1. Verify user exists
-    const userCheck = await client.query(`SELECT user_id, role, password_hash FROM users WHERE user_id = $1`, [id]);
+    const userCheck = await client.query(`SELECT user_id, role FROM users WHERE user_id = $1`, [id]);
     if (userCheck.rows.length === 0) {
       throw new Error('User not found.');
     }
@@ -218,23 +218,13 @@ exports.postEditUser = async (req, res) => {
 
     const activeBool = is_active === 'true' || is_active === 'on' || is_active === true || is_active === '1';
 
-    // 3. Update users table (conditionally updating password if provided)
-    if (password && password.trim() !== '') {
-      const passwordHash = await bcrypt.hash(password.trim(), 10);
-      await client.query(
-        `UPDATE users
-         SET username = $1, full_name = $2, email = $3, password_hash = $4, is_active = $5
-         WHERE user_id = $6`,
-        [username.trim(), full_name.trim(), email.trim(), passwordHash, activeBool, id]
-      );
-    } else {
-      await client.query(
-        `UPDATE users
-         SET username = $1, full_name = $2, email = $3, is_active = $4
-         WHERE user_id = $5`,
-        [username.trim(), full_name.trim(), email.trim(), activeBool, id]
-      );
-    }
+    // 3. Update users table (profile fields only; FR-5 admin password reset reserved for Stage 8)
+    await client.query(
+      `UPDATE users
+       SET username = $1, full_name = $2, email = $3, is_active = $4
+       WHERE user_id = $5`,
+      [username.trim(), full_name.trim(), email.trim(), activeBool, id]
+    );
 
     // 4. Update role-specific profile
     if (targetUser.role === 'Student') {

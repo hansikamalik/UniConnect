@@ -1,0 +1,117 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card sau-card p-4 p-md-5 mb-4">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 54px; height: 54px;">
+            <%= profile.full_name.charAt(0) %>
+          </div>
+          <div>
+            <h2 class="h4 mb-0 fw-bold"><%= profile.full_name %></h2>
+            <div class="text-muted small"><code>@<%= profile.username %></code></div>
+          </div>
+        </div>
+        <span class="badge bg-primary-subtle text-primary px-3 py-2 fs-6"><%= profile.role %></span>
+      </div>
+
+      <div class="row g-3 py-3 border-top border-bottom my-3">
+        <div class="col-sm-6">
+          <div class="text-muted small mb-1">Institutional Email</div>
+          <div class="fw-semibold"><i class="bi bi-envelope me-1 text-primary"></i> <%= profile.email %></div>
+        </div>
+        <div class="col-sm-6">
+          <div class="text-muted small mb-1">Account Provisioned</div>
+          <div class="fw-semibold"><i class="bi bi-calendar-check me-1 text-primary"></i> <%= new Date(profile.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) %></div>
+        </div>
+
+        <% if (profile.role === 'Student') { %>
+          <div class="col-sm-6">
+            <div class="text-muted small mb-1">Universal Enrollment ID</div>
+            <div class="fw-bold text-primary"><i class="bi bi-mortarboard me-1"></i> <%= profile.enrollment_id %></div>
+          </div>
+          <div class="col-sm-6">
+            <div class="text-muted small mb-1">Campus Residency</div>
+            <div class="fw-semibold">
+              <i class="bi bi-building me-1"></i>
+              <%= profile.custom_hostel_id ? `Hostel Resident (Room ${profile.custom_hostel_id})` : 'Day Scholar' %>
+            </div>
+          </div>
+        <% } else if (profile.role === 'Faculty') { %>
+          <div class="col-sm-6">
+            <div class="text-muted small mb-1">Department</div>
+            <div class="fw-bold text-primary"><i class="bi bi-bank me-1"></i> <%= profile.department_name || 'Academic Faculty' %></div>
+          </div>
+        <% } else if (profile.role === 'Warden') { %>
+          <div class="col-sm-6">
+            <div class="text-muted small mb-1">Assigned Hostel</div>
+            <div class="fw-bold text-primary"><i class="bi bi-door-open me-1"></i> <%= profile.hostel_name ? `${profile.hostel_name} (${profile.hostel_code})` : 'Unassigned' %></div>
+          </div>
+        <% } %>
+      </div>
+
+      <!-- Associated Courses Section -->
+      <% if (profile.role === 'Student') { %>
+        <h5 class="h6 text-primary fw-bold mt-2 mb-3"><i class="bi bi-book me-1"></i> Registered Academic Courses (<%= courses.length %>)</h5>
+        <% if (courses.length > 0) { %>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="small">Course Code</th>
+                  <th class="small">Course Name</th>
+                  <th class="small">Department</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% courses.forEach(c => { %>
+                  <tr>
+                    <td class="fw-semibold small"><code><%= c.code %></code></td>
+                    <td class="small"><%= c.name %></td>
+                    <td class="small text-muted"><%= c.department_name || 'Computer Science' %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p class="text-muted small">No courses registered for this semester.</p>
+        <% } %>
+      <% } else if (profile.role === 'Faculty') { %>
+        <h5 class="h6 text-primary fw-bold mt-2 mb-3"><i class="bi bi-book me-1"></i> Teaching Assignments (<%= courses.length %>)</h5>
+        <% if (courses.length > 0) { %>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="small">Course Code</th>
+                  <th class="small">Course Name</th>
+                  <th class="small text-center">Enrolled Students</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% courses.forEach(c => { %>
+                  <tr>
+                    <td class="fw-semibold small"><code><%= c.code %></code></td>
+                    <td class="small"><%= c.name %></td>
+                    <td class="small text-center"><span class="badge bg-secondary"><%= c.student_count %></span></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p class="text-muted small">No course teaching assignments found.</p>
+        <% } %>
+      <% } %>
+
+      <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+        <a href="/dashboard" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i> Dashboard</a>
+        <a href="/auth/change-password" class="btn btn-sau-primary btn-sm"><i class="bi bi-key me-1"></i> Change Password</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

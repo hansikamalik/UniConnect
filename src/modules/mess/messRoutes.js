@@ -35,17 +35,17 @@ const upload = multer({
 // Daily Menu routes (all authenticated users can view menu)
 router.get('/menu', requireAuth, messController.getMenuView);
 
-// Mess Admin Menu management
-router.get('/menu/edit', requireAuth, requireRole(['Mess Admin', 'Admin']), messController.getEditMenuPage);
-router.post('/menu/edit', requireAuth, requireRole(['Mess Admin', 'Admin']), messController.postEditMenu);
+// Mess Admin Menu management (Mess Admin only per Permission Matrix FR-16, FR-17)
+router.get('/menu/edit', requireAuth, requireRole('Mess Admin'), messController.getEditMenuPage);
+router.post('/menu/edit', requireAuth, requireRole('Mess Admin'), messController.postEditMenu);
 
 // Student Mess Subscription routes
 router.get('/subscription', requireAuth, requireRole('Student'), messController.getStudentSubscriptionView);
 router.post('/subscription', requireAuth, requireRole('Student'), upload.single('payment_proof'), messController.postSubmitSubscription);
 
-// Mess Admin Subscription & Fee verification routes
-router.get('/subscriptions/manage', requireAuth, requireRole(['Mess Admin', 'Admin']), messController.getAdminManageSubscriptions);
-router.post('/subscriptions/:id/verify', requireAuth, requireRole(['Mess Admin', 'Admin']), messController.postVerifyPayment);
-router.post('/subscriptions/cash', requireAuth, requireRole(['Mess Admin', 'Admin']), messController.postRecordCashPayment);
+// Mess Admin Subscription & Fee verification routes (Mess Admin only per Permission Matrix FR-34)
+router.get('/subscriptions/manage', requireAuth, requireRole('Mess Admin'), messController.getAdminManageSubscriptions);
+router.post('/subscriptions/:id/verify', requireAuth, requireRole('Mess Admin'), messController.postVerifyPayment);
+router.post('/subscriptions/cash', requireAuth, requireRole('Mess Admin'), messController.postRecordCashPayment);
 
 module.exports = router;

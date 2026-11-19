@@ -1,10 +1,8 @@
-# UniConnect &bull; QA & Peer Testing Handover Guide
+# QA & Peer Testing Handover Guide
 
-**Prepared for:** Siya (QA & DevOps Engineer) & Testing Team  
-**Author:** Development Team (Vikryansh)  
-**Branch:** `feature/scaffold-and-auth` &bull; Target: `main`  
-**Date:** 19 November 2026  
-**Status:** Verification Ready  
+Version: 1.0
+Date: 19 November 2026
+Owner: Siya (QA & DevOps Engineer), prepared with Vikryansh (Development Lead)
 
 ---
 
@@ -133,3 +131,9 @@ All test accounts are active and pre-configured in the database.
  Test Summary: 7 Passed, 0 Failed
 ========================================
 ```
+
+## 5. Change log
+
+| Version | Date | Change | Author |
+|---|---|---|---|
+| 1.0 | 19 Nov 2026 | Initial QA handover guide with credentials matrix, environment setup, and verification scenarios | Vikryansh & Siya |
