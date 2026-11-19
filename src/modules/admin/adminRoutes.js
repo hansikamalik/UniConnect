@@ -11,6 +11,8 @@ router.use(requireAuth, requireRole('Admin'));
 router.get('/users', adminController.getUsersList);
 router.get('/users/create', adminController.getCreateUserPage);
 router.post('/users/create', adminController.postCreateUser);
+router.get('/users/:id/edit', adminController.getEditUserPage);
+router.post('/users/:id/edit', adminController.postEditUser);
 router.post('/users/:id/toggle-status', adminController.postToggleUserStatus);
 
 // Course Management & Assignments

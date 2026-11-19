@@ -137,6 +137,161 @@ exports.postCreateUser = async (req, res) => {
 };
 
 /**
+ * Admin: Render Edit User Page
+ */
+exports.getEditUserPage = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const userRes = await db.query(
+      `SELECT u.user_id, u.username, u.role, u.full_name, u.email, u.is_active, u.created_at,
+              s.student_id, s.enrollment_id, s.custom_hostel_id,
+              f.faculty_id, f.department_id,
+              h.hostel_id
+       FROM users u
+       LEFT JOIN students s ON u.user_id = s.user_id
+       LEFT JOIN faculty f ON u.user_id = f.user_id
+       LEFT JOIN hostels h ON h.warden_user_id = u.user_id
+       WHERE u.user_id = $1`,
+      [id]
+    );
+
+    if (userRes.rows.length === 0) {
+      return res.redirect('/admin/users?error=User+not+found');
+    }
+
+    const depts = await db.query(`SELECT department_id, name FROM departments ORDER BY name ASC`);
+    const hostels = await db.query(`SELECT hostel_id, name, code FROM hostels ORDER BY name ASC`);
+
+    res.render('admin/edit_user', {
+      title: `Edit User: ${userRes.rows[0].username} - UniConnect`,
+      user: userRes.rows[0],
+      departments: depts.rows,
+      hostels: hostels.rows,
+      error: req.query.error || null,
+      success: req.query.success || null
+    });
+  } catch (err) {
+    console.error('Error loading edit user form:', err);
+    res.redirect('/admin/users?error=Failed+to+load+user+edit+form');
+  }
+};
+
+/**
+ * Admin: Handle Edit User
+ */
+exports.postEditUser = async (req, res) => {
+  const { id } = req.params;
+  const { full_name, email, username, password, is_active, enrollment_id, custom_hostel_id, department_id, hostel_id } = req.body;
+
+  if (!full_name || !email || !username) {
+    return res.redirect(`/admin/users/${id}/edit?error=Full+name,+email,+and+username+are+required`);
+  }
+
+  const client = await db.pool.connect();
+
+  try {
+    await client.query('BEGIN');
+
+    // 1. Verify user exists
+    const userCheck = await client.query(`SELECT user_id, role, password_hash FROM users WHERE user_id = $1`, [id]);
+    if (userCheck.rows.length === 0) {
+      throw new Error('User not found.');
+    }
+    const targetUser = userCheck.rows[0];
+
+    // 2. Check for username or email conflicts with other users
+    const conflictCheck = await client.query(
+      `SELECT user_id, username, email FROM users WHERE (username = $1 OR email = $2) AND user_id != $3`,
+      [username.trim(), email.trim(), id]
+    );
+
+    if (conflictCheck.rows.length > 0) {
+      const conflict = conflictCheck.rows[0];
+      if (conflict.username.toLowerCase() === username.trim().toLowerCase()) {
+        throw new Error(`Username "${username}" is already taken by another account.`);
+      }
+      if (conflict.email.toLowerCase() === email.trim().toLowerCase()) {
+        throw new Error(`Email "${email}" is already in use by another account.`);
+      }
+    }
+
+    const activeBool = is_active === 'true' || is_active === 'on' || is_active === true || is_active === '1';
+
+    // 3. Update users table (conditionally updating password if provided)
+    if (password && password.trim() !== '') {
+      const passwordHash = await bcrypt.hash(password.trim(), 10);
+      await client.query(
+        `UPDATE users
+         SET username = $1, full_name = $2, email = $3, password_hash = $4, is_active = $5
+         WHERE user_id = $6`,
+        [username.trim(), full_name.trim(), email.trim(), passwordHash, activeBool, id]
+      );
+    } else {
+      await client.query(
+        `UPDATE users
+         SET username = $1, full_name = $2, email = $3, is_active = $4
+         WHERE user_id = $5`,
+        [username.trim(), full_name.trim(), email.trim(), activeBool, id]
+      );
+    }
+
+    // 4. Update role-specific profile
+    if (targetUser.role === 'Student') {
+      if (!enrollment_id || enrollment_id.trim() === '') {
+        throw new Error('Enrollment ID is required for student accounts.');
+      }
+      const studentCheck = await client.query(`SELECT student_id FROM students WHERE user_id = $1`, [id]);
+      if (studentCheck.rows.length > 0) {
+        await client.query(
+          `UPDATE students
+           SET enrollment_id = $1, custom_hostel_id = $2
+           WHERE user_id = $3`,
+          [enrollment_id.trim(), custom_hostel_id ? custom_hostel_id.trim() : null, id]
+        );
+      } else {
+        await client.query(
+          `INSERT INTO students (user_id, enrollment_id, custom_hostel_id)
+           VALUES ($1, $2, $3)`,
+          [id, enrollment_id.trim(), custom_hostel_id ? custom_hostel_id.trim() : null]
+        );
+      }
+    } else if (targetUser.role === 'Faculty') {
+      if (!department_id) {
+        throw new Error('Department is required for faculty accounts.');
+      }
+      const facCheck = await client.query(`SELECT faculty_id FROM faculty WHERE user_id = $1`, [id]);
+      if (facCheck.rows.length > 0) {
+        await client.query(
+          `UPDATE faculty SET department_id = $1 WHERE user_id = $2`,
+          [department_id, id]
+        );
+      } else {
+        await client.query(
+          `INSERT INTO faculty (user_id, department_id) VALUES ($1, $2)`,
+          [id, department_id]
+        );
+      }
+    } else if (targetUser.role === 'Warden') {
+      await client.query(`UPDATE hostels SET warden_user_id = NULL WHERE warden_user_id = $1`, [id]);
+      if (hostel_id) {
+        await client.query(`UPDATE hostels SET warden_user_id = $1 WHERE hostel_id = $2`, [id, hostel_id]);
+      }
+    }
+
+    await client.query('COMMIT');
+    res.redirect(`/admin/users?success=User+${encodeURIComponent(username)}+updated+successfully`);
+
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('Error updating user:', err);
+    res.redirect(`/admin/users/${id}/edit?error=${encodeURIComponent(err.message)}`);
+  } finally {
+    client.release();
+  }
+};
+
+/**
  * Admin: Toggle User Active Status
  */
 exports.postToggleUserStatus = async (req, res) => {

@@ -1,0 +1,124 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card sau-card p-4 p-md-5">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <a href="/admin/users" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Back</a>
+          <h2 class="h4 mb-0 ms-2">Edit User Account</h2>
+        </div>
+        <span class="badge bg-primary-subtle text-primary fs-6 px-3 py-1"><%= user.role %></span>
+      </div>
+      <p class="text-muted small">Update profile details, credentials, and access configuration for <strong><%= user.full_name %></strong> (<code><%= user.username %></code>).</p>
+
+      <% if (locals.error) { %>
+        <div class="alert alert-danger py-2 px-3 small" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+        </div>
+      <% } %>
+      <% if (locals.success) { %>
+        <div class="alert alert-success py-2 px-3 small" role="alert">
+          <i class="bi bi-check-circle-fill me-1"></i> <%= success %>
+        </div>
+      <% } %>
+
+      <form action="/admin/users/<%= user.user_id %>/edit" method="POST" class="mt-3">
+        <!-- Account Status & Role Row -->
+        <div class="row g-3 mb-3 p-3 bg-light rounded border align-items-center">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold small mb-1">System Role</label>
+            <div class="form-control-plaintext fw-bold text-dark">
+              <i class="bi bi-shield-lock me-1 text-primary"></i> <%= user.role %>
+              <span class="text-muted fw-normal ms-2 small">(Role type is immutable)</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="is_active" class="form-label fw-semibold small mb-1">Account Status</label>
+            <div class="form-check form-switch mt-1">
+              <input class="form-check-input" type="checkbox" role="switch" id="is_active" name="is_active" value="true" <%= user.is_active ? 'checked' : '' %>>
+              <label class="form-check-label small" for="is_active">
+                <%= user.is_active ? 'Active (User can authenticate)' : 'Inactive (Access blocked)' %>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="username" class="form-label fw-semibold small">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label fw-semibold small">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="full_name" class="form-label fw-semibold small">Full Name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" value="<%= user.full_name %>" required>
+          </div>
+          <div class="col-md-6">
+            <label for="password" class="form-label fw-semibold small">Reset Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Leave blank to keep unchanged">
+            <div class="form-text small text-muted">Only fill if resetting password.</div>
+          </div>
+        </div>
+
+        <!-- Role-Specific Profile Sections -->
+        <% if (user.role === 'Student') { %>
+          <div class="p-3 bg-light rounded border mb-4">
+            <h5 class="h6 text-primary mb-3"><i class="bi bi-mortarboard me-1"></i> Student Profile Details</h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="enrollment_id" class="form-label fw-semibold small">Universal Enrollment ID *</label>
+                <input type="text" class="form-control form-control-sm" id="enrollment_id" name="enrollment_id" value="<%= user.enrollment_id || '' %>" required>
+              </div>
+              <div class="col-md-6">
+                <label for="custom_hostel_id" class="form-label fw-semibold small">Hostel Room ID (Optional for Day Scholars)</label>
+                <input type="text" class="form-control form-control-sm" id="custom_hostel_id" name="custom_hostel_id" value="<%= user.custom_hostel_id || '' %>" placeholder="e.g. BH1-304 (Leave blank for Day Scholar)">
+              </div>
+            </div>
+          </div>
+        <% } else if (user.role === 'Faculty') { %>
+          <div class="p-3 bg-light rounded border mb-4">
+            <h5 class="h6 text-primary mb-3"><i class="bi bi-building me-1"></i> Faculty Profile Details</h5>
+            <div>
+              <label for="department_id" class="form-label fw-semibold small">Academic Department *</label>
+              <select class="form-select form-select-sm" id="department_id" name="department_id" required>
+                <option value="" disabled>Select department</option>
+                <% departments.forEach(d => { %>
+                  <option value="<%= d.department_id %>" <%= user.department_id === d.department_id ? 'selected' : '' %>><%= d.name %></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+        <% } else if (user.role === 'Warden') { %>
+          <div class="p-3 bg-light rounded border mb-4">
+            <h5 class="h6 text-primary mb-3"><i class="bi bi-door-open me-1"></i> Warden Assignment</h5>
+            <div>
+              <label for="hostel_id" class="form-label fw-semibold small">Assigned Hostel Building</label>
+              <select class="form-select form-select-sm" id="hostel_id" name="hostel_id">
+                <option value="">None / Unassigned</option>
+                <% hostels.forEach(h => { %>
+                  <option value="<%= h.hostel_id %>" <%= user.hostel_id === h.hostel_id ? 'selected' : '' %>><%= h.name %> (<%= h.code %>)</option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+        <% } %>
+
+        <div class="d-flex justify-content-end gap-2">
+          <a href="/admin/users" class="btn btn-light border">Cancel</a>
+          <button type="submit" class="btn btn-sau-primary">
+            <i class="bi bi-check2-circle me-1"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
