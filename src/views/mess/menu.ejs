@@ -1,0 +1,93 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 mb-1">Daily Mess Menu</h1>
+    <p class="text-muted small mb-0">South Asian University Dining Hall &bull; Exactly 3 daily meals</p>
+  </div>
+  <div class="d-flex align-items-center gap-2">
+    <!-- Date picker button -->
+    <form action="/mess/menu" method="GET" class="d-flex align-items-center gap-2">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text bg-white"><i class="bi bi-calendar3"></i></span>
+        <input type="date" class="form-control form-control-sm" name="date" value="<%= selectedDate %>" onchange="this.form.submit()">
+      </div>
+      <noscript><button type="submit" class="btn btn-sm btn-outline-secondary">Go</button></noscript>
+    </form>
+    <% if (isMessAdmin) { %>
+      <a href="/mess/menu/edit?date=<%= selectedDate %>" class="btn btn-sau-primary btn-sm">
+        <i class="bi bi-pencil-square me-1"></i> Edit Menu
+      </a>
+    <% } %>
+  </div>
+</div>
+
+<% if (locals.success) { %>
+  <div class="alert alert-success alert-dismissible fade show small" role="alert">
+    <i class="bi bi-check-circle-fill me-1"></i> <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<div class="alert alert-primary-subtle border d-flex justify-content-between align-items-center py-2 px-3 mb-4 rounded">
+  <div>
+    <strong>Viewing Date:</strong> <%= new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) %>
+  </div>
+  <% if (user && user.role === 'Student') { %>
+    <a href="/mess/subscription" class="btn btn-sm btn-outline-primary">
+      <i class="bi bi-credit-card me-1"></i> Monthly Subscription
+    </a>
+  <% } %>
+</div>
+
+<div class="row g-4">
+  <% slots.forEach(slot => { %>
+    <div class="col-md-4">
+      <div class="card sau-card h-100">
+        <div class="card-header bg-white py-3 border-bottom">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0 fw-bold text-dark">
+              <% if (slot.slot_name === 'Breakfast') { %>
+                <i class="bi bi-egg-fried text-warning me-2"></i>
+              <% } else if (slot.slot_name === 'Lunch') { %>
+                <i class="bi bi-sun text-warning me-2"></i>
+              <% } else { %>
+                <i class="bi bi-moon-stars text-primary me-2"></i>
+              <% } %>
+              <%= slot.slot_name %>
+            </h2>
+            <span class="badge bg-light text-secondary border">
+              <%= slot.start_time.substring(0, 5) %> &ndash; <%= slot.end_time.substring(0, 5) %>
+            </span>
+          </div>
+        </div>
+        <div class="card-body p-4">
+          <% if (slot.items && slot.items.trim()) { %>
+            <div class="meal-items text-secondary" style="white-space: pre-line; line-height: 1.8; font-size: 0.95rem;">
+              <%= slot.items %>
+            </div>
+          <% } else { %>
+            <div class="text-center py-4 text-muted">
+              <i class="bi bi-cup-straw fs-2 text-secondary-subtle mb-2"></i>
+              <p class="small mb-0 italic">No menu published for this slot yet.</p>
+            </div>
+          <% } %>
+        </div>
+        <% if (slot.updated_at) { %>
+          <div class="card-footer bg-light py-2 px-3 small text-muted border-top text-end" style="font-size: 0.75rem;">
+            Updated by <%= slot.updated_by_name || 'Mess Staff' %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('../partials/footer') %>

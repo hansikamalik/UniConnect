@@ -1,8 +1,8 @@
 # Style Guide (MVP)
 
-Version: 1.0
-Date: 18 November 2026
-Owner: Saumya (UI/UX Designer)
+Version: 1.1
+Date: 19 November 2026
+Owner: Saumya (UI/UX Designer), updated with Development Team
 
 Keeps all UniConnect screens consistent (NFR-6). It applies to the wireframes in `wireframes.md`. Values are kept in one place in the code (CSS variables) so another institution can change the colours without touching every page (NFR-11).
 
@@ -10,7 +10,7 @@ Keeps all UniConnect screens consistent (NFR-6). It applies to the wireframes in
 
 | Use | Name | Hex |
 |---|---|---|
-| Main colour (header, primary buttons, links) | Primary blue | #1F4E8C |
+| Main colour (header, primary buttons, links) | Primary blue | #00408d |
 | Page background | Light grey | #F5F7FA |
 | Cards, forms, tables | White | #FFFFFF |
 | Main text | Dark grey | #1F2937 |
@@ -74,8 +74,24 @@ Status is always shown as a small rounded label with the status written in words
 | 768 px and wider (desktop, tablet) | Left menu always visible, cards in two columns |
 | Under 768 px (phone) | Menu collapses to one menu button, cards in one column, tables scroll sideways |
 
-## 8. Change log
+## 8. Multi-Theme Design Showcase Architecture (NFR-11)
+
+UniConnect incorporates a modular CSS custom properties architecture (`/css/themes/`) enabling instant, client-side switching between distinct UI aesthetics without page reload:
+
+| Theme Name | Identifier | Primary Accent | Background Palette | Aesthetic & Tone |
+|---|---|---|---|---|
+| **SAU Official Blue** | `sau-official` | `#00408d` | `#F5F7FA` & `#FFFFFF` | Institutional, authoritative university navy. |
+| **SAU Midnight Dark** | `sau-dark` | `#38BDF8` | `#080E1A` & `#0F172A` | Sleek slate dark mode with neon cyan highlights. |
+| **Heritage Collegiate** | `collegiate-crimson` | `#7A0019` | `#FAF7F2` & `#FFFFFF` | Ivy League / Oxbridge academic prestige with warm gold (`#C5A059`). |
+| **Futuristic Neo-Emerald** | `neo-emerald` | `#059669` | `#F0FDF4` & `#ECFDF5` | Glassmorphic, modern vibrant emerald and cyan gradients. |
+
+* **Theme Switcher:** Managed by `/js/theme-switcher.js` via `document.documentElement.setAttribute('data-theme', theme)` and persisted in `localStorage`.
+* **Accessible Switcher Dropdown:** Embedded in `/partials/header.ejs` with active theme color swatch indicators.
+
+## 9. Change log
 
 | Version | Date | Change | Author |
 |---|---|---|---|
 | 1.0 | 18 Nov 2026 | Initial style guide | Saumya |
+| 1.1 | 19 Nov 2026 | Updated primary blue to official South Asian University navy blue (#00408d) | Vikryansh |
+| 1.2 | 19 Nov 2026 | Added Section 8 documenting the 4 Designer Themes and theme switcher engine | Vikryansh |

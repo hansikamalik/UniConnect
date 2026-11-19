@@ -1,0 +1,73 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">Campus Notices</h1>
+    <p class="text-muted small mb-0">Official announcements and notifications from South Asian University</p>
+  </div>
+  <% if (canCreate) { %>
+    <a href="/notices/create" class="btn btn-sau-primary">
+      <i class="bi bi-plus-circle me-1"></i> Post Notice
+    </a>
+  <% } %>
+</div>
+
+<% if (locals.success) { %>
+  <div class="alert alert-success alert-dismissible fade show small" role="alert">
+    <i class="bi bi-check-circle-fill me-1"></i> <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (notices.length === 0) { %>
+  <div class="card sau-card p-5 text-center text-muted">
+    <i class="bi bi-megaphone fs-1 mb-2 text-secondary"></i>
+    <h5>No notices posted yet</h5>
+    <p class="small mb-0">Check back later for university-wide announcements.</p>
+  </div>
+<% } else { %>
+  <div class="row g-3">
+    <% notices.forEach(notice => { %>
+      <div class="col-12">
+        <div class="card sau-card p-3 p-md-4 hover-shadow transition">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-2">
+            <h2 class="h5 mb-0">
+              <a href="/notices/<%= notice.notice_id %>" class="text-decoration-none text-dark fw-bold">
+                <%= notice.title %>
+              </a>
+            </h2>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-secondary-subtle text-secondary small">
+                <%= notice.author_role %>
+              </span>
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>
+                <%= new Date(notice.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) %>
+              </span>
+            </div>
+          </div>
+          <p class="text-muted small mb-3 text-truncate" style="max-height: 48px; overflow: hidden;">
+            <%= notice.body.substring(0, 180) %><%= notice.body.length > 180 ? '...' : '' %>
+          </p>
+          <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+            <span class="small text-muted">
+              <i class="bi bi-person me-1"></i> <%= notice.author_name %>
+            </span>
+            <a href="/notices/<%= notice.notice_id %>" class="btn btn-outline-primary btn-sm">
+              Read More <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

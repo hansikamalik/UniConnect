@@ -1,0 +1,157 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="h3 mb-1">Mess Subscription & Fees</h1>
+        <p class="text-muted small mb-0">Manage monthly meal subscription for <strong><%= currentMonthYear %></strong></p>
+      </div>
+      <a href="/mess/menu" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-calendar3 me-1"></i> View Menu
+      </a>
+    </div>
+
+    <% if (locals.success) { %>
+      <div class="alert alert-success alert-dismissible fade show small" role="alert">
+        <i class="bi bi-check-circle-fill me-1"></i> <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% } %>
+
+    <% if (locals.error) { %>
+      <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% } %>
+
+    <!-- Current Subscription Status Card -->
+    <div class="card sau-card p-4 mb-4">
+      <h2 class="h5 mb-3">Subscription Status</h2>
+      <% if (subscription) { %>
+        <div class="row g-3">
+          <div class="col-sm-6">
+            <span class="text-muted small d-block">Status:</span>
+            <% if (subscription.status === 'OPTED_IN') { %>
+              <span class="badge bg-success-subtle text-success fs-6"><i class="bi bi-check-circle me-1"></i> OPTED IN</span>
+            <% } else { %>
+              <span class="badge bg-secondary-subtle text-secondary fs-6"><i class="bi bi-x-circle me-1"></i> OPTED OUT</span>
+            <% } %>
+          </div>
+          <div class="col-sm-6">
+            <span class="text-muted small d-block">Payment Verification:</span>
+            <% if (subscription.payment_status === 'VERIFIED') { %>
+              <span class="badge badge-verified fs-6"><i class="bi bi-shield-check me-1"></i> VERIFIED</span>
+            <% } else if (subscription.payment_status === 'PENDING_VERIFICATION') { %>
+              <span class="badge badge-pending fs-6"><i class="bi bi-clock-history me-1"></i> PENDING VERIFICATION</span>
+            <% } else if (subscription.payment_status === 'REJECTED') { %>
+              <span class="badge badge-rejected fs-6"><i class="bi bi-exclamation-triangle me-1"></i> REJECTED</span>
+            <% } else { %>
+              <span class="badge bg-secondary fs-6"><%= subscription.payment_status %></span>
+            <% } %>
+          </div>
+          <% if (subscription.transaction_id) { %>
+            <div class="col-sm-6">
+              <span class="text-muted small d-block">Transaction UTR:</span>
+              <code><%= subscription.transaction_id %></code>
+            </div>
+          <% } %>
+          <% if (subscription.admin_remarks) { %>
+            <div class="col-12">
+              <div class="alert alert-info py-2 px-3 small mb-0">
+                <strong>Mess Admin Remarks:</strong> <%= subscription.admin_remarks %>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      <% } else { %>
+        <div class="alert alert-warning py-2 px-3 small mb-0">
+          <i class="bi bi-exclamation-circle me-1"></i> You have not selected your subscription or submitted fees for <%= currentMonthYear %>.
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Opt-In / Payment Form -->
+    <div class="card sau-card p-4 p-md-5">
+      <h2 class="h5 mb-2">Submit Monthly Fee / Update Status</h2>
+      <p class="text-muted small mb-4">Pay monthly dues via SAU Mess UPI QR code and upload screenshot proof for admin verification.</p>
+
+      <form action="/mess/subscription" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="month_year" value="<%= currentMonthYear %>">
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold small">Monthly Meal Choice</label>
+          <div class="d-flex gap-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="status" id="optIn" value="OPTED_IN" checked onchange="togglePaymentSection(true)">
+              <label class="form-check-label" for="optIn">
+                <strong>Opt-In</strong> (Full 3 meals daily)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="status" id="optOut" value="OPTED_OUT" onchange="togglePaymentSection(false)">
+              <label class="form-check-label text-muted" for="optOut">
+                <strong>Opt-Out</strong> (Do not subscribe this month)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div id="paymentFields" class="border-top pt-4">
+          <div class="row g-4 align-items-center mb-4">
+            <div class="col-md-5 text-center">
+              <div class="border rounded p-3 bg-light d-inline-block">
+                <!-- Fallback QR code icon / placeholder -->
+                <i class="bi bi-qr-code fs-1 text-primary"></i>
+                <div class="fw-bold small mt-1">SAU MESS COMMITTEE</div>
+                <div class="text-muted" style="font-size: 0.75rem;">UPI ID: <code>saumess@upi</code></div>
+                <div class="badge bg-primary mt-2">Monthly Fee: ₹3,500</div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="small text-secondary mb-3">
+                <strong>Payment Instructions:</strong>
+                <ol class="ps-3 mb-0 mt-1">
+                  <li>Scan the UPI QR code using any UPI app (GPay, PhonePe, Paytm).</li>
+                  <li>Complete payment of ₹3,500 for the month.</li>
+                  <li>Copy the 12-digit UPI / UTR Transaction ID.</li>
+                  <li>Take a screenshot and upload below.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="transaction_id" class="form-label fw-semibold small">12-Digit UPI Transaction / UTR ID</label>
+            <input type="text" class="form-control" id="transaction_id" name="transaction_id" placeholder="e.g. 431289567123">
+          </div>
+
+          <div class="mb-4">
+            <label for="payment_proof" class="form-label fw-semibold small">Upload Screenshot Proof (PNG, JPG, PDF)</label>
+            <input type="file" class="form-control" id="payment_proof" name="payment_proof" accept="image/*,application/pdf">
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-sau-primary">
+            <i class="bi bi-cloud-arrow-up me-1"></i> Submit Subscription Details
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePaymentSection(isOptedIn) {
+    const fields = document.getElementById('paymentFields');
+    if (isOptedIn) {
+      fields.style.display = 'block';
+    } else {
+      fields.style.display = 'none';
+    }
+  }
+</script>
+
+<%- include('../partials/footer') %>

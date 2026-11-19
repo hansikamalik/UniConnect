@@ -1,0 +1,805 @@
+/**
+ * ============================================================================
+ * UniConnect - SAU Midnight Dark Theme (Theme 2)
+ * ============================================================================
+ * Designer: Senior UI/UX Designer & Frontend CSS Architect
+ * Scoped: [data-theme="sau-dark"] & html[data-theme="sau-dark"]
+ * Palette:
+ *   - Deep Midnight Canvas: #080E1A
+ *   - Elevated Surface Dark: #0F172A & #1E293B
+ *   - Primary Neon Accent: #38BDF8 (Cyan/Electric Blue), #60A5FA, #2563EB
+ *   - Typography: High-contrast #F1F5F9 (Primary), #94A3B8 (Muted/Secondary)
+ *   - Luminous Borders: #1E293B, #334155, rgba(56, 189, 248, 0.2 - 0.45)
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   CSS Custom Properties (Variables)
+   -------------------------------------------------------------------------- */
+:root[data-theme="sau-dark"],
+[data-theme="sau-dark"] {
+  --sau-bg: #080E1A;
+  --sau-bg-alt: #0B132B;
+  --sau-card-bg: #0F172A;
+  --sau-card-header: #1E293B;
+  --sau-surface-elevated: #1E293B;
+  --sau-surface-hover: #172554;
+  --sau-text: #F1F5F9;
+  --sau-text-muted: #94A3B8;
+  --sau-text-subtle: #64748B;
+  --sau-heading: #FFFFFF;
+  --sau-border: #1E293B;
+  --sau-border-subtle: #334155;
+  --sau-border-glow: rgba(56, 189, 248, 0.25);
+  --sau-blue: #38BDF8;
+  --sau-blue-dark: #0284C7;
+  --sau-blue-light: #60A5FA;
+  --sau-blue-neon: #38BDF8;
+  --sau-primary-gradient: linear-gradient(135deg, #0284C7 0%, #2563EB 100%);
+  --sau-primary-gradient-hover: linear-gradient(135deg, #0369A1 0%, #1D4ED8 100%);
+  --sau-success: #10B981;
+  --sau-warning: #F59E0B;
+  --sau-danger: #EF4444;
+  --sau-info: #06B6D4;
+}
+
+/* --------------------------------------------------------------------------
+   Canvas & Global Base Reset
+   -------------------------------------------------------------------------- */
+html[data-theme="sau-dark"],
+html[data-theme="sau-dark"] body,
+body[data-theme="sau-dark"],
+[data-theme="sau-dark"] {
+  background-color: #080E1A !important;
+  color: #F1F5F9;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbars */
+[data-theme="sau-dark"] ::-webkit-scrollbar,
+html[data-theme="sau-dark"] ::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+[data-theme="sau-dark"] ::-webkit-scrollbar-track,
+html[data-theme="sau-dark"] ::-webkit-scrollbar-track {
+  background: #080E1A;
+}
+[data-theme="sau-dark"] ::-webkit-scrollbar-thumb,
+html[data-theme="sau-dark"] ::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+  border: 2px solid #080E1A;
+}
+[data-theme="sau-dark"] ::-webkit-scrollbar-thumb:hover,
+html[data-theme="sau-dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #38BDF8;
+}
+
+/* Selection */
+[data-theme="sau-dark"] ::selection,
+html[data-theme="sau-dark"] ::selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: #FFFFFF;
+}
+
+/* Typography Hierarchy */
+[data-theme="sau-dark"] h1,
+[data-theme="sau-dark"] h2,
+[data-theme="sau-dark"] h3,
+[data-theme="sau-dark"] h4,
+[data-theme="sau-dark"] h5,
+[data-theme="sau-dark"] h6,
+[data-theme="sau-dark"] .h1,
+[data-theme="sau-dark"] .h2,
+[data-theme="sau-dark"] .h3,
+[data-theme="sau-dark"] .h4,
+[data-theme="sau-dark"] .h5,
+[data-theme="sau-dark"] .h6 {
+  color: #FFFFFF;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+[data-theme="sau-dark"] .text-muted,
+[data-theme="sau-dark"] .text-secondary {
+  color: #94A3B8 !important;
+}
+
+[data-theme="sau-dark"] .text-dark {
+  color: #F1F5F9 !important;
+}
+
+[data-theme="sau-dark"] a:not(.btn):not(.nav-link):not(.dropdown-item) {
+  color: #38BDF8;
+  text-decoration: none;
+  transition: color 0.15s ease, text-shadow 0.15s ease;
+}
+[data-theme="sau-dark"] a:not(.btn):not(.nav-link):not(.dropdown-item):hover {
+  color: #60A5FA;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+[data-theme="sau-dark"] hr {
+  border-color: #1E293B;
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Navbar - Dark Midnight with Electric Cyan Underline Glow
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .navbar-sau,
+html[data-theme="sau-dark"] .navbar-sau {
+  background-color: #070D18 !important;
+  border-bottom: 2px solid #0284c7 !important;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.18) !important;
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="sau-dark"] .navbar-sau .navbar-brand {
+  color: #F8FAFC !important;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  transition: transform 0.2s ease;
+}
+[data-theme="sau-dark"] .navbar-sau .navbar-brand:hover {
+  transform: translateY(-1px);
+}
+[data-theme="sau-dark"] .navbar-sau .navbar-brand i {
+  color: #38BDF8;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+}
+[data-theme="sau-dark"] .navbar-sau .navbar-brand .badge {
+  background-color: rgba(2, 132, 199, 0.25) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+[data-theme="sau-dark"] .navbar-sau .nav-link {
+  color: #94A3B8 !important;
+  font-weight: 500;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  position: relative;
+  padding-left: 0.85rem !important;
+  padding-right: 0.85rem !important;
+}
+[data-theme="sau-dark"] .navbar-sau .nav-link:hover,
+[data-theme="sau-dark"] .navbar-sau .nav-link.active {
+  color: #38BDF8 !important;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+[data-theme="sau-dark"] .navbar-sau .nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0.85rem;
+  right: 0.85rem;
+  height: 2px;
+  background: #38BDF8;
+  box-shadow: 0 0 8px #38BDF8;
+  border-radius: 2px;
+}
+
+[data-theme="sau-dark"] .navbar-sau .navbar-toggler {
+  border-color: #334155;
+  color: #38BDF8;
+}
+[data-theme="sau-dark"] .navbar-sau .navbar-toggler:focus {
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   Cards - Dark Slate with Glowing Cyan Hover Micro-interactions
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .sau-card,
+[data-theme="sau-dark"] .card {
+  background-color: #0F172A !important;
+  border: 1px solid #1E293B !important;
+  border-radius: 10px;
+  color: #F1F5F9;
+  box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(56, 189, 248, 0.08) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease;
+}
+
+[data-theme="sau-dark"] .sau-card:hover,
+[data-theme="sau-dark"] .card:hover {
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.65), 0 0 18px rgba(56, 189, 248, 0.22) !important;
+  transform: translateY(-2px);
+}
+
+[data-theme="sau-dark"] .card-header {
+  background-color: #131E33 !important;
+  border-bottom: 1px solid #1E293B !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+[data-theme="sau-dark"] .card-footer {
+  background-color: #0B1324 !important;
+  border-top: 1px solid #1E293B !important;
+  color: #94A3B8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons - Electric Neon Blue & High Contrast Outlines
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .btn-sau-primary,
+html[data-theme="sau-dark"] .btn-sau-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.3) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="sau-dark"] .btn-sau-primary:hover,
+html[data-theme="sau-dark"] .btn-sau-primary:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
+  transform: translateY(-1px);
+  color: #FFFFFF !important;
+}
+
+[data-theme="sau-dark"] .btn-sau-primary:active,
+html[data-theme="sau-dark"] .btn-sau-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.35) !important;
+}
+
+/* Standard Primary Button */
+[data-theme="sau-dark"] .btn-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.25);
+  transition: all 0.2s ease;
+}
+[data-theme="sau-dark"] .btn-primary:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+/* Outline Buttons */
+[data-theme="sau-dark"] .btn-outline-primary {
+  border-color: #38BDF8 !important;
+  color: #38BDF8 !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease;
+}
+[data-theme="sau-dark"] .btn-outline-primary:hover {
+  background-color: #0284C7 !important;
+  color: #FFFFFF !important;
+  border-color: #38BDF8 !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+[data-theme="sau-dark"] .btn-outline-secondary {
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease;
+}
+[data-theme="sau-dark"] .btn-outline-secondary:hover {
+  background-color: #1E293B !important;
+  border-color: #64748B !important;
+  color: #F1F5F9 !important;
+}
+
+[data-theme="sau-dark"] .btn-outline-light {
+  border-color: #334155 !important;
+  color: #E2E8F0 !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease;
+}
+[data-theme="sau-dark"] .btn-outline-light:hover {
+  background-color: #1E293B !important;
+  border-color: #38BDF8 !important;
+  color: #38BDF8 !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25) !important;
+}
+
+[data-theme="sau-dark"] .btn-outline-info {
+  border-color: #06B6D4 !important;
+  color: #38BDF8 !important;
+}
+[data-theme="sau-dark"] .btn-outline-info:hover {
+  background-color: #0891B2 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.4) !important;
+}
+
+[data-theme="sau-dark"] .btn-outline-success {
+  border-color: #10B981 !important;
+  color: #34D399 !important;
+}
+[data-theme="sau-dark"] .btn-outline-success:hover {
+  background-color: #059669 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.35) !important;
+}
+
+[data-theme="sau-dark"] .btn-outline-danger {
+  border-color: #EF4444 !important;
+  color: #F87171 !important;
+}
+[data-theme="sau-dark"] .btn-outline-danger:hover {
+  background-color: #DC2626 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.35) !important;
+}
+
+[data-theme="sau-dark"] .btn-secondary {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #F1F5F9 !important;
+}
+[data-theme="sau-dark"] .btn-secondary:hover {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+}
+
+[data-theme="sau-dark"] .btn-light {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  color: #E2E8F0 !important;
+}
+[data-theme="sau-dark"] .btn-light:hover {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #FFFFFF !important;
+}
+
+/* --------------------------------------------------------------------------
+   Tables - Dark Rows, Midnight Slate Headers & Subtle Cyan Dividers
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .table {
+  color: #F1F5F9 !important;
+  border-color: #1E293B !important;
+  background-color: transparent !important;
+  margin-bottom: 0;
+}
+
+[data-theme="sau-dark"] .table > :not(caption) > * > * {
+  background-color: transparent;
+  color: #F1F5F9;
+  border-bottom-color: #1E293B !important;
+  padding: 0.85rem 0.75rem;
+}
+
+[data-theme="sau-dark"] .table thead,
+[data-theme="sau-dark"] .table thead.table-light,
+[data-theme="sau-dark"] .table thead tr,
+[data-theme="sau-dark"] .table thead th {
+  background-color: #1E293B !important;
+  color: #94A3B8 !important;
+  border-bottom: 2px solid #334155 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+}
+
+[data-theme="sau-dark"] .table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+[data-theme="sau-dark"] .table tbody tr:hover,
+[data-theme="sau-dark"] .table-hover tbody tr:hover {
+  background-color: rgba(56, 189, 248, 0.06) !important;
+}
+
+[data-theme="sau-dark"] .table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(255, 255, 255, 0.015) !important;
+}
+
+/* Table empty / muted text */
+[data-theme="sau-dark"] .table td.text-muted {
+  color: #94A3B8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Form Controls - Dark Slate, Cyan Glow Focus, Crisp Contrast
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .form-control,
+[data-theme="sau-dark"] .form-select {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+  border: 1px solid #334155 !important;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+[data-theme="sau-dark"] .form-control:focus,
+[data-theme="sau-dark"] .form-select:focus {
+  background-color: #1E293B !important;
+  color: #FFFFFF !important;
+  border-color: #38BDF8 !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+  outline: none;
+}
+
+[data-theme="sau-dark"] .form-control::placeholder {
+  color: #64748B !important;
+  opacity: 1;
+}
+
+[data-theme="sau-dark"] .form-control:disabled,
+[data-theme="sau-dark"] .form-control[readonly],
+[data-theme="sau-dark"] .form-select:disabled {
+  background-color: #0F172A !important;
+  border-color: #1E293B !important;
+  color: #64748B !important;
+  opacity: 0.75;
+}
+
+[data-theme="sau-dark"] .form-label {
+  color: #CBD5E1 !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+[data-theme="sau-dark"] .form-text {
+  color: #94A3B8 !important;
+  font-size: 0.8rem;
+}
+
+[data-theme="sau-dark"] .input-group-text {
+  background-color: #0F172A !important;
+  border: 1px solid #334155 !important;
+  color: #94A3B8 !important;
+}
+
+[data-theme="sau-dark"] .form-check-input {
+  background-color: #1E293B;
+  border-color: #475569;
+}
+[data-theme="sau-dark"] .form-check-input:checked {
+  background-color: #0284C7;
+  border-color: #38BDF8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+[data-theme="sau-dark"] .form-check-label {
+  color: #CBD5E1;
+}
+
+/* --------------------------------------------------------------------------
+   Badges - Luminous Translucent Pills with Neon Glow
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .badge {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.4em 0.7em;
+  border-radius: 6px;
+}
+
+[data-theme="sau-dark"] .badge-pending {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #FBBF24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.35);
+}
+
+[data-theme="sau-dark"] .badge-inprogress {
+  background-color: rgba(56, 189, 248, 0.15) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
+}
+
+[data-theme="sau-dark"] .badge-resolved,
+[data-theme="sau-dark"] .badge-verified {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #34D399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+}
+
+[data-theme="sau-dark"] .badge-rejected {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #F87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.35);
+}
+
+[data-theme="sau-dark"] .badge.bg-primary {
+  background-color: rgba(2, 132, 199, 0.22) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+}
+
+[data-theme="sau-dark"] .badge.bg-secondary {
+  background-color: rgba(100, 116, 139, 0.25) !important;
+  color: #CBD5E1 !important;
+  border: 1px solid rgba(100, 116, 139, 0.35) !important;
+}
+
+[data-theme="sau-dark"] .badge.bg-success {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+  color: #34D399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+[data-theme="sau-dark"] .badge.bg-danger {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  color: #F87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+[data-theme="sau-dark"] .badge.bg-warning {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+  color: #FBBF24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+}
+
+[data-theme="sau-dark"] .badge.bg-info {
+  background-color: rgba(6, 182, 212, 0.2) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(6, 182, 212, 0.35) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Modals - Deep Slate (#0F172A) with Cyan Accent Borders & Backdrop
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .modal-content {
+  background-color: #0F172A !important;
+  border: 1px solid #334155 !important;
+  border-radius: 12px !important;
+  color: #F1F5F9 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 24px rgba(56, 189, 248, 0.15) !important;
+}
+
+[data-theme="sau-dark"] .modal-header {
+  background-color: #0B1324 !important;
+  border-bottom: 1px solid #1E293B !important;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+}
+
+[data-theme="sau-dark"] .modal-title {
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+[data-theme="sau-dark"] .modal-footer {
+  background-color: #0B1324 !important;
+  border-top: 1px solid #1E293B !important;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+}
+
+[data-theme="sau-dark"] .modal-backdrop {
+  background-color: #030712 !important;
+}
+
+/* Invert Close Buttons for Dark Theme */
+[data-theme="sau-dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+[data-theme="sau-dark"] .btn-close:hover {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Alerts - Elegant Neon Banner Notifications
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .alert {
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="sau-dark"] .alert-success {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  color: #34D399 !important;
+}
+
+[data-theme="sau-dark"] .alert-danger {
+  background-color: rgba(239, 68, 68, 0.12) !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+  color: #F87171 !important;
+}
+
+[data-theme="sau-dark"] .alert-warning {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  color: #FBBF24 !important;
+}
+
+[data-theme="sau-dark"] .alert-info {
+  background-color: rgba(56, 189, 248, 0.12) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  color: #38BDF8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Subtle Background Utility Overrides
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .bg-primary-subtle {
+  background-color: rgba(2, 132, 199, 0.18) !important;
+  color: #38BDF8 !important;
+}
+[data-theme="sau-dark"] .text-primary {
+  color: #38BDF8 !important;
+}
+
+[data-theme="sau-dark"] .bg-info-subtle {
+  background-color: rgba(6, 182, 212, 0.18) !important;
+  color: #38BDF8 !important;
+}
+[data-theme="sau-dark"] .text-info {
+  color: #38BDF8 !important;
+}
+
+[data-theme="sau-dark"] .bg-success-subtle {
+  background-color: rgba(16, 185, 129, 0.18) !important;
+  color: #34D399 !important;
+}
+[data-theme="sau-dark"] .text-success {
+  color: #34D399 !important;
+}
+
+[data-theme="sau-dark"] .bg-warning-subtle {
+  background-color: rgba(245, 158, 11, 0.18) !important;
+  color: #FBBF24 !important;
+}
+[data-theme="sau-dark"] .text-warning {
+  color: #FBBF24 !important;
+}
+
+[data-theme="sau-dark"] .bg-danger-subtle {
+  background-color: rgba(239, 68, 68, 0.18) !important;
+  color: #F87171 !important;
+}
+[data-theme="sau-dark"] .text-danger {
+  color: #F87171 !important;
+}
+
+[data-theme="sau-dark"] .bg-light {
+  background-color: #1E293B !important;
+}
+
+/* --------------------------------------------------------------------------
+   Dropdowns & Menus
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .dropdown-menu {
+  background-color: #0F172A !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.12) !important;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+[data-theme="sau-dark"] .dropdown-item {
+  color: #CBD5E1 !important;
+  border-radius: 4px;
+  padding: 0.5rem 0.85rem;
+  transition: all 0.15s ease;
+}
+
+[data-theme="sau-dark"] .dropdown-item:hover,
+[data-theme="sau-dark"] .dropdown-item:focus {
+  background-color: #1E293B !important;
+  color: #38BDF8 !important;
+}
+
+[data-theme="sau-dark"] .dropdown-divider {
+  border-color: #1E293B !important;
+}
+
+/* --------------------------------------------------------------------------
+   List Groups
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .list-group-item {
+  background-color: #0F172A !important;
+  border-color: #1E293B !important;
+  color: #F1F5F9 !important;
+}
+
+[data-theme="sau-dark"] .list-group-item-action:hover {
+  background-color: #1E293B !important;
+  color: #38BDF8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Nav Tabs & Button Groups
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .nav-tabs {
+  border-bottom-color: #334155 !important;
+}
+
+[data-theme="sau-dark"] .nav-tabs .nav-link {
+  color: #94A3B8 !important;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+[data-theme="sau-dark"] .nav-tabs .nav-link:hover {
+  border-color: #334155 #334155 transparent !important;
+  color: #38BDF8 !important;
+}
+
+[data-theme="sau-dark"] .nav-tabs .nav-link.active {
+  background-color: #0F172A !important;
+  border-color: #334155 #334155 #0F172A !important;
+  color: #38BDF8 !important;
+  font-weight: 600;
+  box-shadow: 0 -2px 10px rgba(56, 189, 248, 0.15);
+}
+
+[data-theme="sau-dark"] .btn-group .btn {
+  border-color: #334155;
+}
+
+/* --------------------------------------------------------------------------
+   Pagination
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .pagination .page-link {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+  transition: all 0.15s ease;
+}
+
+[data-theme="sau-dark"] .pagination .page-link:hover {
+  background-color: #1E293B !important;
+  color: #38BDF8 !important;
+  border-color: #38BDF8 !important;
+}
+
+[data-theme="sau-dark"] .pagination .page-item.active .page-link {
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
+  border-color: #38BDF8 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] footer.footer,
+html[data-theme="sau-dark"] footer.footer {
+  background-color: #070D18 !important;
+  border-top: 1px solid #1E293B !important;
+  color: #64748B !important;
+}
+
+[data-theme="sau-dark"] footer.footer a {
+  color: #94A3B8 !important;
+}
+[data-theme="sau-dark"] footer.footer a:hover {
+  color: #38BDF8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Auth / Login Screen Enhancements
+   -------------------------------------------------------------------------- */
+[data-theme="sau-dark"] .login-container .sau-card,
+[data-theme="sau-dark"] .login-container .card {
+  background-color: #0F172A !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.75), 0 0 24px rgba(2, 132, 199, 0.2) !important;
+}
+
+[data-theme="sau-dark"] .login-header h1 {
+  color: #38BDF8 !important;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+  font-weight: 700;
+}
+
+[data-theme="sau-dark"] .login-header p {
+  color: #94A3B8 !important;
+}

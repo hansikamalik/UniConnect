@@ -1,0 +1,94 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 mb-1">My Academic Grades</h1>
+    <p class="text-muted small mb-0">Enrollment ID: <strong><%= enrollmentId %></strong> &bull; South Asian University</p>
+  </div>
+  <a href="/academic/posts" class="btn btn-outline-primary btn-sm">
+    <i class="bi bi-calendar-event me-1"></i> View Course Deadlines
+  </a>
+</div>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (courses.length === 0) { %>
+  <div class="card sau-card p-5 text-center text-muted">
+    <i class="bi bi-mortarboard fs-1 mb-2 text-secondary"></i>
+    <h5>No course enrollments found</h5>
+    <p class="small mb-0">You are not enrolled in any courses for the current semester.</p>
+  </div>
+<% } else { %>
+  <div class="card sau-card">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light small text-uppercase text-secondary">
+          <tr>
+            <th class="ps-3">Course Code</th>
+            <th>Course Name</th>
+            <th>Department</th>
+            <th class="text-center">Marks Obtained</th>
+            <th class="text-center">Max Marks</th>
+            <th class="text-center">Percentage</th>
+            <th class="text-center">Grade</th>
+            <th>Last Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% courses.forEach(c => { %>
+            <tr>
+              <td class="ps-3 fw-bold text-dark"><%= c.course_code %></td>
+              <td><span class="fw-semibold"><%= c.course_name %></span></td>
+              <td><span class="badge bg-light text-secondary border"><%= c.department_name || 'N/A' %></span></td>
+              <td class="text-center">
+                <% if (c.marks_obtained !== null && c.marks_obtained !== undefined) { %>
+                  <span class="fw-bold fs-6"><%= c.marks_obtained %></span>
+                <% } else { %>
+                  <span class="text-muted italic small">Pending</span>
+                <% } %>
+              </td>
+              <td class="text-center">
+                <% if (c.max_marks) { %>
+                  <span class="text-muted"><%= c.max_marks %></span>
+                <% } else { %>
+                  <span class="text-muted small">&ndash;</span>
+                <% } %>
+              </td>
+              <td class="text-center">
+                <% if (c.marks_obtained !== null && c.max_marks) { %>
+                  <% const pct = ((c.marks_obtained / c.max_marks) * 100).toFixed(1); %>
+                  <span class="badge <%= pct >= 60 ? 'bg-success-subtle text-success' : (pct >= 40 ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger') %>">
+                    <%= pct %>%
+                  </span>
+                <% } else { %>
+                  <span class="text-muted small">&ndash;</span>
+                <% } %>
+              </td>
+              <td class="text-center">
+                <% if (c.grade) { %>
+                  <span class="badge bg-primary px-3 py-1 fs-6"><%= c.grade %></span>
+                <% } else { %>
+                  <span class="badge bg-secondary-subtle text-secondary small">Not Graded</span>
+                <% } %>
+              </td>
+              <td class="small text-muted">
+                <% if (c.updated_at) { %>
+                  <%= new Date(c.updated_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) %>
+                <% } else { %>
+                  &ndash;
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

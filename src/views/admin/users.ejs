@@ -1,0 +1,101 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 mb-1">User Account Management</h1>
+    <p class="text-muted small mb-0">Provision and manage accounts across all 5 university roles</p>
+  </div>
+  <a href="/admin/users/create" class="btn btn-sau-primary">
+    <i class="bi bi-person-plus-fill me-1"></i> + Create New User
+  </a>
+</div>
+
+<% if (locals.success) { %>
+  <div class="alert alert-success alert-dismissible fade show small" role="alert">
+    <i class="bi bi-check-circle-fill me-1"></i> <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-1"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% } %>
+
+<!-- Role filter tabs -->
+<div class="btn-group mb-3" role="group">
+  <a href="/admin/users?role=ALL" class="btn btn-sm <%= roleFilter === 'ALL' ? 'btn-primary' : 'btn-outline-secondary' %>">All Users</a>
+  <a href="/admin/users?role=Student" class="btn btn-sm <%= roleFilter === 'Student' ? 'btn-primary' : 'btn-outline-secondary' %>">Students</a>
+  <a href="/admin/users?role=Faculty" class="btn btn-sm <%= roleFilter === 'Faculty' ? 'btn-primary' : 'btn-outline-secondary' %>">Faculty</a>
+  <a href="/admin/users?role=Warden" class="btn btn-sm <%= roleFilter === 'Warden' ? 'btn-primary' : 'btn-outline-secondary' %>">Wardens</a>
+  <a href="/admin/users?role=Mess Admin" class="btn btn-sm <%= roleFilter === 'Mess Admin' ? 'btn-primary' : 'btn-outline-secondary' %>">Mess Admins</a>
+  <a href="/admin/users?role=Admin" class="btn btn-sm <%= roleFilter === 'Admin' ? 'btn-primary' : 'btn-outline-secondary' %>">Admins</a>
+</div>
+
+<div class="card sau-card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light small text-uppercase text-secondary">
+        <tr>
+          <th class="ps-3">User</th>
+          <th>Role</th>
+          <th>Profile Identifier</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th class="text-end pe-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(u => { %>
+          <tr>
+            <td class="ps-3">
+              <div class="fw-semibold text-dark"><%= u.full_name %></div>
+              <div class="text-muted small"><code><%= u.username %></code></div>
+            </td>
+            <td>
+              <span class="badge bg-primary-subtle text-primary"><%= u.role %></span>
+            </td>
+            <td>
+              <% if (u.role === 'Student') { %>
+                <div class="fw-semibold small"><%= u.enrollment_id %></div>
+                <div class="text-muted" style="font-size: 0.75rem;">Room: <%= u.custom_hostel_id || 'Day Scholar' %></div>
+              <% } else if (u.role === 'Faculty') { %>
+                <div class="small text-secondary"><%= u.department_name || 'No Dept' %></div>
+              <% } else if (u.role === 'Warden') { %>
+                <div class="small text-secondary"><%= u.hostel_name || 'Unassigned' %></div>
+              <% } else { %>
+                <span class="text-muted small">&ndash;</span>
+              <% } %>
+            </td>
+            <td class="small"><%= u.email %></td>
+            <td>
+              <% if (u.is_active) { %>
+                <span class="badge badge-resolved px-2 py-1"><i class="bi bi-check-circle me-1"></i>Active</span>
+              <% } else { %>
+                <span class="badge badge-rejected px-2 py-1"><i class="bi bi-x-circle me-1"></i>Inactive</span>
+              <% } %>
+            </td>
+            <td class="small text-muted">
+              <%= new Date(u.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) %>
+            </td>
+            <td class="text-end pe-3 text-nowrap">
+              <a href="/admin/users/<%= u.user_id %>/edit" class="btn btn-sm btn-outline-primary py-0 px-2 me-1" style="font-size: 0.75rem;">
+                <i class="bi bi-pencil-square me-1"></i>Edit
+              </a>
+              <form action="/admin/users/<%= u.user_id %>/toggle-status" method="POST" class="d-inline" onsubmit="return confirm('Change status for user <%= u.username %>?');">
+                <button type="submit" class="btn btn-sm <%= u.is_active ? 'btn-outline-danger' : 'btn-outline-success' %> py-0 px-2" style="font-size: 0.75rem;">
+                  <%= u.is_active ? 'Deactivate' : 'Activate' %>
+                </button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
